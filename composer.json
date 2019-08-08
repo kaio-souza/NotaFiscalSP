@@ -1,0 +1,35 @@
+{
+    "name": "kaleu62/notafiscalsp",
+    "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFs e NTFS",
+    "require": {
+        "robrichards/xmlseclibs": "^3.0",
+        "greenter/xmldsig": "^5.0"
+    },
+    "keywords": [
+        "NFS",
+        "NFTS",
+        "Emissão Nota Fiscal",
+        "Nota Fiscal",
+        "Nota Fiscal Tomador de Serviços"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kaio Valdemar",
+            "email": "kaio@e-htl.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "NotaFiscalSP\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=7.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+
+    },
+    "minimum-stability": "stable"
+}

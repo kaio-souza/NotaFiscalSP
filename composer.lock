@@ -1,0 +1,98 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c3aa83061317bdd474d9c1067542b2fd",
+    "content-hash": "56369bb8f26d64f102fa2c51e462aaaa",
+    "packages": [
+        {
+            "name": "greenter/xmldsig",
+            "version": "v5.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/giansalex/xmldsig.git",
+                "reference": "b44e9dd38128209b12647bc4f973d360887f9a3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/giansalex/xmldsig/zipball/b44e9dd38128209b12647bc4f973d360887f9a3e",
+                "reference": "b44e9dd38128209b12647bc4f973d360887f9a3e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "suggest": {
+                "ext-openssl": "The OpenSsl Extension"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Greenter\\XMLSecLibs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Libreria para firmar XML según normativa de SUNAT en Facturación Electrónica",
+            "homepage": "https://github.com/giansalex/xmldsig",
+            "keywords": [
+                "security",
+                "signature",
+                "sunat",
+                "xml",
+                "xmldsig"
+            ],
+            "time": "2018-03-11 18:10:47"
+        },
+        {
+            "name": "robrichards/xmlseclibs",
+            "version": "3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robrichards/xmlseclibs.git",
+                "reference": "406c68ac9124db033d079284b719958b829cb830"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/406c68ac9124db033d079284b719958b829cb830",
+                "reference": "406c68ac9124db033d079284b719958b829cb830",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">= 5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobRichards\\XMLSecLibs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A PHP library for XML Security",
+            "homepage": "https://github.com/robrichards/xmlseclibs",
+            "keywords": [
+                "security",
+                "signature",
+                "xml",
+                "xmldsig"
+            ],
+            "time": "2018-11-15 11:59:02"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
