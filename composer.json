@@ -1,9 +1,10 @@
 {
     "name": "kaleu62/notafiscalsp",
-    "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFs e NTFS",
+    "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFS e NTFS",
     "require": {
         "robrichards/xmlseclibs": "^3.0",
-        "greenter/xmldsig": "^5.0"
+        "greenter/xmldsig": "^5.0",
+        "spatie/array-to-xml": "^2.8"
     },
     "keywords": [
         "NFS",

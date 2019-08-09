@@ -41,7 +41,6 @@ class Certificate
         // Sign XML
         $signer->setCertificate($pem);
         $xmlSigned = $signer->signXml($xml);
-
         // Return XML File Signed
         return $xmlSigned;
     }

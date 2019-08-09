@@ -18,10 +18,6 @@ class BaseInformationValidator{
         if(!isset($input[Params::CNPJ]))
             throw new RequiredDataMissing('cnpj');
 
-        // Inscrição Municipal é Obrigatória no preenchimento da Nota
-        if(!isset($input[Params::IM]))
-            throw new RequiredDataMissing('im (Inscrição Municipal)');
-
         // Para Realizar o acesso a API e Assinar é obrigatório o Certifiado digital da empresa (.PFX ou .PEM)
         if(!isset($input[Params::CERTIFICATE_PATH]))
             throw new RequiredDataMissing('certificatePath (Caminho para o Certificado Digital)');

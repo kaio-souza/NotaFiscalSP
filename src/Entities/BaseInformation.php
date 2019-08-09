@@ -3,6 +3,14 @@ namespace NotaFiscalSP\Entities;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Validators\BaseInformationValidator;
+
+/**
+ * Class BaseInformation
+ * @package NotaFiscalSP\Entities
+ */
+
+$x = new BaseInformation();
 
 /**
  * Class BaseInformation
@@ -13,7 +21,7 @@ class BaseInformation{
      * @var
      *  Todos Processos exigem o CNPJ como uma identificação
      */
-    private $cnpj;
+    private  $cnpj;
     /**
      * @var
      *  Inscrição Municipal da Empresa é informada na Nota Fiscal Obrigatóriamente
@@ -26,11 +34,82 @@ class BaseInformation{
      */
     private $certificate;
 
+    /**
+     * @var
+     */
+    private $xmlPath;
 
     /**
      * @var
      */
+    private $xml;
+
+    /**
+     * @return mixed
+     */
+    public function getXml()
+    {
+        return $this->xml;
+    }
+
+    /**
+     * @param mixed $xml
+     */
+    public function setXml($file)
+    {
+        $signed = Certificate::signXmlWithCertificate($this->getCertificate(),$file);
+
+        $tempNam = tempnam('/tmp', 'xml');
+        $filename = $tempNam.'.xml';
+        $fp = fopen($filename, 'w');
+        fwrite($fp, $signed);
+
+        $this->setXmlPath($filename);
+
+        $this->xml = $signed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getXmlPath()
+    {
+        return $this->xmlPath;
+    }
+
+    /**
+     * @param mixed $xmlPath
+     */
+    public function setXmlPath($xmlPath)
+    {
+        $this->xmlPath = $xmlPath;
+    }
+    /**
+     * @var
+     */
     private $certificatePass;
+
+
+    /**
+     * @var
+     */
+    private $certificatePath;
+
+    /**
+     * @return mixed
+     */
+    public function getCertificatePath()
+    {
+        return $this->certificatePath;
+    }
+
+    /**
+     * @param mixed $certificatePath
+     */
+    public function setCertificatePath($certificatePath)
+    {
+        $this->certificatePath = $certificatePath;
+    }
 
     /**
      * @return mixed
@@ -99,9 +178,17 @@ class BaseInformation{
         if(strpos($options[Params::CERTIFICATE_PATH],'.pfx'))
         {
             $certificate = Certificate::pfx2pem($options[Params::CERTIFICATE_PATH], $options[Params::CERTIFICATE_PASS]);
+            $tempNam = tempnam('/tmp', 'cert');
+            $filename = $tempNam.'.pem';
+            $fp = fopen($filename, 'w');
+            fwrite($fp, $certificate);
+            $this->setCertificatePath($filename);
         } else {
+            $this->setCertificatePath($options[Params::CERTIFICATE_PATH]);
             $certificate = file_get_contents($options[Params::CERTIFICATE_PATH]);
         }
+
+
         return $this->certificate = $certificate;
     }
 

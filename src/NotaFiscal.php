@@ -2,8 +2,13 @@
 
 namespace NotaFiscalSP;
 
+use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Services\NfsService;
+use NotaFiscalSP\Services\NftsService;
+use NotaFiscalSP\Transformers\CnpjInformation;
 use NotaFiscalSP\Validators\BaseInformationValidator;
 
 /**
@@ -16,14 +21,14 @@ class NotaFiscal
      * @var BaseInformation
      */
     private $baseInformation;
-    private $xml;
-
+    private $nfsService;
+    private $nftsService;
     /**
      * NotaFiscal constructor.
      * @param array $options
      * @throws Exceptions\RequiredDataMissing
      */
-    public function __construct(array $options)
+    public function __construct(array $options )
     {
         $this->baseInformation = new BaseInformation();
         // Validate Params
@@ -31,11 +36,15 @@ class NotaFiscal
 
         // Set Base Informations
         $this->baseInformation->setCnpj($options[Params::CNPJ]);
-        $this->baseInformation->setIm($options[Params::IM]);
         $this->baseInformation->setCertificate($options);
         $this->baseInformation->setCertificatePass($options[Params::CERTIFICATE_PASS]);
+        $this->nfsService = new NfsService;
+        $this->nftsService = new NftsService;
 
+    }
 
+    public function cnpjInformation(){
+       return  $this->nfsService->checkCNPJ($this->baseInformation);
     }
 
 }
