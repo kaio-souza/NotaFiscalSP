@@ -2,30 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0dbd32cd-d7e3-4f3c-a814-8a25c9b3f779" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Constants/Endpoints.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants/NfsAsyncMethods.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants/NfsMethods.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants/NftsMethods.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants/RPSType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/RpsInformation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/WsdlBase.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exceptions/InvalidCnpj.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Helpers/Xml.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Transformers/CnpjInformation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nfs-nfts-sp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nfs-nfts-sp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/loteNFS.php" beforeDir="false" afterPath="$PROJECT_DIR$/examples/loteNFS.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client/ApiClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ApiClient.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/Params.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/Params.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/RPSType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/RPSType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/BaseInformation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/BaseInformation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Helpers/Certificate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/Certificate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/NotaFiscal.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/NotaFiscal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/NfsService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/NfsService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/NftsService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/NftsService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Validators/BaseInformationValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Validators/BaseInformationValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Helpers/Xml.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helpers/Xml.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,73 +24,55 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Transformers/CnpjInformation.php">
+        <entry file="file://$PROJECT_DIR$/src/Constants/NfsMethods.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" column="18" lean-forward="true" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-              <folding>
-                <element signature="e#44#86#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="189">
+              <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/NotaFiscal.php">
+        <entry file="file://$PROJECT_DIR$/src/Constants/NftsMethods.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="46" column="30" lean-forward="true" selection-start-line="46" selection-start-column="30" selection-end-line="46" selection-end-column="30" />
-              <folding>
-                <element signature="e#32#66#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Helpers/Certificate.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-              <folding>
-                <element signature="e#39#91#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Client/ApiClient.php">
+        <entry file="file://$PROJECT_DIR$/src/Constants/Params.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="294">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
-              <folding>
-                <element signature="e#38#80#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/examples/loteNFS.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-              <folding>
-                <element signature="e#74#102#0#PHP" expanded="true" />
-              </folding>
+              <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Validators/BaseInformationValidator.php">
+        <entry file="file://$PROJECT_DIR$/src/Constants/RPSType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-              <folding>
-                <element signature="e#42#76#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entities/RpsInformation.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entities/WsdlBase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1050">
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
             </state>
           </provider>
         </entry>
@@ -123,10 +87,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Helpers/Certificate.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="329">
+              <caret line="40" column="19" lean-forward="true" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+              <folding>
+                <element signature="e#39#91#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Helpers/Xml.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Exceptions/RequiredDataMissing.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="1" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="8" selection-end-column="1" />
+            <state relative-caret-position="126">
+              <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -143,6 +128,7 @@
       <find>setXml</find>
       <find>DOMDocument</find>
       <find>IM</find>
+      <find>base</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -152,16 +138,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/examples/exampleLoteNFS.php" />
-        <option value="$PROJECT_DIR$/src/Exceptions/RequiredDataMissing.php" />
         <option value="$PROJECT_DIR$/src/Transformers/NFS/PedidoEnvioLoteRPS.php" />
-        <option value="$PROJECT_DIR$/src/Helpers/Certificate.php" />
-        <option value="$PROJECT_DIR$/src/Constants/RPSType.php" />
         <option value="$PROJECT_DIR$/src/Constants/Params.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Entities/RpsInformation.php" />
         <option value="$PROJECT_DIR$/src/Transformers/cnpjInformation.php" />
         <option value="$PROJECT_DIR$/src/Transformers/CnpjInformation.php" />
-        <option value="$PROJECT_DIR$/src/Entities/BaseInformation.php" />
         <option value="$PROJECT_DIR$/src/Constants/Methods.php" />
         <option value="$PROJECT_DIR$/src/Constants/NfMethods.php" />
         <option value="$PROJECT_DIR$/src/Constants/Wsdl.php" />
@@ -174,13 +156,17 @@
         <option value="$PROJECT_DIR$/src/Constants/NfsMethods.php" />
         <option value="$PROJECT_DIR$/src/Constants/NftsMethods.php" />
         <option value="$PROJECT_DIR$/src/Services/NfsService.php" />
-        <option value="$PROJECT_DIR$/src/Client/ApiClient.php" />
         <option value="$PROJECT_DIR$/src/Exceptions/InvalidCnpj.php" />
         <option value="$PROJECT_DIR$/src/Validators/BaseInformationValidator.php" />
         <option value="$PROJECT_DIR$/src/NotaFiscal.php" />
-        <option value="$PROJECT_DIR$/src/Helpers/Xml.php" />
         <option value="$PROJECT_DIR$/src/Helpers/General.php" />
         <option value="$PROJECT_DIR$/examples/loteNFS.php" />
+        <option value="$PROJECT_DIR$/src/Entities/BaseInformation.php" />
+        <option value="$PROJECT_DIR$/src/Client/ApiClient.php" />
+        <option value="$PROJECT_DIR$/src/Constants/RPSType.php" />
+        <option value="$PROJECT_DIR$/src/Exceptions/RequiredDataMissing.php" />
+        <option value="$PROJECT_DIR$/src/Helpers/Certificate.php" />
+        <option value="$PROJECT_DIR$/src/Helpers/Xml.php" />
       </list>
     </option>
   </component>
@@ -239,11 +225,6 @@
             <path>
               <item name="nfs-nfts-sp" type="b2602c69:ProjectViewProjectNode" />
               <item name="nfs-nfts-sp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nfs-nfts-sp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nfs-nfts-sp" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="nfs-nfts-sp" type="b2602c69:ProjectViewProjectNode" />
@@ -347,12 +328,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1565268830594</updated>
-      <workItem from="1565268840388" duration="34513000" />
+      <workItem from="1565268840388" duration="36802000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34513000" />
+    <option name="totallyTimeSpent" value="36802000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1653" y="-4" width="1313" height="772" extended-state="6" />
@@ -465,13 +446,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entities/RpsInformation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Services/NftsService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
@@ -479,65 +453,6 @@
           <folding>
             <element signature="e#41#78#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/Params.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/NfsAsyncMethods.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/NfsMethods.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/NftsMethods.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entities/WsdlBase.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entities/BaseInformation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2141">
-          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
-          <folding>
-            <element signature="e#40#74#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/Endpoints.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Constants/RPSType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -551,34 +466,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Client/ApiClient.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#38#80#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/RequiredDataMissing.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Core/Core_c.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="713">
           <caret line="261" column="6" selection-start-line="261" selection-start-column="6" selection-end-line="261" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Exceptions/InvalidCnpj.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="37" lean-forward="true" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -599,23 +490,6 @@
           <folding>
             <element signature="e#44#86#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Helpers/Certificate.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-          <folding>
-            <element signature="e#39#91#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Helpers/Xml.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -643,6 +517,120 @@
           <folding>
             <element signature="e#74#102#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/exemplos/PedidoConsultaNFe.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/BaseInformation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="e#40#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/ApiClient.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+          <folding>
+            <element signature="e#38#80#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/Endpoints.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/NfsAsyncMethods.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/NfsMethods.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/NftsMethods.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="30" lean-forward="true" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/Params.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Constants/RPSType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/RpsInformation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/WsdlBase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/RequiredDataMissing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Exceptions/InvalidCnpj.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="37" lean-forward="true" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Helpers/Certificate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="40" column="19" lean-forward="true" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+          <folding>
+            <element signature="e#39#91#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Helpers/Xml.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>

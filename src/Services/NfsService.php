@@ -14,7 +14,6 @@ class NfsService{
         return ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_CNPJ, $baseInformation);
     }
 
-
     public function nfsEndPoint(){
         $baseInformation = new WsdlBase();
         $baseInformation->setEndPoint(Endpoints::NFS);

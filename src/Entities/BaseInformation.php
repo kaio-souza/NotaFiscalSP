@@ -3,14 +3,6 @@ namespace NotaFiscalSP\Entities;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
-use NotaFiscalSP\Validators\BaseInformationValidator;
-
-/**
- * Class BaseInformation
- * @package NotaFiscalSP\Entities
- */
-
-$x = new BaseInformation();
 
 /**
  * Class BaseInformation
@@ -167,7 +159,6 @@ class BaseInformation{
         return $this->certificate;
     }
 
-
     /**
      * @param $options
      * @return false|string
@@ -187,7 +178,6 @@ class BaseInformation{
             $this->setCertificatePath($options[Params::CERTIFICATE_PATH]);
             $certificate = file_get_contents($options[Params::CERTIFICATE_PATH]);
         }
-
 
         return $this->certificate = $certificate;
     }

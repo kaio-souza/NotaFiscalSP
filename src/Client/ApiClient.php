@@ -4,7 +4,6 @@ namespace NotaFiscalSP\Client;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\WsdlBase;
 
-
 class ApiClient{
     public static function send(WsdlBase $wsdlBase, $method, BaseInformation $baseInformation){
         $options = [
@@ -36,6 +35,5 @@ class ApiClient{
             echo 'erro';
             exit;
         }
-
     }
 }

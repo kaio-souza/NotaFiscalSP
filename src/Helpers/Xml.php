@@ -1,5 +1,6 @@
 <?php
 namespace NotaFiscalSP\Helpers;
+
 class Xml{
     public static function toArray($xml) {
         $xmlObject = is_object($xml) ? $xml : simplexml_load_string($xml);
