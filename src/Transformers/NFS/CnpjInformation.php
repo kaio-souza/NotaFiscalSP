@@ -1,10 +1,12 @@
 <?php
-namespace NotaFiscalSP\Transformers;
+namespace NotaFiscalSP\Transformers\NFS;
 
 use NotaFiscalSP\Entities\BaseInformation;
+
+use NotaFiscalSP\Helpers\Xml;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class  CnpjInformation{
+class  CnpjInformation {
     public static function makeXmlRequest(BaseInformation $information){
         $array = [
             'Cabecalho' => [
@@ -20,12 +22,6 @@ class  CnpjInformation{
             ]
         ];
 
-        return ArrayToXml::convert($array, [
-            'rootElementName' => 'p1:PedidoConsultaCNPJ',
-            '_attributes' => [
-                'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
-                'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance'
-            ],
-        ], true, 'UTF-8');
+        return Xml::makeRequest('p1:PedidoConsultaCNPJ', $array);
     }
 }
