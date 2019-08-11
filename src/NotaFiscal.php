@@ -2,13 +2,10 @@
 
 namespace NotaFiscalSP;
 
-use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Services\NfsService;
 use NotaFiscalSP\Services\NftsService;
-use NotaFiscalSP\Transformers\CnpjInformation;
 use NotaFiscalSP\Validators\BaseInformationValidator;
 
 /**
