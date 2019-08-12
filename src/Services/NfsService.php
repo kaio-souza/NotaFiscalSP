@@ -6,11 +6,12 @@ use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\NfsMethods;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\WsdlBase;
-use NotaFiscalSP\Transformers\NFS\CnpjInformation;
+use NotaFiscalSP\Transformers\NFS\PedidoConsultaCNPJ;
+
 
 class NfsService{
     public function checkCNPJ(BaseInformation $baseInformation){
-        $file = CnpjInformation::makeXmlRequest($baseInformation);
+        $file = PedidoConsultaCNPJ::makeXmlRequest($baseInformation);
         $baseInformation->setXml($file);
         return ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_CNPJ, $baseInformation);
     }

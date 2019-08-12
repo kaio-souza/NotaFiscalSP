@@ -181,8 +181,4 @@ class BaseInformation{
 
         return $this->certificate = $certificate;
     }
-
-
-
-
 }

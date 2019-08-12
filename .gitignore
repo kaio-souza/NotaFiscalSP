@@ -1,2 +1,4 @@
 /vendor/
 /.idea/
+/examples/certificate.pfx
+/examples/test.php

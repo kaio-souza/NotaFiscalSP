@@ -1,5 +1,5 @@
 <?php
-namespace NotaFiscalSP\Transformers;
+namespace NotaFiscalSP\Transformers\NFS;
 
 use NotaFiscalSP\Entities\BaseInformation;
 use Spatie\ArrayToXml\ArrayToXml;

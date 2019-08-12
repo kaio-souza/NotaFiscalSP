@@ -5,10 +5,8 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class Xml{
     public static function toArray($xml) {
-        $xmlObject = is_object($xml) ? $xml : simplexml_load_string($xml);
-        foreach((array) $xmlObject as $index => $node)
-            $out[$index] = ( is_object($node) || is_array($node) ) ? Xml::toArray( $node ) : $node;
-        return $out;
+        $obj= simplexml_load_string($xml, null, LIBXML_NOCDATA);
+        return json_decode(json_encode($obj), true);
     }
 
     public static function makeRequest($root, $array){

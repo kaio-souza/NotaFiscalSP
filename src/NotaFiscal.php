@@ -40,7 +40,8 @@ class NotaFiscal
     }
 
     public function cnpjInformation(){
-       return  $this->nfsService->checkCNPJ($this->baseInformation);
+        $xml = $this->nfsService->checkCNPJ($this->baseInformation);
+       return  $xml;
     }
 
 }
