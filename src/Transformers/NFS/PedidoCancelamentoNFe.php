@@ -4,8 +4,9 @@ namespace NotaFiscalSP\Transformers;
 use NotaFiscalSP\Entities\BaseInformation;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class  PedidoConsultaLote{
-    public static function makeXmlRequest(BaseInformation $information, $lotNumber){
+class PedidoCancelamentoNFe
+{
+    public static function makeXmlRequest(BaseInformation $information, $nfe){
         $array = [
             'Cabecalho' => [
                 '_attributes' => [
@@ -14,14 +15,22 @@ class  PedidoConsultaLote{
                 'CPFCNPJRemetente' => [
                     'CNPJ' => $information->getCnpj()
                 ],
-                'NumeroLote' => $lotNumber
+                'transacao' => true
             ],
+            'Detalhe' => [
+                'ChaveNFe' => [
+                    'InscricaoPrestador' => $information->getIm(),
+                    'NumeroNFe' => $nfe
+                ],
+                'AssinaturaCancelamento' => ''
+            ]
         ];
 
         return ArrayToXml::convert($array, [
-            'rootElementName' => 'p1:PedidoConsultaLote',
+            'rootElementName' => 'PedidoCancelamentoNFe',
             '_attributes' => [
-                'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
+                'xmlns' => 'http://www.prefeitura.sp.gov.br/nfe',
+                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema',
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance'
             ],
         ], true, 'UTF-8');
