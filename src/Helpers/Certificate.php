@@ -4,6 +4,8 @@ namespace NotaFiscalSP\Helpers;
 use Greenter\XMLSecLibs\Certificate\X509Certificate;
 use Greenter\XMLSecLibs\Certificate\X509ContentType;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
+use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\RpsData;
 
 /**
  * Class Certificate
@@ -46,4 +48,13 @@ class Certificate
         return $xmlSigned;
     }
 
+
+    public static function signatureRpsItem(BaseInformation $baseInformation, $content )
+    {
+        $signatureValue = '';
+        $pkeyId = openssl_get_privatekey($baseInformation->getCertificate());
+        openssl_sign( $content, $signatureValue, $pkeyId, OPENSSL_ALGO_SHA1 );
+        openssl_free_key( $pkeyId );
+        return base64_encode( $signatureValue );
+    }
 }

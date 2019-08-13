@@ -23,11 +23,10 @@ class  PedidoConsultaNFePeriodo{
                 'dtFim' => $periodQueryInformation->getEndDate(),
                 'NumeroPagina' => $periodQueryInformation->getPage()
             ],
-
         ];
 
         return ArrayToXml::convert($array, [
-            'rootElementName' => 'p1:PedidoConsultaCNPJ',
+            'rootElementName' => 'p1:PedidoConsultaNFePeriodo',
             '_attributes' => [
                 'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance'

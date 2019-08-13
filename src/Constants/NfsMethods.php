@@ -9,6 +9,7 @@ class NfsMethods{
     const CONSULTA= 'ConsultaNFe';
     const CONSULTA_NFE_EMITIDAS = 'ConsultaNFeEmitidas';
     const CONSULTA_NFE_RECEBIDAS = 'ConsultaNFeRecebidas';
+    const CONSULTA_NFE_PERIODO = 'ConsultaNFePeriodo';
     const ENVIO_LOTE = 'EnvioLoteRPS';
     const ENVIO = 'EnvioRPS';
     const TESTE_ENVIO_LOTE = 'TesteEnvioLoteRPS';

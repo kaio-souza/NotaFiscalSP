@@ -31,7 +31,7 @@ class PeriodQueryInformation{
      */
     public function getPage()
     {
-        return $this->page;
+        return $this->page ? $this->page : 1;
     }
 
     /**
@@ -46,7 +46,7 @@ class PeriodQueryInformation{
      */
     public function getStartDate()
     {
-        return $this->startDate;
+        return $this->startDate ? $this->startDate : date('Y-m-d');;
     }
 
     /**

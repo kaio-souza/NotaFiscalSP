@@ -9,15 +9,15 @@ abstract class BaseResponse{
     /**
      * @var
      */
-    private $success;
+    public $success;
     /**
      * @var
      */
-    private $xmlInput;
+    public $xmlInput;
     /**
      * @var
      */
-    private $xmlOutput;
+    public $xmlOutput;
 
     /**
      * @return mixed

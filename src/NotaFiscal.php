@@ -4,6 +4,7 @@ namespace NotaFiscalSP;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Factories\BaseEntitiesFactory;
 use NotaFiscalSP\Services\NfsService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -27,14 +28,14 @@ class NotaFiscal
      */
     public function __construct(array $options )
     {
-        $this->baseInformation = new BaseInformation();
+
         // Validate Params
         BaseInformationValidator::basic($options);
+        $this->baseInformation = BaseEntitiesFactory::makeBaseInformation($options);
 
-        // Set Base Informations
-        $this->baseInformation->setCnpj($options[Params::CNPJ]);
-        $this->baseInformation->setCertificate($options);
-        $this->baseInformation->setCertificatePass($options[Params::CERTIFICATE_PASS]);
+        if(!$this->baseInformation->getIm())
+            $this->cnpjInformation();
+
         $this->nfsService = new NfsService;
         $this->nftsService = new NftsService;
     }
@@ -42,6 +43,11 @@ class NotaFiscal
     public function cnpjInformation(){
         $xml = $this->nfsService->checkCNPJ($this->baseInformation);
        return  $xml;
+    }
+
+    public function queryPeriod($params){
+        $xml = $this->nfsService->checkPeriod($this->baseInformation, $params);
+        return  $xml;
     }
 
 }

@@ -2,11 +2,13 @@
 namespace NotaFiscalSP\Transformers\NFS;
 
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Helpers\Certificate;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoCancelamentoNFe
 {
     public static function makeXmlRequest(BaseInformation $information, $nfe){
+        $cancelKey = PedidoCancelamentoNFe::getContentString($information, $nfe);
         $array = [
             'Cabecalho' => [
                 '_attributes' => [
@@ -22,7 +24,7 @@ class PedidoCancelamentoNFe
                     'InscricaoPrestador' => $information->getIm(),
                     'NumeroNFe' => $nfe
                 ],
-                'AssinaturaCancelamento' => ''
+                'AssinaturaCancelamento' => Certificate::signatureRpsItem($information, $cancelKey)
             ]
         ];
 
@@ -35,4 +37,8 @@ class PedidoCancelamentoNFe
             ],
         ], true, 'UTF-8');
     }
+
+
+
+
 }

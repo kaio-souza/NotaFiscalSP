@@ -3,10 +3,17 @@ namespace NotaFiscalSP\Services;
 
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
+use NotaFiscalSP\Constants\NfsAsyncMethods;
 use NotaFiscalSP\Constants\NfsMethods;
+use NotaFiscalSP\Constants\NftsMethods;
+use NotaFiscalSP\Constants\Requests\PeriodQueryConstants;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\PeriodQueryInformation;
 use NotaFiscalSP\Entities\WsdlBase;
+use NotaFiscalSP\Factories\RequestEntitiesFactory;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NFS\PedidoConsultaCNPJ;
+use NotaFiscalSP\Transformers\NFS\PedidoConsultaNFePeriodo;
 
 
 class NfsService{
@@ -16,6 +23,15 @@ class NfsService{
         return ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_CNPJ, $baseInformation);
     }
 
+    public function  checkPeriod(BaseInformation $baseInformation, $params){
+        $queryInformation = RequestEntitiesFactory::makePeriodQuery($params);
+        $file =  PedidoConsultaNFePeriodo::makeXmlRequest($baseInformation, $queryInformation);
+        $baseInformation->setXml($file);
+
+        return ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_NFE_PERIODO, $baseInformation);
+    }
+
+    // Complementar Information
     public function nfsEndPoint(){
         $baseInformation = new WsdlBase();
         $baseInformation->setEndPoint(Endpoints::NFS);
