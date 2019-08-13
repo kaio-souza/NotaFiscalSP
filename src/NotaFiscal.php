@@ -33,21 +33,18 @@ class NotaFiscal
         BaseInformationValidator::basic($options);
         $this->baseInformation = BaseEntitiesFactory::makeBaseInformation($options);
 
-        if(!$this->baseInformation->getIm())
-            $this->cnpjInformation();
-
         $this->nfsService = new NfsService;
         $this->nftsService = new NftsService;
+
+
+        if(!$this->baseInformation->getIm())
+            $this->baseInformation->setIm($this->cnpjInformation());
+
     }
 
     public function cnpjInformation(){
         $xml = $this->nfsService->checkCNPJ($this->baseInformation);
        return  $xml;
-    }
-
-    public function queryPeriod($params){
-        $xml = $this->nfsService->checkPeriod($this->baseInformation, $params);
-        return  $xml;
     }
 
 }

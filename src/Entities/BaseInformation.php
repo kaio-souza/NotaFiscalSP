@@ -3,6 +3,8 @@ namespace NotaFiscalSP\Entities;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Helpers\General;
+use NotaFiscalSP\Responses\CnpjInformationResponse;
 
 /**
  * Class BaseInformation
@@ -148,7 +150,11 @@ class BaseInformation{
      */
     public function setIm($im)
     {
-        $this->im = $im;
+        if($im instanceof CnpjInformationResponse ){
+            $this->im = $im->getIm();
+        }else{
+            $this->im = $im;
+        }
     }
 
     /**

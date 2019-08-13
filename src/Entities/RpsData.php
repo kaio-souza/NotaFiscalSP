@@ -46,14 +46,128 @@ class RpsData{
      * @var
      */
     private $aliquotaServicos;
-    /**
-     * @var
-     */
     private $issRetido;
+    private $cpfTomador;
+    private $cnpjTomador;
+    private $inscricaoMunicipalTomador;
+    private $inscricaoEstadualTomador;
+    private $inscricaoMunicipalIntermediario;
+    private $issRetidoIntermediario;
+    private $emailIntermediario;
+
     /**
-     * @var
+     * @return mixed
      */
-    private $cpfCnpjTomador;
+    public function getInscricaoMunicipalTomador()
+    {
+        return $this->inscricaoMunicipalTomador;
+    }
+
+    /**
+     * @param mixed $inscricaoMunicipalTomador
+     */
+    public function setInscricaoMunicipalTomador($inscricaoMunicipalTomador)
+    {
+        $this->inscricaoMunicipalTomador = $inscricaoMunicipalTomador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInscricaoEstadualTomador()
+    {
+        return $this->inscricaoEstadualTomador;
+    }
+
+    /**
+     * @param mixed $inscricaoEstadualTomador
+     */
+    public function setInscricaoEstadualTomador($inscricaoEstadualTomador)
+    {
+        $this->inscricaoEstadualTomador = $inscricaoEstadualTomador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInscricaoMunicipalIntermediario()
+    {
+        return $this->inscricaoMunicipalIntermediario;
+    }
+
+    /**
+     * @param mixed $inscricaoMunicipalIntermediario
+     */
+    public function setInscricaoMunicipalIntermediario($inscricaoMunicipalIntermediario)
+    {
+        $this->inscricaoMunicipalIntermediario = $inscricaoMunicipalIntermediario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssRetidoIntermediario()
+    {
+        return $this->issRetidoIntermediario;
+    }
+
+    /**
+     * @param mixed $issRetidoIntermediario
+     */
+    public function setIssRetidoIntermediario($issRetidoIntermediario)
+    {
+        $this->issRetidoIntermediario = $issRetidoIntermediario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmailIntermediario()
+    {
+        return $this->emailIntermediario;
+    }
+
+    /**
+     * @param mixed $emailIntermediario
+     */
+    public function setEmailIntermediario($emailIntermediario)
+    {
+        $this->emailIntermediario = $emailIntermediario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCpfIntermediario()
+    {
+        return $this->cpfIntermediario;
+    }
+
+    /**
+     * @param mixed $cpfIntermediario
+     */
+    public function setCpfIntermediario($cpfIntermediario)
+    {
+        $this->cpfIntermediario = $cpfIntermediario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCnpjIntermediario()
+    {
+        return $this->cnpjIntermediario;
+    }
+
+    /**
+     * @param mixed $cnpjIntermediario
+     */
+    public function setCnpjIntermediario($cnpjIntermediario)
+    {
+        $this->cnpjIntermediario = $cnpjIntermediario;
+    }
+    private $cpfIntermediario;
+    private $cnpjIntermediario;
     /**
      * @var
      */
@@ -98,6 +212,92 @@ class RpsData{
      * @var
      */
     private $discriminacao;
+
+    private $valorPIS;
+    private $valorCOFINS;
+    private $valorINSS;
+    private $valorIR;
+
+    /**
+     * @return mixed
+     */
+    public function getValorPIS()
+    {
+        return $this->valorPIS;
+    }
+
+    /**
+     * @param mixed $valorPIS
+     */
+    public function setValorPIS($valorPIS)
+    {
+        $this->valorPIS = $valorPIS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorCOFINS()
+    {
+        return $this->valorCOFINS;
+    }
+
+    /**
+     * @param mixed $valorCOFINS
+     */
+    public function setValorCOFINS($valorCOFINS)
+    {
+        $this->valorCOFINS = $valorCOFINS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorINSS()
+    {
+        return $this->valorINSS;
+    }
+
+    /**
+     * @param mixed $valorINSS
+     */
+    public function setValorINSS($valorINSS)
+    {
+        $this->valorINSS = $valorINSS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorIR()
+    {
+        return $this->valorIR;
+    }
+
+    /**
+     * @param mixed $valorIR
+     */
+    public function setValorIR($valorIR)
+    {
+        $this->valorIR = $valorIR;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorCSLL()
+    {
+        return $this->valorCSLL;
+    }
+
+    /**
+     * @param mixed $valorCSLL
+     */
+    public function setValorCSLL($valorCSLL)
+    {
+        $this->valorCSLL = $valorCSLL;
+    }
+    private $valorCSLL;
     /**
      * @return mixed
      */
@@ -279,16 +479,23 @@ class RpsData{
      */
     public function getCpfCnpjTomador()
     {
-        return $this->cpfCnpjTomador;
+        if($this->cpfTomador){
+            return $this->cpfTomador;
+        }else{
+            return $this->cnpjTomador;
+        }
+    }
+    public function getCpfCnpjIntermediario(){
+        if($this->cpfIntermediario){
+            return $this->cpfIntermediario;
+        }else{
+            return $this->cnpjIntermediario;
+        }
     }
 
     /**
      * @param mixed $cpfCnpjTomador
      */
-    public function setCpfCnpjTomador($cpfCnpjTomador)
-    {
-        $this->cpfCnpjTomador = $cpfCnpjTomador;
-    }
 
     /**
      * @return mixed
@@ -464,6 +671,38 @@ class RpsData{
     public function setDiscriminacao($discriminacao)
     {
         $this->discriminacao = $discriminacao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCpfTomador()
+    {
+        return $this->cpfTomador;
+    }
+
+    /**
+     * @param mixed $cpfTomador
+     */
+    public function setCpfTomador($cpfTomador)
+    {
+        $this->cpfTomador = $cpfTomador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCnpjTomador()
+    {
+        return $this->cnpjTomador;
+    }
+
+    /**
+     * @param mixed $cnpjTomador
+     */
+    public function setCnpjTomador($cnpjTomador)
+    {
+        $this->cnpjTomador = $cnpjTomador;
     }
 
 

@@ -14,13 +14,16 @@ use NotaFiscalSP\Factories\RequestEntitiesFactory;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NFS\PedidoConsultaCNPJ;
 use NotaFiscalSP\Transformers\NFS\PedidoConsultaNFePeriodo;
+use NotaFiscalSP\Transformers\Responses\CnpjInformationTransformerResponse;
 
 
 class NfsService{
     public function checkCNPJ(BaseInformation $baseInformation){
         $file = PedidoConsultaCNPJ::makeXmlRequest($baseInformation);
         $baseInformation->setXml($file);
-        return ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_CNPJ, $baseInformation);
+        $output= ApiClient::send($this->nfsEndPoint(),NfsMethods::CONSULTA_CNPJ, $baseInformation);
+        $response = new CnpjInformationTransformerResponse();
+        return $response->transform($baseInformation->getXml(), $output);
     }
 
     public function  checkPeriod(BaseInformation $baseInformation, $params){
