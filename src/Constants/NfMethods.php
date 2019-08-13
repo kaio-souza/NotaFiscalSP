@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Constants;
 
-class NfsMethods{
+class NfMethods{
     const CANCELAMENTO = 'CancelamentoNFe';
     const CONSULTA_CNPJ = 'ConsultaCNPJ';
     const CONSULTA_INFORMACOES_LOTE = 'ConsultaInformacoesLote';

@@ -5,7 +5,8 @@ namespace NotaFiscalSP;
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Factories\BaseEntitiesFactory;
-use NotaFiscalSP\Services\NfsService;
+use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
 
@@ -19,7 +20,7 @@ class NotaFiscal
      * @var BaseInformation
      */
     private $baseInformation;
-    private $nfsService;
+    private $nfService;
     private $nftsService;
     /**
      * NotaFiscal constructor.
@@ -33,17 +34,15 @@ class NotaFiscal
         BaseInformationValidator::basic($options);
         $this->baseInformation = BaseEntitiesFactory::makeBaseInformation($options);
 
-        $this->nfsService = new NfsService;
+        $this->nfService = new NfService;
         $this->nftsService = new NftsService;
-
 
         if(!$this->baseInformation->getIm())
             $this->baseInformation->setIm($this->cnpjInformation());
-
     }
 
     public function cnpjInformation(){
-        $xml = $this->nfsService->checkCNPJ($this->baseInformation);
+        $xml = $this->nfService->checkCNPJ($this->baseInformation);
        return  $xml;
     }
 

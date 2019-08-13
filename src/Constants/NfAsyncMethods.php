@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Constants;
 
-class NfsAsyncMethods{
+class NfAsyncMethods{
     const CONSULTA_GUIA= 'ConsultaGuia';
     const CONSULTA_SITUACAO_GUIA = 'ConsultaSituacaoGuia';
     const CONSULTA_SITUACAO_LOTE  = 'ConsultaSituacaoLote';

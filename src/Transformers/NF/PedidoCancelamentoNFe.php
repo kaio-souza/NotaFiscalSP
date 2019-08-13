@@ -1,5 +1,5 @@
 <?php
-namespace NotaFiscalSP\Transformers\NFS;
+namespace NotaFiscalSP\Transformers\NF;
 
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;

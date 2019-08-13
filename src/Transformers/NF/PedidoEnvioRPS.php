@@ -1,16 +1,15 @@
 <?php
-namespace NotaFiscalSP\Transformers\NFS;
+namespace NotaFiscalSP\Transformers\NF;
 
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class PedidoEnvioLoteRPS{
+class PedidoEnvioRPS{
 
-    public static function makeXmlRequest(BaseInformation $information, Array $rpsList)
-    {
-
+    public static function makeXmlRequest(BaseInformation $information, RpsData $rps){
+        $typeDocument = $rps->getCpfTomador() ? 'CPF' : 'CNPJ';
         $array = [
             'Cabecalho' => [
                 '_attributes' => [
@@ -20,38 +19,32 @@ class PedidoEnvioLoteRPS{
                     'CNPJ' => $information->getCnpj()
                 ],
             ],
-            'RPS' => []
-        ];
-
-        foreach ($rpsList as $rps){
-            $typeDocument = $rps->getCpfTomador() ? 'CPF' : 'CNPJ';
-            $array['RPS'][] = [
+            'RPS' => [
                 'Assinatura' => Certificate::signatureRpsItem($information, $rps),
-
-                 'ChaveRPS' => [
+                'ChaveRPS' => [
                     'InscricaoPrestador' => $information->getIm(),
                     'SerieRPS' => $rps->getSerieRPS(),
                     'NumeroRPS' => $rps->getNumeroRPS(),
-                 ],
-                 'TipoRPS' => $rps->getTipoRPS(),
-                 'DataEmissao' => $rps->getDataEmissao(),
-                 'StatusRPS' => $rps->getStatusRPS(),
-                 'TributacaoRPS' => $rps->getTributacaoRPS(),
-                 'ValorServicos' => $rps->getValorServicos(),
-                 'ValorDeducoes' => $rps->getValorDeducoes(),
-                 'ValorPIS' => $rps->getValorPIS(),
-                 'ValorCOFINS' => $rps->getValorCOFINS(),
-                 'ValorINSS' => $rps->getValorINSS(),
-                 'ValorIR' => $rps->getValorIR(),
-                 'ValorCSLL' => $rps->getValorCSLL(),
-                 'CodigoServico' => $rps->getCodigoServico(),
-                 'AliquotaServicos' => $rps->getAliquotaServicos(),
-                 'ISSRetido' => $rps->getIssRetido(),
-                 'CPFCNPJTomador' => [
+                ],
+                'TipoRPS' => $rps->getTipoRPS(),
+                'DataEmissao' => $rps->getDataEmissao(),
+                'StatusRPS' => $rps->getStatusRPS(),
+                'TributacaoRPS' => $rps->getTributacaoRPS(),
+                'ValorServicos' => $rps->getValorServicos(),
+                'ValorDeducoes' =>$rps->getValorDeducoes(),
+                'ValorPIS' => $rps->getValorPIS(),
+                'ValorCOFINS' => $rps->getValorCOFINS(),
+                'ValorINSS' => $rps->getValorINSS(),
+                'ValorIR' => $rps->getValorIR(),
+                'ValorCSLL' => $rps->getValorCSLL(),
+                'CodigoServico' => $rps->getCodigoServico(),
+                'AliquotaServicos' => $rps->getAliquotaServicos(),
+                'ISSRetido' => $rps->getIssRetido(),
+                'CPFCNPJTomador' => [
                     $typeDocument => $rps->getCpfCnpjTomador(),
-                 ],
-                 'RazaoSocialTomador' => $rps->getRazaoSocialTomador(),
-                 'EnderecoTomador' => [
+                ],
+                'RazaoSocialTomador' => $rps->getRazaoSocialTomador(),
+                'EnderecoTomador' => [
                     'TipoLogradouro' => $rps->getTipoLogradouro(),
                     'Logradouro' => $rps->getLogradouro(),
                     'NumeroEndereco' => $rps->getNumeroEndereco(),
@@ -60,11 +53,12 @@ class PedidoEnvioLoteRPS{
                     'Cidade' => $rps->getCidade(),
                     'UF' => $rps->getUf(),
                     'CEP' => $rps->getCep(),
-                 ],
-                 'EmailTomador' => $rps->getEmailTomador(),
-                 'Discriminacao' => $rps->getDiscriminacao(),
-            ];
-        }
+                ],
+                'EmailTomador' => $rps->getEmailTomador(),
+                'Discriminacao' => $rps->getDiscriminacao(),
+
+            ]
+        ];
 
         return ArrayToXml::convert($array, [
             'rootElementName' => 'PedidoEnvioRPS',
@@ -75,6 +69,5 @@ class PedidoEnvioLoteRPS{
             ],
         ], true, 'UTF-8');
     }
-
 
 }
