@@ -1,10 +1,12 @@
 <?php
-namespace NotaFiscalSP\Constants;
 
-class NfAsyncMethods{
-    const CONSULTA_GUIA= 'ConsultaGuia';
+namespace NotaFiscalSP\Constants\Methods;
+
+class NfAsyncMethods
+{
+    const CONSULTA_GUIA = 'ConsultaGuia';
     const CONSULTA_SITUACAO_GUIA = 'ConsultaSituacaoGuia';
-    const CONSULTA_SITUACAO_LOTE  = 'ConsultaSituacaoLote';
+    const CONSULTA_SITUACAO_LOTE = 'ConsultaSituacaoLote';
 
     // MessageName="EmissaoGuia"
     const EMISSAO_GUIA_ASYNC = 'EmissaoGuiaAsync';

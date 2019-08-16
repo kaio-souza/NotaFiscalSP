@@ -1,21 +1,22 @@
 <?php
+
 namespace NotaFiscalSP\Entities;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
-use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Responses\CnpjInformationResponse;
 
 /**
  * Class BaseInformation
  * @package NotaFiscalSP\Entities
  */
-class BaseInformation{
+class BaseInformation
+{
     /**
      * @var
      *  Todos Processos exigem o CNPJ como uma identificação
      */
-    private  $cnpj;
+    private $cnpj;
     /**
      * @var
      *  Inscrição Municipal da Empresa é informada na Nota Fiscal Obrigatóriamente
@@ -37,6 +38,14 @@ class BaseInformation{
      * @var
      */
     private $xml;
+    /**
+     * @var
+     */
+    private $certificatePass;
+    /**
+     * @var
+     */
+    private $certificatePath;
 
     /**
      * @return mixed
@@ -51,16 +60,46 @@ class BaseInformation{
      */
     public function setXml($file)
     {
-        $signed = Certificate::signXmlWithCertificate($this->getCertificate(),$file);
+        $signed = Certificate::signXmlWithCertificate($this->getCertificate(), $file);
 
         $tempNam = tempnam('/tmp', 'xml');
-        $filename = $tempNam.'.xml';
+        $filename = $tempNam . '.xml';
         $fp = fopen($filename, 'w');
         fwrite($fp, $signed);
 
         $this->setXmlPath($filename);
 
         $this->xml = $signed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCertificate()
+    {
+        return $this->certificate;
+    }
+
+    /**
+     * @param $options
+     * @return false|string
+     * @throws \Exception
+     */
+    public function setCertificate($options)
+    {
+        if (strpos($options[Params::CERTIFICATE_PATH], '.pfx')) {
+            $certificate = Certificate::pfx2pem($options[Params::CERTIFICATE_PATH], $options[Params::CERTIFICATE_PASS]);
+            $tempNam = tempnam('/tmp', 'cert');
+            $filename = $tempNam . '.pem';
+            $fp = fopen($filename, 'w');
+            fwrite($fp, $certificate);
+            $this->setCertificatePath($filename);
+        } else {
+            $this->setCertificatePath($options[Params::CERTIFICATE_PATH]);
+            $certificate = file_get_contents($options[Params::CERTIFICATE_PATH]);
+        }
+
+        return $this->certificate = $certificate;
     }
 
     /**
@@ -78,16 +117,6 @@ class BaseInformation{
     {
         $this->xmlPath = $xmlPath;
     }
-    /**
-     * @var
-     */
-    private $certificatePass;
-
-
-    /**
-     * @var
-     */
-    private $certificatePath;
 
     /**
      * @return mixed
@@ -150,41 +179,10 @@ class BaseInformation{
      */
     public function setIm($im)
     {
-        if($im instanceof CnpjInformationResponse ){
+        if ($im instanceof CnpjInformationResponse) {
             $this->im = $im->getIm();
-        }else{
+        } else {
             $this->im = $im;
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCertificate()
-    {
-        return $this->certificate;
-    }
-
-    /**
-     * @param $options
-     * @return false|string
-     * @throws \Exception
-     */
-    public function setCertificate($options)
-    {
-        if(strpos($options[Params::CERTIFICATE_PATH],'.pfx'))
-        {
-            $certificate = Certificate::pfx2pem($options[Params::CERTIFICATE_PATH], $options[Params::CERTIFICATE_PASS]);
-            $tempNam = tempnam('/tmp', 'cert');
-            $filename = $tempNam.'.pem';
-            $fp = fopen($filename, 'w');
-            fwrite($fp, $certificate);
-            $this->setCertificatePath($filename);
-        } else {
-            $this->setCertificatePath($options[Params::CERTIFICATE_PATH]);
-            $certificate = file_get_contents($options[Params::CERTIFICATE_PATH]);
-        }
-
-        return $this->certificate = $certificate;
     }
 }

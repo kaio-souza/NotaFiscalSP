@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Constants;
 
-class Params{
+class Params
+{
     // CNPJ Necessário para identificação da Empresa
     const CNPJ = 'cnpj';
 

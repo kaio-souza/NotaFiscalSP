@@ -1,26 +1,22 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
+use NotaFiscalSP\Constants\Requests\HeaderConstants;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Transformers\NfAbstract;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class  PedidoConsultaCNPJ{
-    public static function makeXmlRequest(BaseInformation $information){
-        $array = [
-            'Cabecalho' => [
-                '_attributes' => [
-                    'Versao' => 1
-                ],
-                'CPFCNPJRemetente' => [
-                    'CNPJ' => $information->getCnpj()
-                ]
-            ],
-            'CNPJContribuinte' =>[
-                'CNPJ' => $information->getCnpj()
-            ]
-        ];
+class  PedidoConsultaCNPJ extends NfAbstract
+{
+    public function makeXmlRequest(BaseInformation $information){
 
-        return ArrayToXml::convert($array, [
+       $header = $this->makeHeader($information, [
+            HeaderConstants::CPFCNPJ_SENDER => true
+       ]);
+       $taxPayer = $this->makeTaxPayerInformation($information->getCnpj());
+       $request = array_merge($header,$taxPayer);
+
+        return ArrayToXml::convert($request , [
             'rootElementName' => 'p1:PedidoConsultaCNPJ',
             '_attributes' => [
                 'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',

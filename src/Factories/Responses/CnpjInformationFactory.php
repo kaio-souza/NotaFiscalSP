@@ -1,19 +1,21 @@
 <?php
-namespace NotaFiscalSP\Transformers\Responses;
+
+namespace NotaFiscalSP\Factories\Responses;
 
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Responses\BasicResponse;
 use NotaFiscalSP\Responses\CnpjInformationResponse;
 
-class CnpjInformationTransformerResponse extends AbstractResponse {
+class CnpjInformationFactory extends AbstractResponse
+{
 
     public function __construct()
     {
         $this->response = new CnpjInformationResponse();
     }
 
-    public function transform($input, $output){
+    public function transform($input, $output)
+    {
         $this->response->setXmlInput($input);
         $this->response->setXmlOutput($output);
 
@@ -24,14 +26,15 @@ class CnpjInformationTransformerResponse extends AbstractResponse {
         return $this->response;
     }
 
-    public function getIm(){
+    public function getIm()
+    {
         return General::param($this->arrayResponse, 'Detalhe.InscricaoMunicipal');
     }
 
-    public function getStatus(){
+    public function getStatus()
+    {
         return General::param($this->arrayResponse, 'Detalhe.EmiteNFe');
     }
-
 
 
 }

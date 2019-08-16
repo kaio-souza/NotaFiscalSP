@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Responses;
 
-class CnpjInformationResponse extends BaseResponse {
+class CnpjInformationResponse extends BaseResponse
+{
     // Status CNPJ (Enabled to emmit NFe?)
     public $status;
     // Inscrição Municipal

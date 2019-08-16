@@ -1,11 +1,13 @@
 <?php
+
 namespace NotaFiscalSP\Responses;
 
 /**
  * Class BaseResponse
  * @package NotaFiscalSP\Responses
  */
-abstract class BaseResponse{
+abstract class BaseResponse
+{
     /**
      * @var
      */

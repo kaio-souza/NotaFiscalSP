@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Constants\FieldData;
 
-class RPSType{
+class RPSType
+{
     //Recibo Provisório de Serviços
     const RECIBO_PROVISORIO = 'RPS';
 

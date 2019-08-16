@@ -1,11 +1,13 @@
 <?php
+
 namespace NotaFiscalSP\Entities;
 
 /**
  * Class PeriodQueryInformation
  * @package NotaFiscalSP\Entities
  */
-class PeriodQueryInformation{
+class PeriodQueryInformation
+{
     /**
      * @var
      * Format YYYY-mm-dd
@@ -41,6 +43,7 @@ class PeriodQueryInformation{
     {
         $this->page = $page;
     }
+
     /**
      * @return mixed
      */
@@ -62,7 +65,7 @@ class PeriodQueryInformation{
      */
     public function getEndDate()
     {
-        return $this->endDate ? $this->endDate : date('Y-m-d') ;
+        return $this->endDate ? $this->endDate : date('Y-m-d');
     }
 
     /**

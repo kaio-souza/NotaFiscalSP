@@ -1,11 +1,13 @@
 <?php
+
 namespace NotaFiscalSP\Entities;
 
 /**
  * Class WsdlBase
  * @package NotaFiscalSP\Entities
  */
-class WsdlBase{
+class WsdlBase
+{
     /**
      * @var
      */
@@ -13,7 +15,7 @@ class WsdlBase{
     /**
      * @var
      */
-    private  $endPoint;
+    private $endPoint;
 
     /**
      * @return mixed
@@ -45,7 +47,7 @@ class WsdlBase{
     public function setEndPoint($endPoint)
     {
         $this->endPoint = $endPoint;
-        $this->wsdl = $endPoint.'?WSDL';
+        $this->wsdl = $endPoint . '?WSDL';
     }
 
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace NotaFiscalSP\Transformers\NF;
 
 use NotaFiscalSP\Entities\BaseInformation;
@@ -7,7 +8,8 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoCancelamentoLote extends NfAbstract
 {
-    public  function makeXmlRequest(BaseInformation $information, $lotNumber){
+    public function makeXmlRequest(BaseInformation $information, $lotNumber)
+    {
         $this->makeHeader($information, []);
         $array = [
             'Cabecalho' => [

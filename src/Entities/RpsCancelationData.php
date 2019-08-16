@@ -1,9 +1,17 @@
 <?php
+
 namespace NotaFiscalSP\Entities;
 
-class RpsCancelationData{
+class RpsCancelationData
+{
     private $inscricaoPrestador;
     private $numeroNFe;
+
+    public function getContentString()
+    {
+        return sprintf('%08s', $this->getInscricaoPrestador()) .
+            sprintf('%012s', $this->getNumeroNFe());
+    }
 
     /**
      * @return mixed
@@ -35,10 +43,5 @@ class RpsCancelationData{
     public function setNumeroNFe($numeroNFe)
     {
         $this->numeroNFe = $numeroNFe;
-    }
-
-    public function getContentString(){
-        return sprintf( '%08s', $this->getInscricaoPrestador()) .
-            sprintf( '%012s',$this->getNumeroNFe() );
     }
 }

@@ -1,12 +1,14 @@
 <?php
+
 namespace NotaFiscalSP\Factories;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
 
-class BaseEntitiesFactory{
-    public static function makeBaseInformation( $params)
+class BaseEntitiesFactory
+{
+    public static function makeBaseInformation($params)
     {
         $baseInformation = new BaseInformation();
         $baseInformation->setCnpj(General::param($params, Params::CNPJ));

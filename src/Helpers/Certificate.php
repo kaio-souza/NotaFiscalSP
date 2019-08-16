@@ -1,11 +1,11 @@
 <?php
+
 namespace NotaFiscalSP\Helpers;
 
 use Greenter\XMLSecLibs\Certificate\X509Certificate;
 use Greenter\XMLSecLibs\Certificate\X509ContentType;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\RpsData;
 
 /**
  * Class Certificate
@@ -21,14 +21,14 @@ class Certificate
      */
     public static function pfx2pem($path, $pass)
     {
-            // Get File
-            $pfx = file_get_contents($path);
+        // Get File
+        $pfx = file_get_contents($path);
 
-            // Export PEM
-            $certificate = new X509Certificate($pfx, $pass);
-            $pem = $certificate->export(X509ContentType::PEM);
+        // Export PEM
+        $certificate = new X509Certificate($pfx, $pass);
+        $pem = $certificate->export(X509ContentType::PEM);
 
-            return $pem ;
+        return $pem;
     }
 
     /**
@@ -36,7 +36,8 @@ class Certificate
      * @param $xml
      * @return string
      */
-    public static function signXmlWithCertificate($pem, $xml){
+    public static function signXmlWithCertificate($pem, $xml)
+    {
         // Create Signed XML
         $signer = new SignedXml();
 
@@ -49,12 +50,12 @@ class Certificate
     }
 
 
-    public static function signatureRpsItem(BaseInformation $baseInformation, $content )
+    public static function signatureRpsItem(BaseInformation $baseInformation, $content)
     {
         $signatureValue = '';
         $pkeyId = openssl_get_privatekey($baseInformation->getCertificate());
-        openssl_sign( $content, $signatureValue, $pkeyId, OPENSSL_ALGO_SHA1 );
-        openssl_free_key( $pkeyId );
-        return base64_encode( $signatureValue );
+        openssl_sign($content, $signatureValue, $pkeyId, OPENSSL_ALGO_SHA1);
+        openssl_free_key($pkeyId);
+        return base64_encode($signatureValue);
     }
 }

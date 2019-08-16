@@ -1,50 +1,23 @@
 <?php
+
 namespace NotaFiscalSP\Entities;
 
 /**
  * Class RpsData
  * @package NotaFiscalSP\Entities
  */
-class RpsData{
-    /**
-     * @var
-     */
+class RpsData
+{
+
     private $serieRPS;
-    /**
-     * @var
-     */
     private $numeroRPS;
-    /**
-     * @var
-     */
     private $tipoRPS;
-    /**
-     * @var
-     */
     private $dataEmissao;
-    /**
-     * @var
-     */
     private $statusRPS;
-    /**
-     * @var
-     */
     private $tributacaoRPS;
-    /**
-     * @var
-     */
     private $valorServicos;
-    /**
-     * @var
-     */
     private $valorDeducoes;
-    /**
-     * @var
-     */
     private $codigoServico;
-    /**
-     * @var
-     */
     private $aliquotaServicos;
     private $issRetido;
     private $cpfTomador;
@@ -54,6 +27,24 @@ class RpsData{
     private $inscricaoMunicipalIntermediario;
     private $issRetidoIntermediario;
     private $emailIntermediario;
+    private $cpfIntermediario;
+    private $cnpjIntermediario;
+    private $razaoSocialTomador;
+    private $tipoLogradouro;
+    private $logradouro;
+    private $numeroEndereco;
+    private $complementoEndereco;
+    private $bairro;
+    private $cidade;
+    private $uf;
+    private $cep;
+    private $emailTomador;
+    private $discriminacao;
+    private $valorPIS;
+    private $valorCOFINS;
+    private $valorINSS;
+    private $valorIR;
+    private $valorCSLL;
 
     /**
      * @return mixed
@@ -166,57 +157,6 @@ class RpsData{
     {
         $this->cnpjIntermediario = $cnpjIntermediario;
     }
-    private $cpfIntermediario;
-    private $cnpjIntermediario;
-    /**
-     * @var
-     */
-    private $razaoSocialTomador;
-    /**
-     * @var
-     */
-    private $tipoLogradouro;
-    /**
-     * @var
-     */
-    private $logradouro;
-    /**
-     * @var
-     */
-    private $numeroEndereco;
-    /**
-     * @var
-     */
-    private $complementoEndereco;
-    /**
-     * @var
-     */
-    private $bairro;
-    /**
-     * @var
-     */
-    private $cidade;
-    /**
-     * @var
-     */
-    private $uf;
-    /**
-     * @var
-     */
-    private $cep;
-    /**
-     * @var
-     */
-    private $emailTomador;
-    /**
-     * @var
-     */
-    private $discriminacao;
-
-    private $valorPIS;
-    private $valorCOFINS;
-    private $valorINSS;
-    private $valorIR;
 
     /**
      * @return mixed
@@ -297,205 +237,15 @@ class RpsData{
     {
         $this->valorCSLL = $valorCSLL;
     }
-    private $valorCSLL;
-    /**
-     * @return mixed
-     */
-    public function getSerieRPS()
-    {
-        return $this->serieRPS;
-    }
 
-    /**
-     * @param mixed $serieRPS
-     */
-    public function setSerieRPS($serieRPS)
+    public function getCpfCnpjIntermediario()
     {
-        $this->serieRPS = $serieRPS;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumeroRPS()
-    {
-        return $this->numeroRPS;
-    }
-
-    /**
-     * @param mixed $numeroRPS
-     */
-    public function setNumeroRPS($numeroRPS)
-    {
-        $this->numeroRPS = $numeroRPS;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTipoRPS()
-    {
-        return $this->tipoRPS;
-    }
-
-    /**
-     * @param mixed $tipoRPS
-     */
-    public function setTipoRPS($tipoRPS)
-    {
-        $this->tipoRPS = $tipoRPS;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDataEmissao()
-    {
-        return $this->dataEmissao;
-    }
-
-    /**
-     * @param mixed $dataEmissao
-     */
-    public function setDataEmissao($dataEmissao)
-    {
-        $this->dataEmissao = $dataEmissao;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatusRPS()
-    {
-        return $this->statusRPS;
-    }
-
-    /**
-     * @param mixed $statusRPS
-     */
-    public function setStatusRPS($statusRPS)
-    {
-        $this->statusRPS = $statusRPS;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTributacaoRPS()
-    {
-        return $this->tributacaoRPS;
-    }
-
-    /**
-     * @param mixed $tributacaoRPS
-     */
-    public function setTributacaoRPS($tributacaoRPS)
-    {
-        $this->tributacaoRPS = $tributacaoRPS;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValorServicos()
-    {
-        return $this->valorServicos;
-    }
-
-    /**
-     * @param mixed $valorServicos
-     */
-    public function setValorServicos($valorServicos)
-    {
-        $this->valorServicos = $valorServicos;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getValorDeducoes()
-    {
-        return $this->valorDeducoes;
-    }
-
-    /**
-     * @param mixed $valorDeducoes
-     */
-    public function setValorDeducoes($valorDeducoes)
-    {
-        $this->valorDeducoes = $valorDeducoes;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCodigoServico()
-    {
-        return $this->codigoServico;
-    }
-
-    /**
-     * @param mixed $codigoServico
-     */
-    public function setCodigoServico($codigoServico)
-    {
-        $this->codigoServico = $codigoServico;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAliquotaServicos()
-    {
-        return $this->aliquotaServicos;
-    }
-
-    /**
-     * @param mixed $aliquotaServicos
-     */
-    public function setAliquotaServicos($aliquotaServicos)
-    {
-        $this->aliquotaServicos = $aliquotaServicos;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIssRetido()
-    {
-        return $this->issRetido;
-    }
-
-    /**
-     * @param mixed $issRetido
-     */
-    public function setIssRetido($issRetido)
-    {
-        $this->issRetido = $issRetido;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCpfCnpjTomador()
-    {
-        if($this->cpfTomador){
-            return $this->cpfTomador;
-        }else{
-            return $this->cnpjTomador;
-        }
-    }
-    public function getCpfCnpjIntermediario(){
-        if($this->cpfIntermediario){
+        if ($this->cpfIntermediario) {
             return $this->cpfIntermediario;
-        }else{
+        } else {
             return $this->cnpjIntermediario;
         }
     }
-
-    /**
-     * @param mixed $cpfCnpjTomador
-     */
 
     /**
      * @return mixed
@@ -682,6 +432,10 @@ class RpsData{
     }
 
     /**
+     * @param mixed $cpfCnpjTomador
+     */
+
+    /**
      * @param mixed $cpfTomador
      */
     public function setCpfTomador($cpfTomador)
@@ -705,22 +459,210 @@ class RpsData{
         $this->cnpjTomador = $cnpjTomador;
     }
 
-
     /**
      * @return string
      */
-    public function getContentString(){
-        return sprintf( '%08s', $this->getAliquotaServicos() ) .
-            sprintf('%-5s',$this->getSerieRPS() ) . // 5 chars
-            sprintf( '%012s', $this->getNumeroRPS() ) .
-            date( 'Ymd', $this->getDataEmissao() ) .
+    public function getContentString()
+    {
+        return sprintf('%08s', $this->getAliquotaServicos()) .
+            sprintf('%-5s', $this->getSerieRPS()) . // 5 chars
+            sprintf('%012s', $this->getNumeroRPS()) .
+            date('Ymd', $this->getDataEmissao()) .
             $this->getTributacaoRPS() .
             $this->getStatusRPS() .
-            ( ( $this->getIssRetido() ) ? 'S' : 'N' ) .
-            sprintf( '%015s', str_replace( array( '.', ',' ),'', number_format( $this->getValorServicos(), 2 ) ) ).
-            sprintf( '%015s', str_replace( array( '.', ',' ), '', number_format( $this->getValorDeducoes(), 2 ) ) ) .
-            sprintf( '%05s', $this->getCodigoServico() ) .
-            ( ( $this->getTipoRPS() == 'F' ) ? '1' : '2' ) .
-            sprintf( '%014s', $this->getCpfCnpjTomador() );
+            (($this->getIssRetido()) ? 'S' : 'N') .
+            sprintf('%015s', str_replace(array('.', ','), '', number_format($this->getValorServicos(), 2))) .
+            sprintf('%015s', str_replace(array('.', ','), '', number_format($this->getValorDeducoes(), 2))) .
+            sprintf('%05s', $this->getCodigoServico()) .
+            (($this->getTipoRPS() == 'F') ? '1' : '2') .
+            sprintf('%014s', $this->getCpfCnpjTomador());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAliquotaServicos()
+    {
+        return $this->aliquotaServicos;
+    }
+
+    /**
+     * @param mixed $aliquotaServicos
+     */
+    public function setAliquotaServicos($aliquotaServicos)
+    {
+        $this->aliquotaServicos = $aliquotaServicos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSerieRPS()
+    {
+        return $this->serieRPS;
+    }
+
+    /**
+     * @param mixed $serieRPS
+     */
+    public function setSerieRPS($serieRPS)
+    {
+        $this->serieRPS = $serieRPS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroRPS()
+    {
+        return $this->numeroRPS;
+    }
+
+    /**
+     * @param mixed $numeroRPS
+     */
+    public function setNumeroRPS($numeroRPS)
+    {
+        $this->numeroRPS = $numeroRPS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataEmissao()
+    {
+        return $this->dataEmissao;
+    }
+
+    /**
+     * @param mixed $dataEmissao
+     */
+    public function setDataEmissao($dataEmissao)
+    {
+        $this->dataEmissao = $dataEmissao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTributacaoRPS()
+    {
+        return $this->tributacaoRPS;
+    }
+
+    /**
+     * @param mixed $tributacaoRPS
+     */
+    public function setTributacaoRPS($tributacaoRPS)
+    {
+        $this->tributacaoRPS = $tributacaoRPS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusRPS()
+    {
+        return $this->statusRPS;
+    }
+
+    /**
+     * @param mixed $statusRPS
+     */
+    public function setStatusRPS($statusRPS)
+    {
+        $this->statusRPS = $statusRPS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssRetido()
+    {
+        return $this->issRetido;
+    }
+
+    /**
+     * @param mixed $issRetido
+     */
+    public function setIssRetido($issRetido)
+    {
+        $this->issRetido = $issRetido;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorServicos()
+    {
+        return $this->valorServicos;
+    }
+
+    /**
+     * @param mixed $valorServicos
+     */
+    public function setValorServicos($valorServicos)
+    {
+        $this->valorServicos = $valorServicos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValorDeducoes()
+    {
+        return $this->valorDeducoes;
+    }
+
+    /**
+     * @param mixed $valorDeducoes
+     */
+    public function setValorDeducoes($valorDeducoes)
+    {
+        $this->valorDeducoes = $valorDeducoes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoServico()
+    {
+        return $this->codigoServico;
+    }
+
+    /**
+     * @param mixed $codigoServico
+     */
+    public function setCodigoServico($codigoServico)
+    {
+        $this->codigoServico = $codigoServico;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoRPS()
+    {
+        return $this->tipoRPS;
+    }
+
+    /**
+     * @param mixed $tipoRPS
+     */
+    public function setTipoRPS($tipoRPS)
+    {
+        $this->tipoRPS = $tipoRPS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCpfCnpjTomador()
+    {
+        if ($this->cpfTomador) {
+            return $this->cpfTomador;
+        } else {
+            return $this->cnpjTomador;
+        }
     }
 }
