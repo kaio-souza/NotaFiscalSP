@@ -2,8 +2,10 @@
 
 namespace NotaFiscalSP\Client;
 
+use Exception;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\WsdlBase;
+use SoapClient;
 
 class ApiClient
 {
@@ -19,7 +21,7 @@ class ApiClient
         ];
 
         try {
-            $client = new \SoapClient($wsdlBase->getWsdl(), $options);
+            $client = new SoapClient($wsdlBase->getWsdl(), $options);
 
             $arguments = [
                 $method => [
@@ -31,8 +33,7 @@ class ApiClient
             $options = [];
             $result = $client->__soapCall($method, $arguments, $options);
             return $result->RetornoXML;
-            exit;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
 
             $result = false;
             echo 'erro';

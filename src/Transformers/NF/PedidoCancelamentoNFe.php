@@ -7,8 +7,9 @@ use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoCancelamentoNFe
 {
+
     public static function makeXmlRequest(BaseInformation $information, $nfe){
-        $cancelKey = PedidoCancelamentoNFe::getContentString($information, $nfe);
+        $cancelKey = Certificate::cancelSignatureString($nfe);
         $array = [
             'Cabecalho' => [
                 '_attributes' => [

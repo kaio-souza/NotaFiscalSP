@@ -14,7 +14,7 @@ class CnpjInformationFactory extends AbstractResponse
         $this->response = new CnpjInformationResponse();
     }
 
-    public function transform($input, $output)
+    public function make($input, $output)
     {
         $this->response->setXmlInput($input);
         $this->response->setXmlOutput($output);
@@ -28,12 +28,12 @@ class CnpjInformationFactory extends AbstractResponse
 
     public function getIm()
     {
-        return General::param($this->arrayResponse, 'Detalhe.InscricaoMunicipal');
+        return General::getPath($this->arrayResponse, 'Detalhe.InscricaoMunicipal');
     }
 
     public function getStatus()
     {
-        return General::param($this->arrayResponse, 'Detalhe.EmiteNFe');
+        return General::getPath($this->arrayResponse, 'Detalhe.EmiteNFe');
     }
 
 

@@ -2,8 +2,10 @@
 
 namespace NotaFiscalSP;
 
+use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Factories\BaseEntitiesFactory;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -28,7 +30,6 @@ class NotaFiscal
      */
     public function __construct(array $options)
     {
-
         // Validate Params
         BaseInformationValidator::basic($options);
         $this->baseInformation = BaseEntitiesFactory::makeBaseInformation($options);
@@ -42,8 +43,14 @@ class NotaFiscal
 
     public function cnpjInformation()
     {
-        $xml = $this->nfService->checkCNPJ($this->baseInformation);
-        return $xml;
+        return $this->nfService->checkCNPJ($this->baseInformation);
     }
+
+    public function checkNfs(array $params){
+
+        return $this->nfService->checkNfs($this->baseInformation, $params);
+    }
+
+
 
 }

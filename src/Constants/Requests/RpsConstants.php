@@ -24,6 +24,18 @@ class RpsConstants{
     const EMAIL_TAKER = 'EmailTomador';
     const DISCRIMINATION = 'Discriminacao';
     const CPFCNPJ_TAKER= 'CPFCNPJTomador';
+    const CPFCNPJ_INTERMEDIARY = 'CPFCNPJIntermediario';
+    const IM_INTERMEDIARY= 'InscricaoMunicipalIntermediario';
+    const ISS_RETENTION_INTERMEDIARY= 'ISSRetidoIntermediario';
+    const EMAIL_INTERMEDIARY= 'EmailIntermediario';
+    const TAX_VALUE_INTERMEDIARY= 'ValorCargaTributaria';
+    const TAX_PERCENT_INTERMEDIARY= 'PercentualCargaTributaria';
+    const TAX_ORIGIN = 'FonteCargaTributaria';
+    const CEI_CODE = 'CodigoCEI';
+    const WORK_REGISTRATION = 'MatriculaObra';
+    const CITY_INSTALLMENT = 'MunicipioPrestacao';
+    const TOTAL_VALUE= 'ValorTotalRecebido';
+    const ENCAPSULATION_NUMBER = 'NumeroEncapsulamento';
 
     public static function simpleTypes(){
         return [

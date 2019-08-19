@@ -7,11 +7,12 @@ use NotaFiscalSP\Constants\Requests\DetailConstants;
 use NotaFiscalSP\Constants\Requests\HeaderConstants;
 use NotaFiscalSP\Constants\Requests\RpsConstants;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Helpers\General;
 
-abstract class NfAbstract
+abstract class NfAbstract implements InputTransformer
 {
     public function makeHeader(BaseInformation $information, $extraInformations)
     {
@@ -43,43 +44,55 @@ abstract class NfAbstract
         ];
     }
 
-    public function makeDetail(BaseInformation $information, $extraInformations)
+    public function makeDetail(BaseInformation $information, $documents)
     {
         $detail = [];
 
-        foreach (DetailConstants::signedTypes() as $field) {
-            if (isset($extraInformations[$field]))
-                $detail[$field] = Certificate::signatureRpsItem($information, $extraInformations[$field]);
+        foreach ($documents as $document) {
+            foreach (DetailConstants::signedTypes() as $field) {
+                if (isset($document[$field]))
+                    $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
+            }
+
+            if (isset($document[SimpleFieldsConstants::RPS_NUMBER]))
+                $detail = array_merge($detail, $this->makeRpsKey($document));
+
+
+            if (isset($document[SimpleFieldsConstants::NFE_NUMBER]))
+                $detail = array_merge($detail, $this->makeNfeKey($document));
+
         }
-
-        if (isset($extraInformations[ComplexFieldsConstants::RPS_KEY]))
-            array_merge($detail, $this->makeRpsKey($extraInformations));
-
-        if (isset($extraInformations[ComplexFieldsConstants::NFE_KEY]))
-            array_merge($detail, $this->makeNfeKey($extraInformations));
-
         return [
             DetailConstants::DETAIL => $detail,
         ];
     }
-
     private function makeNfeKey($extraInformations){
+
+        $params =  [
+            SimpleFieldsConstants::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
+            SimpleFieldsConstants::NFE_NUMBER => General::getPath($extraInformations, SimpleFieldsConstants::NFE_NUMBER),
+        ];
+
+
+        $verificationCode = General::getPath($extraInformations, SimpleFieldsConstants::VERIFICATION_CODE);
+
+        if($verificationCode) {
+            $params[SimpleFieldsConstants::VERIFICATION_CODE] = $verificationCode;
+        }
+
         return [
-            ComplexFieldsConstants::NFE_KEY => [
-                SimpleFieldsConstants::IM_PROVIDER => General::param($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
-                SimpleFieldsConstants::NFE_NUMBER => General::param($extraInformations, SimpleFieldsConstants::NFE_NUMBER),
-                SimpleFieldsConstants::VERIFICATION_CODE => General::param($extraInformations, SimpleFieldsConstants::VERIFICATION_CODE),
-            ]
+            ComplexFieldsConstants::NFE_KEY => $params
         ];
     }
+
 
     private function makeRpsKey($extraInformations)
     {
         return [
             ComplexFieldsConstants::RPS_KEY => [
-                SimpleFieldsConstants::IM_PROVIDER => General::param($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
-                SimpleFieldsConstants::RPS_SERIES => General::param($extraInformations, SimpleFieldsConstants::RPS_SERIES),
-                SimpleFieldsConstants::RPS_NUMBER => General::param($extraInformations, SimpleFieldsConstants::RPS_NUMBER),
+                SimpleFieldsConstants::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
+                SimpleFieldsConstants::RPS_SERIES => General::getPath($extraInformations, SimpleFieldsConstants::RPS_SERIES),
+                SimpleFieldsConstants::RPS_NUMBER => General::getPath($extraInformations, SimpleFieldsConstants::RPS_NUMBER),
             ]
         ];
     }
@@ -87,7 +100,7 @@ abstract class NfAbstract
     public function makeRPS(BaseInformation $information, $extraInformations)
     {
         $rps = [
-            DetailConstants::SIGN => Certificate::signatureRpsItem($information, General::param($extraInformations, DetailConstants::SIGN))
+            DetailConstants::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailConstants::SIGN))
         ];
 
         if (isset($extraInformations[ComplexFieldsConstants::RPS_KEY]))

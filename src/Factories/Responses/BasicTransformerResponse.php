@@ -2,6 +2,7 @@
 
 namespace NotaFiscalSP\Factories\Responses;
 
+use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Helpers\Xml;
 use NotaFiscalSP\Responses\BasicResponse;
 

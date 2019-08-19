@@ -2,13 +2,14 @@
 namespace NotaFiscalSP\Transformers\NF;
 
 use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Transformers\NfAbstract;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class  PedidoConsultaCNPJ extends NfAbstract
 {
-    public function makeXmlRequest(BaseInformation $information){
+    public function makeXmlRequest(BaseInformation $information, $params = null){
 
        $header = $this->makeHeader($information, [
             HeaderConstants::CPFCNPJ_SENDER => true
