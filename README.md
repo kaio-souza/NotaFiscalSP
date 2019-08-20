@@ -6,6 +6,7 @@ O objetivo principal do Projeto é facilitar a emissão de Nota Fiscal de Servi�
 - openssl
 
 ## Instanciando a Classe
+Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emissor e a senha do Certificado do emissor. No caso do caminho do Certificado pode ser utilizado o arquivo '.pfx' ou '.pem'
 
 ```php
   // Instanciando a Classe
@@ -17,15 +18,21 @@ O objetivo principal do Projeto é facilitar a emissão de Nota Fiscal de Servi�
 ```
 
 ## Obtendo Informações Base do CNPJ
+Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
+
 ```php
 $response = $nf->cnpjInformation();
 ```
 ## Obtendo Informações Basicas do Lote
+Retorna apeas informações básicas como horário de envio do lote
+
 ```php
 $response = $nf->lotInformation();
 ```
 
 ## Consultando Nota Fiscal
+Retorna Informaçes detalhadas de uma ou mais Notas
+
 ```php
 $response = $nf->checkNf([
     [SimpleFieldsConstants::NFE_NUMBER => 235 ],
@@ -34,11 +41,15 @@ $response = $nf->checkNf([
 ```
 
 ## Consultando Lote
+Retorna Informaçes detalhadas de um lote especifico
+
 ```php
 $response = $nf->checkLot(356);
 ```
 
 ## Cancelando Nota Fiscal
+Cancela uma ou mais Notas
+
 ```php
 $response = $nf->cancelNf([
     [SimpleFieldsConstants::NFE_NUMBER => 235 ],
