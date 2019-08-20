@@ -16,6 +16,7 @@ use NotaFiscalSP\Transformers\NF\PedidoCancelamentoNFe;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaNFe;
+use NotaFiscalSP\Transformers\NF\PedidoConsultaNFePeriodo;
 use NotaFiscalSP\Transformers\NF\PedidoInformacoesLote;
 
 class NfService
@@ -56,7 +57,7 @@ class NfService
 
     // Complementar Information
 
-    public function checkNf(BaseInformation $baseInformation, $params)
+    public function getkNf(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoConsultaNFe();
         return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
@@ -68,7 +69,7 @@ class NfService
         return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $transformer);
     }
 
-    public function checkLot(BaseInformation $baseInformation, $lotNumber)
+    public function getLot(BaseInformation $baseInformation, $lotNumber)
     {
         $transformer = new PedidoConsultaLote();
         return $this->proccessRequest($baseInformation, $lotNumber, NfMethods::CONSULTA_LOTE, $transformer);
@@ -81,8 +82,17 @@ class NfService
        return $this->proccessRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
     }
 
+    public function getIssued(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaNFePeriodo();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_EMITIDAS, $transformer);
+    }
 
-
+    public function getReceived(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaNFePeriodo();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $transformer);
+    }
 
     public function nfEndPoint()
     {

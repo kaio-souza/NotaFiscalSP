@@ -7,6 +7,7 @@ class HeaderConstants
     const HEADER = 'Cabecalho';
     const VERSION = 'Versao';
     const CPFCNPJ_SENDER = 'CPFCNPJRemetente';
+    const CPFCNPJ = 'CPFCNPJ';
     /**
      * @int
      */

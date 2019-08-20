@@ -47,16 +47,22 @@ class NotaFiscal
     }
 
     public function checkNf(array $params){
-        return $this->nfService->checkNf($this->baseInformation, $params);
+        return $this->nfService->getkNf($this->baseInformation, $params);
     }
 
     public function lotInformation(array $params = []){
         return $this->nfService->lotInformation($this->baseInformation, $params);
     }
     public function checkLot($lotNumber){
-        return $this->nfService->checkLot($this->baseInformation, $lotNumber);
+        return $this->nfService->getLot($this->baseInformation, $lotNumber);
     }
 
+    public function nfIssued(array $params){
+        return $this->nfService->getIssued($this->baseInformation, $params);
+    }
+    public function nfReceived(array $params){
+        return $this->nfService->getReceived($this->baseInformation, $params);
+    }
     public function cancelNf(array $params){
         return $this->nfService->cancelNf($this->baseInformation, $params);
     }

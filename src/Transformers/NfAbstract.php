@@ -25,9 +25,23 @@ abstract class NfAbstract implements InputTransformer
         if (isset($extraInformations[HeaderConstants::CPFCNPJ_SENDER]))
             $header[HeaderConstants::CPFCNPJ_SENDER] = [SimpleFieldsConstants::CNPJ => $information->getCnpj()];
 
+        if (isset($extraInformations[SimpleFieldsConstants::CPF]))
+            $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CPF => $extraInformations[SimpleFieldsConstants::CPF]];
+
+       if (General::getKey($extraInformations,SimpleFieldsConstants::CNPJ))
+            $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CNPJ => $extraInformations[SimpleFieldsConstants::CNPJ]];
+
         foreach (HeaderConstants::simpleTypes() as $field) {
             if (isset($extraInformations[$field]))
                 $header[$field] = $extraInformations[$field];
+        }
+
+        if(isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::END_DATE])){
+            $header[HeaderConstants::END_DATE] = $header[HeaderConstants::START_DATE];
+        }
+
+        if(isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::PAGE_NUMBER])){
+            $header[HeaderConstants::PAGE_NUMBER] = 1;
         }
 
         return [

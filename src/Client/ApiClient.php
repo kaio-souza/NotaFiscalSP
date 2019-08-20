@@ -34,7 +34,6 @@ class ApiClient
             $result = $client->__soapCall($method, $arguments, $options);
             return $result->RetornoXML;
         } catch (Exception $e) {
-
             $result = false;
             echo 'erro';
             exit;

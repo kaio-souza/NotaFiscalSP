@@ -31,31 +31,58 @@ $response = $nf->lotInformation();
 ```
 
 ## Consultando Nota Fiscal
-Retorna Informaçes detalhadas de uma ou mais Notas
+Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$response = $nf->checkNf([
-    [SimpleFieldsConstants::NFE_NUMBER => 235 ],
-    [SimpleFieldsConstants::NFE_NUMBER => 238 ],
-]);
+$response = $nf->getkNf([
+                [SimpleFieldsConstants::NFE_NUMBER => 235 ],
+                [SimpleFieldsConstants::NFE_NUMBER => 238 ],
+            ]);
 ```
+
+## Consultando Notas Fiscais Recebidas por Periodo
+Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***
+
+```php
+$response = $nf->nfReceived([
+                HeaderConstants::START_DATE => '2019-08-05',
+                HeaderConstants::END_DATE => '2019-08-10',
+                HeaderConstants::PAGE_NUMBER => 1
+            ]);
+```
+***- Caso Não Insira a data Final será retornado somente a data do dia Inicial***
+***- Caso não seja informado o numero da página o valor padrão é 1***
+
+## Consultando Notas Fiscais Emitidas por Periodo
+Retorna Notas emitidas em um periodo especifico ***(50 Notas por Pagina)***
+
+```php
+$response = $nf->nfReceived([
+                HeaderConstants::START_DATE => '2019-08-05',
+                HeaderConstants::END_DATE => '2019-08-10',
+                HeaderConstants::PAGE_NUMBER => 1
+            ]);
+```
+***- Caso Não Insira a data Final será retornado somente a data do dia Inicial***
+***- Caso não seja informado o numero da página o valor padrão é 1***
 
 ## Consultando Lote
 Retorna Informaçes detalhadas de um lote especifico
 
 ```php
-$response = $nf->checkLot(356);
+$response = $nf->getLot(356);
 ```
 
 ## Cancelando Nota Fiscal
-Cancela uma ou mais Notas
+Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
 $response = $nf->cancelNf([
-    [SimpleFieldsConstants::NFE_NUMBER => 235 ],
-    [SimpleFieldsConstants::NFE_NUMBER => 238 ],
-]);
+                [SimpleFieldsConstants::NFE_NUMBER => 235 ],
+                [SimpleFieldsConstants::NFE_NUMBER => 238 ],
+            ]);
 ```
+
 
 # Métodos Básicos do Response
 ## getResponse
