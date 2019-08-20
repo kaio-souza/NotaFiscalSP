@@ -50,7 +50,7 @@ $response = $nf->nfReceived([
                 HeaderConstants::PAGE_NUMBER => 1
             ]);
 ```
-***- Caso Não Insira a data Final será retornado somente a data do dia Inicial***
+***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 ***- Caso não seja informado o numero da página o valor padrão é 1***
 
 ## Consultando Notas Fiscais Emitidas por Periodo
@@ -63,7 +63,7 @@ $response = $nf->nfReceived([
                 HeaderConstants::PAGE_NUMBER => 1
             ]);
 ```
-***- Caso Não Insira a data Final será retornado somente a data do dia Inicial***
+***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 ***- Caso não seja informado o numero da página o valor padrão é 1***
 
 ## Consultando Lote
