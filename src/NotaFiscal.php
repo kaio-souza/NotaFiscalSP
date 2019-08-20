@@ -2,10 +2,8 @@
 
 namespace NotaFiscalSP;
 
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Factories\BaseEntitiesFactory;
-use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -20,7 +18,13 @@ class NotaFiscal
      * @var BaseInformation
      */
     private $baseInformation;
+    /**
+     * @var NfService
+     */
     private $nfService;
+    /**
+     * @var NftsService
+     */
     private $nftsService;
 
     /**
@@ -41,29 +45,79 @@ class NotaFiscal
             $this->baseInformation->setIm($this->cnpjInformation());
     }
 
+    /**
+     * @return Responses\BasicResponse
+     */
     public function cnpjInformation()
     {
         return $this->nfService->checkCNPJ($this->baseInformation);
     }
 
-    public function checkNf(array $params){
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function checkNf(array $params)
+    {
         return $this->nfService->getkNf($this->baseInformation, $params);
     }
 
-    public function lotInformation(array $params = []){
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function lotInformation(array $params = [])
+    {
         return $this->nfService->lotInformation($this->baseInformation, $params);
     }
-    public function checkLot($lotNumber){
+
+    /**
+     * @param $lotNumber
+     * @return Responses\BasicResponse
+     */
+    public function checkLot($lotNumber)
+    {
         return $this->nfService->getLot($this->baseInformation, $lotNumber);
     }
 
-    public function nfIssued(array $params){
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function nfIssued(array $params)
+    {
         return $this->nfService->getIssued($this->baseInformation, $params);
     }
-    public function nfReceived(array $params){
+
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function nfReceived(array $params)
+    {
         return $this->nfService->getReceived($this->baseInformation, $params);
     }
-    public function cancelNf(array $params){
+
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function cancelNf(array $params)
+    {
         return $this->nfService->cancelNf($this->baseInformation, $params);
+    }
+
+    /**
+     * @param array $params
+     * @return Responses\BasicResponse
+     */
+    public function emmitNf(array $params)
+    {
+        return $this->nfService->emmit($this->baseInformation, $params);
+    }
+
+    public function emmitLot(array $params)
+    {
+        return $this->nfService->emmitLot($this->baseInformation, $params);
     }
 }

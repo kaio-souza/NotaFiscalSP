@@ -1,68 +1,27 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
+use NotaFiscalSP\Constants\Requests\HeaderConstants;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Validators\DetailValidator;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoEnvioRPS extends NfAbstract
 {
 
     public  function makeXmlRequest(BaseInformation $information, $rps){
-        $typeDocument = $rps->getCpfTomador() ? 'CPF' : 'CNPJ';
-        $array = [
-            'Cabecalho' => [
-                '_attributes' => [
-                    'Versao' => 1
-                ],
-                'CPFCNPJRemetente' => [
-                    'CNPJ' => $information->getCnpj()
-                ],
-            ],
-            'RPS' => [
-                'Assinatura' => Certificate::signatureRpsItem($information, $rps),
-                'ChaveRPS' => [
-                    'InscricaoPrestador' => $information->getIm(),
-                    'SerieRPS' => $rps->getSerieRPS(),
-                    'NumeroRPS' => $rps->getNumeroRPS(),
-                ],
-                'TipoRPS' => $rps->getTipoRPS(),
-                'DataEmissao' => $rps->getDataEmissao(),
-                'StatusRPS' => $rps->getStatusRPS(),
-                'TributacaoRPS' => $rps->getTributacaoRPS(),
-                'ValorServicos' => $rps->getValorServicos(),
-                'ValorDeducoes' =>$rps->getValorDeducoes(),
-                'ValorPIS' => $rps->getValorPIS(),
-                'ValorCOFINS' => $rps->getValorCOFINS(),
-                'ValorINSS' => $rps->getValorINSS(),
-                'ValorIR' => $rps->getValorIR(),
-                'ValorCSLL' => $rps->getValorCSLL(),
-                'CodigoServico' => $rps->getCodigoServico(),
-                'AliquotaServicos' => $rps->getAliquotaServicos(),
-                'ISSRetido' => $rps->getIssRetido(),
-                'CPFCNPJTomador' => [
-                    $typeDocument => $rps->getCpfCnpjTomador(),
-                ],
-                'RazaoSocialTomador' => $rps->getRazaoSocialTomador(),
-                'EnderecoTomador' => [
-                    'TipoLogradouro' => $rps->getTipoLogradouro(),
-                    'Logradouro' => $rps->getLogradouro(),
-                    'NumeroEndereco' => $rps->getNumeroEndereco(),
-                    'ComplementoEndereco' => $rps->getComplementoEndereco(),
-                    'Bairro' => $rps->getBairro(),
-                    'Cidade' => $rps->getCidade(),
-                    'UF' => $rps->getUf(),
-                    'CEP' => $rps->getCep(),
-                ],
-                'EmailTomador' => $rps->getEmailTomador(),
-                'Discriminacao' => $rps->getDiscriminacao(),
+        $documents = DetailValidator::queryDetail($information, $rps);
+        $header = $this->makeHeader($information, [
+            HeaderConstants::CPFCNPJ_SENDER => true
+        ]);
+        $allRps = $this->makeRPS($information,$documents);
 
-            ]
-        ];
+        $request = array_merge($header,$allRps);
 
-        return ArrayToXml::convert($array, [
+        return ArrayToXml::convert($request, [
             'rootElementName' => 'PedidoEnvioRPS',
             '_attributes' => [
                 'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',

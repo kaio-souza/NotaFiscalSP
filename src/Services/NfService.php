@@ -5,7 +5,6 @@ namespace NotaFiscalSP\Services;
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\Methods\NfMethods;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Entities\BaseInformation;
@@ -17,6 +16,8 @@ use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaNFe;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaNFePeriodo;
+use NotaFiscalSP\Transformers\NF\PedidoEnvioLoteRPS;
+use NotaFiscalSP\Transformers\NF\PedidoEnvioRPS;
 use NotaFiscalSP\Transformers\NF\PedidoInformacoesLote;
 
 class NfService
@@ -54,7 +55,6 @@ class NfService
         return $outputClass->make($information->getXml(), $output);
     }
 
-
     // Complementar Information
 
     public function getkNf(BaseInformation $baseInformation, $params)
@@ -78,8 +78,20 @@ class NfService
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
-       $transformer = new PedidoCancelamentoNFe();
-       return $this->proccessRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
+        $transformer = new PedidoCancelamentoNFe();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
+    }
+
+    public function emmit(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoEnvioRPS();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::ENVIO, $transformer);
+    }
+
+    public function emmitLot(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoEnvioLoteRPS();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $transformer);
     }
 
     public function getIssued(BaseInformation $baseInformation, $params)
