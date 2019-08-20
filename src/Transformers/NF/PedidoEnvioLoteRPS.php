@@ -4,11 +4,13 @@ namespace NotaFiscalSP\Transformers\NF;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Transformers\NfAbstract;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class PedidoEnvioLoteRPS{
+class PedidoEnvioLoteRPS extends NfAbstract
+{
 
-    public static function makeXmlRequest(BaseInformation $information, Array $rpsList)
+    public function makeXmlRequest(BaseInformation $information,  $rpsList)
     {
 
         $array = [

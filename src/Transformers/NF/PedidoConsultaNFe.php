@@ -7,6 +7,7 @@ use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Validators\DetailValidator;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoConsultaNFe extends NfAbstract
@@ -14,9 +15,7 @@ class PedidoConsultaNFe extends NfAbstract
 
     public function makeXmlRequest(BaseInformation $information, $documents)
     {
-        if (!is_array(General::getPath($documents, '0'))){
-            $documents = [$documents];
-        }
+        $documents = DetailValidator::queryDetail($information, $documents);
         $header = $this->makeHeader($information, [
             HeaderConstants::CPFCNPJ_SENDER => true
         ]);

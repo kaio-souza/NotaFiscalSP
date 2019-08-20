@@ -2,6 +2,7 @@
 header("Content-type: text/xml");
 require '../vendor/autoload.php';
 
+use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
 use NotaFiscalSP\NotaFiscal;
 use NotaFiscalSP\Constants\Params;
 
@@ -15,4 +16,7 @@ $nf = new NotaFiscal([
     Params::CERTIFICATE_PASS => '000000'
 ]);
 
-echo $nf->cnpjInformation()->getXmlOutput();
+echo  $nf->cancelNf([
+    [SimpleFieldsConstants::NFE_NUMBER => 235 ],
+    [SimpleFieldsConstants::NFE_NUMBER => 238 ],
+])->getXmlOutput();

@@ -15,4 +15,4 @@ $nf = new NotaFiscal([
     Params::CERTIFICATE_PASS => '000000'
 ]);
 
-echo $nf->cnpjInformation()->getXmlOutput();
+echo  $nf->checkLot(356)->getXmlOutput();

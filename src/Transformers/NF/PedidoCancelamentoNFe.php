@@ -1,42 +1,34 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
+use NotaFiscalSP\Constants\Requests\HeaderConstants;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Validators\DetailValidator;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class PedidoCancelamentoNFe
+class PedidoCancelamentoNFe extends NfAbstract
 {
 
-    public static function makeXmlRequest(BaseInformation $information, $nfe){
-        $cancelKey = Certificate::cancelSignatureString($nfe);
-        $array = [
-            'Cabecalho' => [
-                '_attributes' => [
-                    'Versao' => 1
-                ],
-                'CPFCNPJRemetente' => [
-                    'CNPJ' => $information->getCnpj()
-                ],
-                'transacao' => true
-            ],
-            'Detalhe' => [
-                'ChaveNFe' => [
-                    'InscricaoPrestador' => $information->getIm(),
-                    'NumeroNFe' => $nfe
-                ],
-                'AssinaturaCancelamento' => Certificate::signatureRpsItem($information, $cancelKey)
-            ]
-        ];
+    public function makeXmlRequest(BaseInformation $information, $documents)
+    {
+        $documents = DetailValidator::queryDetail($information, $documents);
+        $header = $this->makeHeader($information, [
+            HeaderConstants::CPFCNPJ_SENDER => true
+        ]);
+        $detail = $this->makeDetail($information,$documents);
 
-        return ArrayToXml::convert($array, [
-            'rootElementName' => 'PedidoCancelamentoNFe',
+        $request = array_merge($header,$detail);
+
+        return ArrayToXml::convert($request , [
+            'rootElementName' => 'p1:PedidoCancelamentoNFe',
             '_attributes' => [
-                'xmlns' => 'http://www.prefeitura.sp.gov.br/nfe',
-                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema',
+                'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance'
             ],
         ], true, 'UTF-8');
+
     }
 
 

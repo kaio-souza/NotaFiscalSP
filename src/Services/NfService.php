@@ -12,8 +12,11 @@ use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\WsdlBase;
 use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
 use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
+use NotaFiscalSP\Transformers\NF\PedidoCancelamentoNFe;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
+use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaNFe;
+use NotaFiscalSP\Transformers\NF\PedidoInformacoesLote;
 
 class NfService
 {
@@ -50,22 +53,42 @@ class NfService
         return $outputClass->make($information->getXml(), $output);
     }
 
+
+    // Complementar Information
+
+    public function checkNf(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaNFe();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
+    }
+
+    public function lotInformation(BaseInformation $baseInformation, $params = [])
+    {
+        $transformer = new PedidoInformacoesLote();
+        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $transformer);
+    }
+
+    public function checkLot(BaseInformation $baseInformation, $lotNumber)
+    {
+        $transformer = new PedidoConsultaLote();
+        return $this->proccessRequest($baseInformation, $lotNumber, NfMethods::CONSULTA_LOTE, $transformer);
+    }
+
+
+    public function cancelNf(BaseInformation $baseInformation, $params)
+    {
+       $transformer = new PedidoCancelamentoNFe();
+       return $this->proccessRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
+    }
+
+
+
+
     public function nfEndPoint()
     {
         $baseInformation = new WsdlBase();
         $baseInformation->setEndPoint(Endpoints::NF);
         return $baseInformation;
-    }
-
-    // Complementar Information
-
-    public function checkNfs(BaseInformation $baseInformation, $params)
-    {
-        if (!isset($params[SimpleFieldsConstants::IM_PROVIDER]))
-            $params[SimpleFieldsConstants::IM_PROVIDER] = $baseInformation->getIm();
-
-        $transformer = new PedidoConsultaNFe();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
     }
 
     public function nfAsyncEndPoint()

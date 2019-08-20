@@ -46,11 +46,18 @@ class NotaFiscal
         return $this->nfService->checkCNPJ($this->baseInformation);
     }
 
-    public function checkNfs(array $params){
-
-        return $this->nfService->checkNfs($this->baseInformation, $params);
+    public function checkNf(array $params){
+        return $this->nfService->checkNf($this->baseInformation, $params);
     }
 
+    public function lotInformation(array $params = []){
+        return $this->nfService->lotInformation($this->baseInformation, $params);
+    }
+    public function checkLot($lotNumber){
+        return $this->nfService->checkLot($this->baseInformation, $lotNumber);
+    }
 
-
+    public function cancelNf(array $params){
+        return $this->nfService->cancelNf($this->baseInformation, $params);
+    }
 }

@@ -4,11 +4,13 @@ namespace NotaFiscalSP\Transformers\NF;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Transformers\NfAbstract;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class PedidoEnvioRPS{
+class PedidoEnvioRPS extends NfAbstract
+{
 
-    public static function makeXmlRequest(BaseInformation $information, RpsData $rps){
+    public  function makeXmlRequest(BaseInformation $information, $rps){
         $typeDocument = $rps->getCpfTomador() ? 'CPF' : 'CNPJ';
         $array = [
             'Cabecalho' => [

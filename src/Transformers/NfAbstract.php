@@ -46,9 +46,11 @@ abstract class NfAbstract implements InputTransformer
 
     public function makeDetail(BaseInformation $information, $documents)
     {
-        $detail = [];
+        $detais = [];
 
         foreach ($documents as $document) {
+            $detail = [];
+            // Assinatura usada em detalhes de cancelamento
             foreach (DetailConstants::signedTypes() as $field) {
                 if (isset($document[$field]))
                     $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
@@ -61,9 +63,11 @@ abstract class NfAbstract implements InputTransformer
             if (isset($document[SimpleFieldsConstants::NFE_NUMBER]))
                 $detail = array_merge($detail, $this->makeNfeKey($document));
 
+            $details[] = $detail;
         }
+
         return [
-            DetailConstants::DETAIL => $detail,
+            DetailConstants::DETAIL => $details,
         ];
     }
     private function makeNfeKey($extraInformations){
