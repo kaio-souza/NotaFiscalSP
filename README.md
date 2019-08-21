@@ -6,7 +6,7 @@ O objetivo principal do Projeto é facilitar a emissão de Nota Fiscal de Servi�
 - openssl
 
 ## Instanciando a Classe
-Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emissor e a senha do Certificado do emissor. No caso do caminho do Certificado pode ser utilizado o arquivo '.pfx' ou '.pem'
+Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emissor e a senha do mesmo. No caso do caminho do Certificado pode ser utilizado o arquivo '.pfx' ou '.pem'
 
 ```php
   // Instanciando a Classe
@@ -51,6 +51,7 @@ $response = $nf->nfReceived([
             ]);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
+
 ***- Caso não seja informado o numero da página o valor padrão é 1***
 
 ## Consultando Notas Fiscais Emitidas por Periodo
@@ -64,10 +65,11 @@ $response = $nf->nfReceived([
             ]);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
+
 ***- Caso não seja informado o numero da página o valor padrão é 1***
 
 ## Consultando Lote
-Retorna Informaçes detalhadas de um lote especifico
+Retorna Informações detalhadas de um lote especifico
 
 ```php
 $response = $nf->getLot(356);
