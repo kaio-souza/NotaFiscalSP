@@ -33,10 +33,10 @@ class NfService
     {
         $transformer = new PedidoConsultaCNPJ;
         $outputClass = new CnpjInformationFactory;
-        return $this->proccessRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $transformer, $outputClass);
+        return $this->processRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $transformer, $outputClass);
     }
 
-    private function proccessRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
+    private function processRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
     {
         // Check Output Type
         $outputClass = !empty($outputClass) ? $outputClass : $this->response;
@@ -47,63 +47,63 @@ class NfService
         //Set Input file and sign
         $information->setXml($file);
 
+        // Send to API,
 
-        // Send to API
         $output = ApiClient::send($this->nfEndPoint(), $method, $information);
 
         // Return Response with signed Input and Output
-        return $outputClass->make($information->getXml(), $output);
+        return isset($output->success) ? $output : $outputClass->make($information->getXml(), $output)  ;
     }
 
     // Complementar Information
 
-    public function getkNf(BaseInformation $baseInformation, $params)
+    public function getNf(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoConsultaNFe();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
     }
 
     public function lotInformation(BaseInformation $baseInformation, $params = [])
     {
         $transformer = new PedidoInformacoesLote();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $transformer);
     }
 
     public function getLot(BaseInformation $baseInformation, $lotNumber)
     {
         $transformer = new PedidoConsultaLote();
-        return $this->proccessRequest($baseInformation, $lotNumber, NfMethods::CONSULTA_LOTE, $transformer);
+        return $this->processRequest($baseInformation, $lotNumber, NfMethods::CONSULTA_LOTE, $transformer);
     }
 
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoCancelamentoNFe();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
     }
 
     public function emmit(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoEnvioRPS();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::ENVIO, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $transformer);
     }
 
     public function emmitLot(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoEnvioLoteRPS();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $transformer);
     }
 
     public function getIssued(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoConsultaNFePeriodo();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_EMITIDAS, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_EMITIDAS, $transformer);
     }
 
     public function getReceived(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoConsultaNFePeriodo();
-        return $this->proccessRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $transformer);
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $transformer);
     }
 
     public function nfEndPoint()

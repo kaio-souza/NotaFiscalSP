@@ -62,23 +62,25 @@ class Certificate
         return base64_encode($signatureValue);
     }
 
-    public static function lotSignatureString($params)
+    public static function rpsSignatureString($params)
     {
+        $document = General::getKey($params, SimpleFieldsConstants::CNPJ) ? General::getKey($params, SimpleFieldsConstants::CNPJ) : General::getKey($params, SimpleFieldsConstants::CPF);
         //Required Fields
-        $string = sprintf('%08s', General::getKey($params, RpsConstants::SERVICE_TAX)) .
+        $string =
+            sprintf('%08s', General::getKey($params, SimpleFieldsConstants::IM_PROVIDER)) .
             sprintf('%-5s', General::getKey($params, SimpleFieldsConstants::RPS_SERIES)) . // 5 chars
             sprintf('%012s', General::getKey($params, SimpleFieldsConstants::RPS_NUMBER)) .
-            date('Ymd', General::getKey($params, RpsConstants::EMISSION_DATE)) .
+            str_replace('-','',General::getKey($params, RpsConstants::EMISSION_DATE)) .
             General::getKey($params, RpsConstants::RPS_TAX) .
             General::getKey($params, RpsConstants::RPS_STATUS) .
-            ((General::getKey($params, RpsConstants::ISS_RETENTION)) ? BooleanFields::TRUE: BooleanFields::FALSE) .
+            ($params[RpsConstants::ISS_RETENTION] == 'false' ? BooleanFields::FALSE : BooleanFields::TRUE ).
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsConstants::SERVICE_VALUE), 2))) .
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsConstants::DEDUCTION_VALUE), 2))) .
             sprintf('%05s', General::getKey($params, RpsConstants::SERVICE_CODE)) .
-            ((General::getKey($params, SimpleFieldsConstants::CPF)) ? BooleanFields::TRUE: BooleanFields::FALSE) .
-            sprintf('%014s', General::getKey($params, RpsConstants::CPFCNPJ_TAKER));
+            ((General::getKey($params, SimpleFieldsConstants::CPF)) ? 1 : 2) .
+            General::getKey($params, SimpleFieldsConstants::CPF) .
+            sprintf('%014s', $document);
 
-        // Optional Fields
         // AVAILABLE ON RELEASE 2
 
         return $string;

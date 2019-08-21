@@ -7,13 +7,14 @@ use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Transformers\NfAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
+use NotaFiscalSP\Validators\RpsValidator;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class PedidoEnvioRPS extends NfAbstract
 {
 
     public  function makeXmlRequest(BaseInformation $information, $rps){
-        $documents = DetailValidator::queryDetail($information, $rps);
+        $documents = RpsValidator::validateRps($information, $rps);
         $header = $this->makeHeader($information, [
             HeaderConstants::CPFCNPJ_SENDER => true
         ]);
@@ -22,7 +23,7 @@ class PedidoEnvioRPS extends NfAbstract
         $request = array_merge($header,$allRps);
 
         return ArrayToXml::convert($request, [
-            'rootElementName' => 'PedidoEnvioRPS',
+            'rootElementName' => 'p1:PedidoEnvioRPS',
             '_attributes' => [
                 'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',

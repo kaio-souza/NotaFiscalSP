@@ -1,6 +1,9 @@
 <?php
 namespace NotaFiscalSP\Entities\Requests;
 
+use NotaFiscalSP\Constants\FieldData\RPSStatus;
+use NotaFiscalSP\Constants\FieldData\RPSTaxType;
+use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\Requests\RpsConstant;
 use NotaFiscalSP\Constants\Requests\RpsConstants;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
@@ -49,6 +52,53 @@ class Rps{
     private $cidade;
     private $uf;
     private $cep;
+    private $cpf;
+    private $cnpj;
+
+    /**
+     * @return mixed
+     */
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
+
+    /**
+     * @param mixed $cpf
+     */
+    public function setCpf($cpf)
+    {
+        $this->cpf = $cpf;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCnpj()
+    {
+        return $this->cnpj;
+    }
+
+    /**
+     * @param mixed $cnpj
+     */
+    public function setCnpj($cnpj)
+    {
+        $this->cnpj = $cnpj;
+    }
+
+    public function __construct()
+    {
+        $this->setTipoRps(RPSType::RECIBO_PROVISORIO);
+        $this->setStatusRps(RPSStatus::NORMAL);
+        $this->setDataEmissao(date('Y-m-d'));
+        $this->setTributacaoRps(RPSTaxType::IN_SP);
+        $this->setValorDeducoes(0);
+        $this->setValorServicos(0);
+        $this->setIssRetido(false);
+        $this->setSerieRps('A');
+        $this->setAliquotaServicos( '0');
+    }
 
     public function getArray(){
 
@@ -70,12 +120,7 @@ class Rps{
             RpsConstants::SERVICE_CODE  => $this->codigoServico,
             RpsConstants::SERVICE_TAX => $this->aliquotaServicos,
             RpsConstants::ISS_RETENTION => $this->issRetido,
-            RpsConstants::IM_TAKER  => $this->inscricaoMunicipalTomador,
-            RpsConstants::IE_TAKER  => $this->inscricaoEstadualTomador,
-            RpsConstants::CORPORATE_NAME_TAKER  => $this->razaoSocialTomador,
-            RpsConstants::EMAIL_TAKER  => $this->emailTomador,
             RpsConstants::DISCRIMINATION  => $this->discriminacao,
-            RpsConstants::CPFCNPJ_TAKER => $this->cpfcnpjTomador,
             RpsConstants::CPFCNPJ_INTERMEDIARY  => $this->cpfcnpjIntermediario,
             RpsConstants::IM_INTERMEDIARY => $this->inscricaoMunicipalIntermediario,
             RpsConstants::ISS_RETENTION_INTERMEDIARY => $this->issRetidoIntermediario,
@@ -88,6 +133,11 @@ class Rps{
             RpsConstants::CITY_INSTALLMENT  => $this->municipioPrestacao,
             RpsConstants::TOTAL_VALUE => $this->valortotalRecebido,
             RpsConstants::ENCAPSULATION_NUMBER  => $this->numeroEncapsulamento,
+            RpsConstants::IM_TAKER  => $this->inscricaoMunicipalTomador,
+            RpsConstants::IE_TAKER  => $this->inscricaoEstadualTomador,
+            RpsConstants::CPFCNPJ_TAKER => $this->cpfcnpjTomador,
+            RpsConstants::CORPORATE_NAME_TAKER  => $this->razaoSocialTomador,
+            RpsConstants::EMAIL_TAKER  => $this->emailTomador,
             SimpleFieldsConstants::TYPE_ADDRESS=> $this->tipoLogradouro,
             SimpleFieldsConstants::ADDRESS => $this->logradouro,
             SimpleFieldsConstants::ADDRESS_NUMBER=> $this->numeroEndereco,
@@ -96,6 +146,8 @@ class Rps{
             SimpleFieldsConstants::CITY=> $this->cidade,
             SimpleFieldsConstants::STATE=> $this->uf,
             SimpleFieldsConstants::ZIP_CODE=> $this->cep,
+            SimpleFieldsConstants::CPF=> $this->cpf,
+            SimpleFieldsConstants::CNPJ=> $this->cnpj,
         ];
     }
 

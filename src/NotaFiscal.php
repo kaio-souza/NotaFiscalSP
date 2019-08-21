@@ -3,6 +3,7 @@
 namespace NotaFiscalSP;
 
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\Requests\Rps;
 use NotaFiscalSP\Factories\BaseEntitiesFactory;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
@@ -59,7 +60,7 @@ class NotaFiscal
      */
     public function checkNf(array $params)
     {
-        return $this->nfService->getkNf($this->baseInformation, $params);
+        return $this->nfService->getNf($this->baseInformation, $params);
     }
 
     /**
@@ -111,7 +112,7 @@ class NotaFiscal
      * @param array $params
      * @return Responses\BasicResponse
      */
-    public function emmitNf(array $params)
+    public function emmitNf(Rps $params)
     {
         return $this->nfService->emmit($this->baseInformation, $params);
     }

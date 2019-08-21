@@ -12,6 +12,12 @@ abstract class BaseResponse
      * @var
      */
     public $success;
+
+    /**
+     * @var
+     */
+    public $message;
+
     /**
      * @var
      */
@@ -67,6 +73,22 @@ abstract class BaseResponse
     public function setXmlOutput($xmlOutput)
     {
         $this->xmlOutput = $xmlOutput;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param mixed $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
     }
 
 

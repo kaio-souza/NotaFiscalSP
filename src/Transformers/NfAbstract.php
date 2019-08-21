@@ -28,7 +28,7 @@ abstract class NfAbstract implements InputTransformer
         if (isset($extraInformations[SimpleFieldsConstants::CPF]))
             $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CPF => $extraInformations[SimpleFieldsConstants::CPF]];
 
-       if (General::getKey($extraInformations,SimpleFieldsConstants::CNPJ))
+        if (General::getKey($extraInformations, SimpleFieldsConstants::CNPJ))
             $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CNPJ => $extraInformations[SimpleFieldsConstants::CNPJ]];
 
         foreach (HeaderConstants::simpleTypes() as $field) {
@@ -36,11 +36,11 @@ abstract class NfAbstract implements InputTransformer
                 $header[$field] = $extraInformations[$field];
         }
 
-        if(isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::END_DATE])){
+        if (isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::END_DATE])) {
             $header[HeaderConstants::END_DATE] = $header[HeaderConstants::START_DATE];
         }
 
-        if(isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::PAGE_NUMBER])){
+        if (isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::PAGE_NUMBER])) {
             $header[HeaderConstants::PAGE_NUMBER] = 1;
         }
 
@@ -65,10 +65,6 @@ abstract class NfAbstract implements InputTransformer
         foreach ($documents as $document) {
             $detail = [];
             // Assinatura usada em detalhes de cancelamento
-            foreach (DetailConstants::signedTypes() as $field) {
-                if (isset($document[$field]))
-                    $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
-            }
 
             if (isset($document[SimpleFieldsConstants::RPS_NUMBER]))
                 $detail = array_merge($detail, $this->makeRpsKey($document));
@@ -77,6 +73,11 @@ abstract class NfAbstract implements InputTransformer
             if (isset($document[SimpleFieldsConstants::NFE_NUMBER]))
                 $detail = array_merge($detail, $this->makeNfeKey($document));
 
+            foreach (DetailConstants::signedTypes() as $field) {
+                if (isset($document[$field]))
+                    $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
+            }
+
             $details[] = $detail;
         }
 
@@ -84,9 +85,11 @@ abstract class NfAbstract implements InputTransformer
             DetailConstants::DETAIL => $details,
         ];
     }
-    private function makeNfeKey($extraInformations){
 
-        $params =  [
+    private function makeNfeKey($extraInformations)
+    {
+
+        $params = [
             SimpleFieldsConstants::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
             SimpleFieldsConstants::NFE_NUMBER => General::getPath($extraInformations, SimpleFieldsConstants::NFE_NUMBER),
         ];
@@ -94,7 +97,7 @@ abstract class NfAbstract implements InputTransformer
 
         $verificationCode = General::getPath($extraInformations, SimpleFieldsConstants::VERIFICATION_CODE);
 
-        if($verificationCode) {
+        if ($verificationCode) {
             $params[SimpleFieldsConstants::VERIFICATION_CODE] = $verificationCode;
         }
 
@@ -121,22 +124,34 @@ abstract class NfAbstract implements InputTransformer
             DetailConstants::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailConstants::SIGN))
         ];
 
-        if (isset($extraInformations[ComplexFieldsConstants::RPS_KEY]))
-            array_merge($rps, $this->makeRpsKey($extraInformations));
+        $rps = array_merge($rps, $this->makeRpsKey($extraInformations));
 
         foreach (RpsConstants::simpleTypes() as $field) {
             if (isset($extraInformations[$field]))
                 $rps[$field] = $extraInformations[$field];
         }
-
+        // Taker
         $rps[RpsConstants::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
+
+        foreach (RpsConstants::takerInformations() as $field) {
+            if (isset($extraInformations[$field]))
+                $rps[$field] = $extraInformations[$field];
+        }
         $rps[ComplexFieldsConstants::ADDRESS] = $this->makeAddress($extraInformations);
 
-                return [
-                    RpsConstants::RPS => $rps,
-                ];
+        if (isset($extraInformations[RpsConstants::EMAIL_TAKER]))
+            $rps[RpsConstants::EMAIL_TAKER] = $extraInformations[RpsConstants::EMAIL_TAKER];
+
+        if (isset($extraInformations[RpsConstants::DISCRIMINATION]))
+            $rps[RpsConstants::DISCRIMINATION] = $extraInformations[RpsConstants::DISCRIMINATION];
+
+        return [
+            RpsConstants::RPS => $rps,
+        ];
     }
-    private function makeCPFCNPJTaker($extraInformations){
+
+    private function makeCPFCNPJTaker($extraInformations)
+    {
         if (isset($extraInformations[SimpleFieldsConstants::CPF]))
             return [SimpleFieldsConstants::CPF => $extraInformations[SimpleFieldsConstants::CPF]];
 
@@ -146,12 +161,13 @@ abstract class NfAbstract implements InputTransformer
         return [SimpleFieldsConstants::CNPJ => null];
     }
 
-    private function makeAddress($extraInformations){
+    private function makeAddress($extraInformations)
+    {
         $address = [];
         foreach (SimpleFieldsConstants::addressFields() as $field) {
             if (isset($extraInformations[$field]))
                 $address[$field] = $extraInformations[$field];
         }
-        return ;
+        return $address;
     }
 }

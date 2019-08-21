@@ -53,11 +53,13 @@ class RpsConstants{
             RpsConstants::SERVICE_CODE,
             RpsConstants::SERVICE_TAX,
             RpsConstants::ISS_RETENTION,
-            RpsConstants::IM_TAKER,
+        ];
+    }
+    public static function takerInformations(){
+        return [
+            RpsConstants::IM_TAKER ,
             RpsConstants::IE_TAKER,
             RpsConstants::CORPORATE_NAME_TAKER,
-            RpsConstants::EMAIL_TAKER,
-            RpsConstants::DISCRIMINATION,
         ];
     }
 }

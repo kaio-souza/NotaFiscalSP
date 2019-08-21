@@ -5,6 +5,9 @@ O objetivo principal do Projeto é facilitar a emissão de Nota Fiscal de Servi�
 - Soap
 - openssl
 
+### Referências úteis
+- Na hora de emitir uma nota o campo de Cidade do Tomador é preenchido com o código do IBGE para a mesma, e ele pode ser consultado no site https://cidades.ibge.gov.br/brasil/sp/sao-paulo
+
 ## Instanciando a Classe
 Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emissor e a senha do Certificado do emissor. No caso do caminho do Certificado pode ser utilizado o arquivo '.pfx' ou '.pem'
 
@@ -34,7 +37,7 @@ $response = $nf->lotInformation();
 Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$response = $nf->getkNf([
+$response = $nf->getNf([
                 [SimpleFieldsConstants::NFE_NUMBER => 235 ],
                 [SimpleFieldsConstants::NFE_NUMBER => 238 ],
             ]);
@@ -83,6 +86,28 @@ $response = $nf->cancelNf([
             ]);
 ```
 
+## emmitNf 
+```php
+$rps = new Rps();
+$rps->setNumeroRps('00000000');
+$rps->setTipoRps(RPSType::RECIBO_PROVENIENTE_DE_NOTA_CONJUGADA);
+$rps->setValorServicos(30.80);
+$rps->setCodigoServico(2881);
+$rps->setAliquotaServicos( 0.029);
+$rps->setCnpj('10000000000001');
+$rps->setRazaoSocialTomador('RAZAO SOCIAL TOMADOR LTDA');
+$rps->setTipoLogradouro('R');
+$rps->setLogradouro('NOME DA RUA');
+$rps->setNumeroEndereco(001);
+$rps->setBairro('VILA TESTE');
+$rps->setCidade('3550308'); // São Paulo
+$rps->setUf('SP');
+$rps->setCep('00000000');
+$rps->setEmailTomador('teste@teste.com.br');
+$rps->setDiscriminacao('Teste Emissão de Notas pela API');
+
+$response =  $nf->emmitNf($rps);
+```
 
 # Métodos Básicos do Response
 ## getResponse
