@@ -1,6 +1,6 @@
 {
     "name": "kaleu62/notafiscalsp",
-    "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFS e NTFS",
+    "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFS e NTFS utilizando a API da nota do milhão",
     "require": {
         "robrichards/xmlseclibs": "^3.0",
         "greenter/xmldsig": "^5.0",
@@ -11,6 +11,8 @@
         "NFTS",
         "Emissão Nota Fiscal",
         "Nota Fiscal",
+        "Nota do Milhão",
+        "Prefeitura São Paulo",
         "Nota Fiscal Tomador de Serviços"
     ],
     "license": "MIT",

@@ -9,18 +9,16 @@ use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NfAbstract;
 use Spatie\ArrayToXml\ArrayToXml;
 
-class  PedidoConsultaGuia extends NfAbstract
+class  PedidoConsultaSituacaoGuia extends NfAbstract
 {
     public function makeXmlRequest(BaseInformation $information, $params = null)
     {
         $request = [];
         $request[HeaderConstants::CPFCNPJ_SENDER] = [SimpleFieldsConstants::CNPJ => $information->getCnpj()];
-        $request[SimpleFieldsConstants::IM_PROVIDER] = $information->getIm();
-        $request[SimpleFieldsConstants::INCIDENCE] = General::getKey($params, SimpleFieldsConstants::INCIDENCE);
-        $request[SimpleFieldsConstants::SITUATION] = General::getKey($params, SimpleFieldsConstants::SITUATION);
+        $request[SimpleFieldsConstants::PROTOCOL_NUMBER] = General::getKey($params, SimpleFieldsConstants::PROTOCOL_NUMBER);
 
         return ArrayToXml::convert($request, [
-            'rootElementName' => 'p1:PedidoConsultaGuia',
+            'rootElementName' => 'p1:PedidoConsultaSituacaoGuia',
             '_attributes' => [
                 'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
                 'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance'

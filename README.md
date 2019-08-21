@@ -1,5 +1,5 @@
 # NFe-NFTS-SP (PHP)
-O objetivo principal do Projeto é facilitar a emissão de Nota Fiscal de Serviço / Nota Fiscal de Tomador de Serviço  (NF, NFAsync, NFTS).
+O Projeto se trata de um módulo de integração com o sistema de notas da Prefeitura de São Paulo (Nota do Milhão), possibilitando a automatização de serviços como emissão e consulta de Notas e outros serviços relacionados.
 
 ### Extensões Necessárias 
 - Soap
