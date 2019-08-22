@@ -49,7 +49,7 @@ Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***
 ```php
 $period = new Period();
 $period->setDtInicio('2019-08-05');
-$period->setDtInicio('2019-08-10');
+$period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
 $response = $nf->nfReceived($period);
@@ -64,7 +64,7 @@ Retorna Notas emitidas em um periodo especifico ***(50 Notas por Pagina)***
 ```php
 $period = new Period();
 $period->setDtInicio('2019-08-05');
-$period->setDtInicio('2019-08-10');
+$period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
 $response = $nf->nfReceived($period);
