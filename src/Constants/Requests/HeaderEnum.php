@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP\Constants\Requests;
 
-class HeaderConstants
+class HeaderEnum
 {
     const HEADER = 'Cabecalho';
     const VERSION = 'Versao';
@@ -51,16 +51,16 @@ class HeaderConstants
     public static function simpleTypes()
     {
         return [
-            HeaderConstants::IM,
-            SimpleFieldsConstants::IM_PROVIDER,
-            HeaderConstants::DEDUCTION_TOTAL,
-            HeaderConstants::SERVICES_TOTAL,
-            HeaderConstants::START_DATE,
-            HeaderConstants::END_DATE,
-            HeaderConstants::LOT_NUMBER,
-            HeaderConstants::TRANSACTION,
-            HeaderConstants::PAGE_NUMBER,
-            HeaderConstants::RPS_COUNT,
+            HeaderEnum::IM,
+            SimpleFieldsEnum::IM_PROVIDER,
+            HeaderEnum::DEDUCTION_TOTAL,
+            HeaderEnum::SERVICES_TOTAL,
+            HeaderEnum::START_DATE,
+            HeaderEnum::END_DATE,
+            HeaderEnum::LOT_NUMBER,
+            HeaderEnum::TRANSACTION,
+            HeaderEnum::PAGE_NUMBER,
+            HeaderEnum::RPS_COUNT,
         ];
     }
 }

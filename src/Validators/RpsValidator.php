@@ -5,10 +5,10 @@ use NotaFiscalSP\Constants\FieldData\BooleanFields;
 use NotaFiscalSP\Constants\FieldData\RPSStatus;
 use NotaFiscalSP\Constants\FieldData\RPSTaxType;
 use NotaFiscalSP\Constants\FieldData\RPSType;
-use NotaFiscalSP\Constants\Requests\ComplexFieldsConstants;
-use NotaFiscalSP\Constants\Requests\DetailConstants;
-use NotaFiscalSP\Constants\Requests\RpsConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
+use NotaFiscalSP\Constants\Requests\DetailEnum;
+use NotaFiscalSP\Constants\Requests\RpsEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\Requests\Rps;
 use NotaFiscalSP\Helpers\Certificate;
@@ -17,15 +17,15 @@ class RpsValidator
 {
     public static function validateRps(BaseInformation $baseInformation, $rps){
         if($rps instanceof Rps)
-            $rps = $rps->getArray();
+            $rps = $rps->toArray();
 
-        if(empty($rps[SimpleFieldsConstants::IM_PROVIDER]))
-            $rps[SimpleFieldsConstants::IM_PROVIDER] = $baseInformation->getIm();
+        if(empty($rps[SimpleFieldsEnum::IM_PROVIDER]))
+            $rps[SimpleFieldsEnum::IM_PROVIDER] = $baseInformation->getIm();
 
-        $rps[RpsConstants::ISS_RETENTION] = $rps[RpsConstants::ISS_RETENTION] ? 'true' : 'false';
+        $rps[RpsEnum::ISS_RETENTION] = $rps[RpsEnum::ISS_RETENTION] ? 'true' : 'false';
 
-        $rps[ComplexFieldsConstants::RPS_KEY] = true;
-        $rps[DetailConstants::SIGN] = Certificate::rpsSignatureString($rps);
+        $rps[ComplexFieldsEnum::RPS_KEY] = true;
+        $rps[DetailEnum::SIGN] = Certificate::rpsSignatureString($rps);
         return $rps;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP\Constants\Requests;
 
-class ComplexFieldsConstants
+class ComplexFieldsEnum
 {
     const NFE_KEY = 'ChaveNFe';
     const RPS_KEY = 'ChaveRPS';

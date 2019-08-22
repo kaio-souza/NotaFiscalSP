@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
@@ -17,7 +17,7 @@ class PedidoConsultaNFe extends NfAbstract
     {
         $documents = DetailValidator::queryDetail($information, $documents);
         $header = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true
+            HeaderEnum::CPFCNPJ_SENDER => true
         ]);
         $detail = $this->makeDetail($information,$documents);
 

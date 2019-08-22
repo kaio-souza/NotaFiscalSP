@@ -2,11 +2,11 @@
 
 namespace NotaFiscalSP\Transformers;
 
-use NotaFiscalSP\Constants\Requests\ComplexFieldsConstants;
-use NotaFiscalSP\Constants\Requests\DetailConstants;
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
-use NotaFiscalSP\Constants\Requests\RpsConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
+use NotaFiscalSP\Constants\Requests\DetailEnum;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\RpsEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;
@@ -18,42 +18,42 @@ abstract class NfAbstract implements InputTransformer
     {
         $header = [
             '_attributes' => [
-                HeaderConstants::VERSION => 1
+                HeaderEnum::VERSION => 1
             ],
         ];
 
-        if (isset($extraInformations[HeaderConstants::CPFCNPJ_SENDER]))
-            $header[HeaderConstants::CPFCNPJ_SENDER] = [SimpleFieldsConstants::CNPJ => $information->getCnpj()];
+        if (isset($extraInformations[HeaderEnum::CPFCNPJ_SENDER]))
+            $header[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
 
-        if (isset($extraInformations[SimpleFieldsConstants::CPF]))
-            $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CPF => $extraInformations[SimpleFieldsConstants::CPF]];
+        if (isset($extraInformations[SimpleFieldsEnum::CPF]))
+            $header[HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CPF => $extraInformations[SimpleFieldsEnum::CPF]];
 
-        if (General::getKey($extraInformations, SimpleFieldsConstants::CNPJ))
-            $header[HeaderConstants::CPFCNPJ] = [SimpleFieldsConstants::CNPJ => $extraInformations[SimpleFieldsConstants::CNPJ]];
+        if (General::getKey($extraInformations, SimpleFieldsEnum::CNPJ))
+            $header[HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CNPJ => $extraInformations[SimpleFieldsEnum::CNPJ]];
 
-        foreach (HeaderConstants::simpleTypes() as $field) {
+        foreach (HeaderEnum::simpleTypes() as $field) {
             if (isset($extraInformations[$field]))
                 $header[$field] = $extraInformations[$field];
         }
 
-        if (isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::END_DATE])) {
-            $header[HeaderConstants::END_DATE] = $header[HeaderConstants::START_DATE];
+        if (isset($header[HeaderEnum::START_DATE]) && !isset($header[HeaderEnum::END_DATE])) {
+            $header[HeaderEnum::END_DATE] = $header[HeaderEnum::START_DATE];
         }
 
-        if (isset($header[HeaderConstants::START_DATE]) && !isset($header[HeaderConstants::PAGE_NUMBER])) {
-            $header[HeaderConstants::PAGE_NUMBER] = 1;
+        if (isset($header[HeaderEnum::START_DATE]) && !isset($header[HeaderEnum::PAGE_NUMBER])) {
+            $header[HeaderEnum::PAGE_NUMBER] = 1;
         }
 
         return [
-            HeaderConstants::HEADER => $header
+            HeaderEnum::HEADER => $header
         ];
     }
 
     public function makeTaxPayerInformation($cnpj)
     {
         return [
-            ComplexFieldsConstants::CNPJ_TAX_PAYER => [
-                SimpleFieldsConstants::CNPJ => $cnpj
+            ComplexFieldsEnum::CNPJ_TAX_PAYER => [
+                SimpleFieldsEnum::CNPJ => $cnpj
             ]
         ];
     }
@@ -66,14 +66,14 @@ abstract class NfAbstract implements InputTransformer
             $detail = [];
             // Assinatura usada em detalhes de cancelamento
 
-            if (isset($document[SimpleFieldsConstants::RPS_NUMBER]))
+            if (isset($document[SimpleFieldsEnum::RPS_NUMBER]))
                 $detail = array_merge($detail, $this->makeRpsKey($document));
 
 
-            if (isset($document[SimpleFieldsConstants::NFE_NUMBER]))
+            if (isset($document[SimpleFieldsEnum::NFE_NUMBER]))
                 $detail = array_merge($detail, $this->makeNfeKey($document));
 
-            foreach (DetailConstants::signedTypes() as $field) {
+            foreach (DetailEnum::signedTypes() as $field) {
                 if (isset($document[$field]))
                     $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
             }
@@ -82,7 +82,7 @@ abstract class NfAbstract implements InputTransformer
         }
 
         return [
-            DetailConstants::DETAIL => $details,
+            DetailEnum::DETAIL => $details,
         ];
     }
 
@@ -90,30 +90,29 @@ abstract class NfAbstract implements InputTransformer
     {
 
         $params = [
-            SimpleFieldsConstants::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
-            SimpleFieldsConstants::NFE_NUMBER => General::getPath($extraInformations, SimpleFieldsConstants::NFE_NUMBER),
+            SimpleFieldsEnum::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsEnum::IM_PROVIDER),
+            SimpleFieldsEnum::NFE_NUMBER => General::getPath($extraInformations, SimpleFieldsEnum::NFE_NUMBER),
         ];
 
 
-        $verificationCode = General::getPath($extraInformations, SimpleFieldsConstants::VERIFICATION_CODE);
+        $verificationCode = General::getPath($extraInformations, SimpleFieldsEnum::VERIFICATION_CODE);
 
         if ($verificationCode) {
-            $params[SimpleFieldsConstants::VERIFICATION_CODE] = $verificationCode;
+            $params[SimpleFieldsEnum::VERIFICATION_CODE] = $verificationCode;
         }
 
         return [
-            ComplexFieldsConstants::NFE_KEY => $params
+            ComplexFieldsEnum::NFE_KEY => $params
         ];
     }
-
 
     private function makeRpsKey($extraInformations)
     {
         return [
-            ComplexFieldsConstants::RPS_KEY => [
-                SimpleFieldsConstants::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsConstants::IM_PROVIDER),
-                SimpleFieldsConstants::RPS_SERIES => General::getPath($extraInformations, SimpleFieldsConstants::RPS_SERIES),
-                SimpleFieldsConstants::RPS_NUMBER => General::getPath($extraInformations, SimpleFieldsConstants::RPS_NUMBER),
+            ComplexFieldsEnum::RPS_KEY => [
+                SimpleFieldsEnum::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsEnum::IM_PROVIDER),
+                SimpleFieldsEnum::RPS_SERIES => General::getPath($extraInformations, SimpleFieldsEnum::RPS_SERIES),
+                SimpleFieldsEnum::RPS_NUMBER => General::getPath($extraInformations, SimpleFieldsEnum::RPS_NUMBER),
             ]
         ];
     }
@@ -121,50 +120,50 @@ abstract class NfAbstract implements InputTransformer
     public function makeRPS(BaseInformation $information, $extraInformations)
     {
         $rps = [
-            DetailConstants::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailConstants::SIGN))
+            DetailEnum::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
         ];
 
         $rps = array_merge($rps, $this->makeRpsKey($extraInformations));
 
-        foreach (RpsConstants::simpleTypes() as $field) {
+        foreach (RpsEnum::simpleTypes() as $field) {
             if (isset($extraInformations[$field]))
                 $rps[$field] = $extraInformations[$field];
         }
         // Taker
-        $rps[RpsConstants::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
+        $rps[RpsEnum::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
 
-        foreach (RpsConstants::takerInformations() as $field) {
+        foreach (RpsEnum::takerInformations() as $field) {
             if (isset($extraInformations[$field]))
                 $rps[$field] = $extraInformations[$field];
         }
-        $rps[ComplexFieldsConstants::ADDRESS] = $this->makeAddress($extraInformations);
+        $rps[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
 
-        if (isset($extraInformations[RpsConstants::EMAIL_TAKER]))
-            $rps[RpsConstants::EMAIL_TAKER] = $extraInformations[RpsConstants::EMAIL_TAKER];
+        if (isset($extraInformations[RpsEnum::EMAIL_TAKER]))
+            $rps[RpsEnum::EMAIL_TAKER] = $extraInformations[RpsEnum::EMAIL_TAKER];
 
-        if (isset($extraInformations[RpsConstants::DISCRIMINATION]))
-            $rps[RpsConstants::DISCRIMINATION] = $extraInformations[RpsConstants::DISCRIMINATION];
+        if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
+            $rps[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
         return [
-            RpsConstants::RPS => $rps,
+            RpsEnum::RPS => $rps,
         ];
     }
 
     private function makeCPFCNPJTaker($extraInformations)
     {
-        if (isset($extraInformations[SimpleFieldsConstants::CPF]))
-            return [SimpleFieldsConstants::CPF => $extraInformations[SimpleFieldsConstants::CPF]];
+        if (isset($extraInformations[SimpleFieldsEnum::CPF]))
+            return [SimpleFieldsEnum::CPF => $extraInformations[SimpleFieldsEnum::CPF]];
 
-        if (isset($extraInformations[SimpleFieldsConstants::CNPJ]))
-            return [SimpleFieldsConstants::CNPJ => $extraInformations[SimpleFieldsConstants::CNPJ]];
+        if (isset($extraInformations[SimpleFieldsEnum::CNPJ]))
+            return [SimpleFieldsEnum::CNPJ => $extraInformations[SimpleFieldsEnum::CNPJ]];
 
-        return [SimpleFieldsConstants::CNPJ => null];
+        return [SimpleFieldsEnum::CNPJ => null];
     }
 
     private function makeAddress($extraInformations)
     {
         $address = [];
-        foreach (SimpleFieldsConstants::addressFields() as $field) {
+        foreach (SimpleFieldsEnum::addressFields() as $field) {
             if (isset($extraInformations[$field]))
                 $address[$field] = $extraInformations[$field];
         }

@@ -1,8 +1,8 @@
 <?php
 namespace NotaFiscalSP\Transformers\AsyncNF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
@@ -14,10 +14,10 @@ class  PedidoConsultaGuia extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params = null)
     {
         $request = [];
-        $request[HeaderConstants::CPFCNPJ_SENDER] = [SimpleFieldsConstants::CNPJ => $information->getCnpj()];
-        $request[SimpleFieldsConstants::IM_PROVIDER] = $information->getIm();
-        $request[SimpleFieldsConstants::INCIDENCE] = General::getKey($params, SimpleFieldsConstants::INCIDENCE);
-        $request[SimpleFieldsConstants::SITUATION] = General::getKey($params, SimpleFieldsConstants::SITUATION);
+        $request[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        $request[SimpleFieldsEnum::IM_PROVIDER] = $information->getIm();
+        $request[SimpleFieldsEnum::INCIDENCE] = General::getKey($params, SimpleFieldsEnum::INCIDENCE);
+        $request[SimpleFieldsEnum::SITUATION] = General::getKey($params, SimpleFieldsEnum::SITUATION);
 
         return ArrayToXml::convert($request, [
             'rootElementName' => 'p1:PedidoConsultaGuia',

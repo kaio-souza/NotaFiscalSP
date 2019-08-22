@@ -1,8 +1,8 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NfAbstract;
@@ -14,15 +14,15 @@ class  PedidoConsultaNFePeriodo extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params)
     {
         $extra = [
-            HeaderConstants::CPFCNPJ_SENDER => true,
+            HeaderEnum::CPFCNPJ_SENDER => true,
         ];
         if(
-            !General::getKey($params, SimpleFieldsConstants::CNPJ) &&
-            !General::getKey($params, SimpleFieldsConstants::CPF) &&
-            !General::getKey($params, HeaderConstants::IM)
+            !General::getKey($params, SimpleFieldsEnum::CNPJ) &&
+            !General::getKey($params, SimpleFieldsEnum::CPF) &&
+            !General::getKey($params, HeaderEnum::IM)
         ){
-            $extra[SimpleFieldsConstants::CNPJ] = $information->getCnpj();
-            $extra[HeaderConstants::IM] = $information->getIm();
+            $extra[SimpleFieldsEnum::CNPJ] = $information->getCnpj();
+            $extra[HeaderEnum::IM] = $information->getIm();
         }
         $request = $this->makeHeader($information, array_merge($extra, $params));
 

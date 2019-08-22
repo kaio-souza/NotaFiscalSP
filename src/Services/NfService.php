@@ -8,9 +8,11 @@ use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\Requests\UserRequest;
 use NotaFiscalSP\Entities\WsdlBase;
 use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
 use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Transformers\NF\PedidoCancelamentoNFe;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
@@ -40,6 +42,8 @@ class NfService
     {
         // Check Output Type
         $outputClass = !empty($outputClass) ? $outputClass : $this->response;
+
+       $params = General::convertUserRequest($params);
 
         //  File Without Signature
         $file = $transformer->makeXmlRequest($information, $params);

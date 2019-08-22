@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Transformers\NfAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
@@ -13,8 +13,8 @@ class  PedidoConsultaLote extends NfAbstract
     {
 
         $request = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true,
-            HeaderConstants::LOT_NUMBER =>  $lotNumber
+            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::LOT_NUMBER =>  $lotNumber
         ]);
 
         return ArrayToXml::convert($request , [

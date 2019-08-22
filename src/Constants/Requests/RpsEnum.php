@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP\Constants\Requests;
 
-class RpsConstants{
+class RpsEnum{
     const RPS = 'RPS';
     const RPS_TYPE = 'TipoRPS';
     const EMISSION_DATE = 'DataEmissao';
@@ -39,27 +39,27 @@ class RpsConstants{
 
     public static function simpleTypes(){
         return [
-            RpsConstants::RPS_TYPE,
-            RpsConstants::EMISSION_DATE,
-            RpsConstants::RPS_STATUS,
-            RpsConstants::RPS_TAX,
-            RpsConstants::SERVICE_VALUE,
-            RpsConstants::DEDUCTION_VALUE,
-            RpsConstants::PIS_VALUE,
-            RpsConstants::COFINS_VALUE,
-            RpsConstants::INSS_VALUE,
-            RpsConstants::IR_VALUE,
-            RpsConstants::CSLL_VALUE,
-            RpsConstants::SERVICE_CODE,
-            RpsConstants::SERVICE_TAX,
-            RpsConstants::ISS_RETENTION,
+            RpsEnum::RPS_TYPE,
+            RpsEnum::EMISSION_DATE,
+            RpsEnum::RPS_STATUS,
+            RpsEnum::RPS_TAX,
+            RpsEnum::SERVICE_VALUE,
+            RpsEnum::DEDUCTION_VALUE,
+            RpsEnum::PIS_VALUE,
+            RpsEnum::COFINS_VALUE,
+            RpsEnum::INSS_VALUE,
+            RpsEnum::IR_VALUE,
+            RpsEnum::CSLL_VALUE,
+            RpsEnum::SERVICE_CODE,
+            RpsEnum::SERVICE_TAX,
+            RpsEnum::ISS_RETENTION,
         ];
     }
     public static function takerInformations(){
         return [
-            RpsConstants::IM_TAKER ,
-            RpsConstants::IE_TAKER,
-            RpsConstants::CORPORATE_NAME_TAKER,
+            RpsEnum::IM_TAKER ,
+            RpsEnum::IE_TAKER,
+            RpsEnum::CORPORATE_NAME_TAKER,
         ];
     }
 }

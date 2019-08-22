@@ -3,6 +3,8 @@
 namespace NotaFiscalSP;
 
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\Requests\Nf;
+use NotaFiscalSP\Entities\Requests\Period;
 use NotaFiscalSP\Entities\Requests\Rps;
 use NotaFiscalSP\Factories\BaseEntitiesFactory;
 use NotaFiscalSP\Services\NfService;
@@ -15,24 +17,10 @@ use NotaFiscalSP\Validators\BaseInformationValidator;
  */
 class NotaFiscal
 {
-    /**
-     * @var BaseInformation
-     */
     private $baseInformation;
-    /**
-     * @var NfService
-     */
     private $nfService;
-    /**
-     * @var NftsService
-     */
     private $nftsService;
 
-    /**
-     * NotaFiscal constructor.
-     * @param array $options
-     * @throws Exceptions\RequiredDataMissing
-     */
     public function __construct(array $options)
     {
         // Validate Params
@@ -42,77 +30,47 @@ class NotaFiscal
         $this->nfService = new NfService;
         $this->nftsService = new NftsService;
 
+        // Case 'IM' not Defined, get from API
         if (!$this->baseInformation->getIm())
             $this->baseInformation->setIm($this->cnpjInformation());
     }
 
-    /**
-     * @return Responses\BasicResponse
-     */
     public function cnpjInformation()
     {
         return $this->nfService->checkCNPJ($this->baseInformation);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function checkNf(array $params)
+    public function checkNf($params)
     {
         return $this->nfService->getNf($this->baseInformation, $params);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function lotInformation(array $params = [])
+    public function lotInformation($params = [])
     {
         return $this->nfService->lotInformation($this->baseInformation, $params);
     }
 
-    /**
-     * @param $lotNumber
-     * @return Responses\BasicResponse
-     */
     public function checkLot($lotNumber)
     {
         return $this->nfService->getLot($this->baseInformation, $lotNumber);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function nfIssued(array $params)
+    public function nfIssued($params)
     {
         return $this->nfService->getIssued($this->baseInformation, $params);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function nfReceived(array $params)
+    public function nfReceived($params)
     {
         return $this->nfService->getReceived($this->baseInformation, $params);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function cancelNf(array $params)
+    public function cancelNf($params)
     {
         return $this->nfService->cancelNf($this->baseInformation, $params);
     }
 
-    /**
-     * @param array $params
-     * @return Responses\BasicResponse
-     */
-    public function emmitNf(Rps $params)
+    public function emmitNf($params)
     {
         return $this->nfService->emmit($this->baseInformation, $params);
     }

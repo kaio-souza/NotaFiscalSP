@@ -1,8 +1,8 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Transformers\NfAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
@@ -15,8 +15,8 @@ class  PedidoInformacoesLote extends NfAbstract
         $im = !empty($im) ? $im : $information->getIm();
 
         $request = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true,
-            SimpleFieldsConstants::IM_PROVIDER =>  $im,
+            HeaderEnum::CPFCNPJ_SENDER => true,
+            SimpleFieldsEnum::IM_PROVIDER =>  $im,
 
         ]);
 

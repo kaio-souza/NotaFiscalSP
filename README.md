@@ -37,21 +37,22 @@ $response = $nf->lotInformation();
 Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$response = $nf->getNf([
-                [SimpleFieldsConstants::NFE_NUMBER => 235 ],
-                [SimpleFieldsConstants::NFE_NUMBER => 238 ],
-            ]);
+$nf = new Nf();
+$nf->setNumeroNfe(255);
+
+$response = $nf->getNf($nf);
 ```
 
 ## Consultando Notas Fiscais Recebidas por Periodo
 Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***
 
 ```php
-$response = $nf->nfReceived([
-                HeaderConstants::START_DATE => '2019-08-05',
-                HeaderConstants::END_DATE => '2019-08-10',
-                HeaderConstants::PAGE_NUMBER => 1
-            ]);
+$period = new Period();
+$period->setDtInicio('2019-08-05');
+$period->setDtInicio('2019-08-10');
+$period->setPagina(2);
+
+$response = $nf->nfReceived($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -61,11 +62,12 @@ $response = $nf->nfReceived([
 Retorna Notas emitidas em um periodo especifico ***(50 Notas por Pagina)***
 
 ```php
-$response = $nf->nfReceived([
-                HeaderConstants::START_DATE => '2019-08-05',
-                HeaderConstants::END_DATE => '2019-08-10',
-                HeaderConstants::PAGE_NUMBER => 1
-            ]);
+$period = new Period();
+$period->setDtInicio('2019-08-05');
+$period->setDtInicio('2019-08-10');
+$period->setPagina(2);
+
+$response = $nf->nfReceived($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -82,10 +84,10 @@ $response = $nf->getLot(356);
 Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$response = $nf->cancelNf([
-                [SimpleFieldsConstants::NFE_NUMBER => 235 ],
-                [SimpleFieldsConstants::NFE_NUMBER => 238 ],
-            ]);
+$nf = new Nf();
+$nf->setNumeroNfe(255);
+
+$response = $nf->cancelNf($nf);
 ```
 
 ## emmitNf 
@@ -135,3 +137,80 @@ Verifica o sucesso da operação realizada
 ```php
   $response->getSuccess();
 ```
+
+## Classe Nf (NotaFiscalSP\Entities\Requests\Nf)
+É a classe utilizada para referenciar uma Nota Fiscal já Existente, não é necessário preencher todas propriedades, apenas o NumeroNfe é o suficiente.
+   
+|          **Propriedade**           |          **Método**         |   **Tipo**   |
+|:----------------------------------:|:---------------------------:|:------------:|
+|         InscricaoPrestador         |   setInscricaoPrestador()   |      int     |
+|              NumeroNfe             |        setNumeroNfe()       |      int     |
+|          CodigoVerificacao         |    setCodigoVerificacao()   |    string    |
+|              NumeroRPS             |        setNumeroRPS()       |      int     |
+|              SerieRPS              |        setSerieRPS()        |    string    |
+
+
+## Classe Period (NotaFiscalSP\Entities\Requests\Period)
+Utilizada na realização de consultas por periodo nas notas Emitidas e Recebidas, caso não altere nenhuma das propriedades retorna uma busca com os valores Padrões para data Atual
+
+|         **Propriedade**           |          **Método**           |   **Tipo**   |    ** Observações**    |
+|:---------------------------------:|:-----------------------------:|:------------:|:----------------------:|
+|                CPF                |            setCpf()           |    string    |                        |
+|                CNPJ               |           setCnpj()           |    string    |                        |
+|         InscricaoMunicipal        |    setInscricaoMunicipal()    |      int     |                        |
+|              DtInicio             |         setDtInicio()         |    string    |   format(YYYY-MM-DD)   |
+|               DtFim               |           setDtFim()          |    string    |   format(YYYY-MM-DD)   |
+|               Pagina              |          setPagina()          |      int     |                        |
+|             Transacao             |         setTransacao()        |    boolean   |                        |
+
+## Classe Rps (NotaFiscalSP\Entities\Requests\Rps)
+Objeto utilizado para emissão de novas notas
+
+|         **Propriedade**           |              **Método**              |   **Tipo**   |       ** Observações**       |
+|:---------------------------------:|:------------------------------------:|:------------:|:----------------------------:|
+|         InscricaoPrestador        |        setInscricaoPrestador()       |      int     |                              |
+|              SerieRps             |             setSerieRps()            |    string    |                              |
+|             NumeroRps             |            setNumeroRps()            |      int     |                              |
+|              TipoRps              |             setTipoRps()             |    string    |                              |
+|            DataEmissao            |           setDataEmissao()           |    string    |      format(YYYY-MM-DD)      |
+|             StatusRps             |            setStatusRps()            |    string    |                              |
+|           TributacaoRps           |          setTributacaoRps()          |    string    |                              |
+|           ValorServicos           |          setValorServicos()          |     float    |                              |
+|           ValorDeducoes           |          setValorDeducoes()          |      int     |          default: 0          |
+|              ValorPIS             |             setValorPIS()            |     float    |                              |
+|            ValorCOFINS            |           setValorCOFINS()           |     float    |                              |
+|             ValorINSS             |            setValorINSS()            |     float    |                              |
+|              ValorIR              |             setValorIR()             |     float    |                              |
+|             ValorCSLL             |            setValorCSLL()            |     float    |                              |
+|           CodigoServico           |          setCodigoServico()          |      int     |                              |
+|          AliquotaServicos         |         setAliquotaServicos()        |     float    |                              |
+|             IssRetido             |            setIssRetido()            |    boolean   |        default: false        |
+|     InscricaoMunicipalTomador     |    setInscricaoMunicipalTomador()    |      int     |                              |
+|      InscricaoEstadualTomador     |     setInscricaoEstadualTomador()    |      int     |                              |
+|         RazaoSocialTomador        |        setRazaoSocialTomador()       |    string    |                              |
+|            EmailTomador           |           setEmailTomador()          |    string    |                              |
+|           CpfCnpjTomador          |          setCpfCnpjTomador()         |    string    |                              |
+|           TipoLogradouro          |          setTipoLogradouro()         |    string    |                              |
+|             Logradouro            |            setLogradouro()           |    string    |                              |
+|           NumeroEndereco          |          setNumeroEndereco()         |      int     |                              |
+|        ComplementoEndereco        |       setComplementoEndereco()       |    string    |                              |
+|               Bairro              |              setBairro()             |    string    |                              |
+|               Cidade              |              setCidade()             |    string    | default: 3550308 (São Paulo) |
+|                 UF                |                setUF()               |    string    |                              |
+|                Cep                |               setCep()               |    string    |                              |
+|                Cpf                |               setCpf()               |    string    |                              |
+|                Cnpj               |               setCnpj()              |    string    |                              |
+|           Discriminacao           |          setDiscriminacao()          |    string    |                              |
+|          cpfIntermediario         |         setcpfIntermediario()        |    string    |                              |
+|         cnpjIntermediario         |        setcnpjIntermediario()        |    string    |                              |
+|  InscricaoMunicipalIntermediario  | setInscricaoMunicipalIntermediario() |      int     |                              |
+|       IssRetidoIntermediario      |      setIssRetidoIntermediario()     |    boolean   |                              |
+|         EmailIntermediario        |        setEmailIntermediario()       |    string    |                              |
+|        ValorCargaTributaria       |       setValorCargaTributaria()      |     float    |                              |
+|     PercentualCargaTributaria     |    setPercentualCargaTributaria()    |     float    |                              |
+|        FonteCargaTributaria       |       setFonteCargaTributaria()      |    string    |                              |
+|             CodigoCEI             |            setCodigoCEI()            |    string    |                              |
+|           MatriculaObra           |          setMatriculaObra()          |    string    |                              |
+|         MunicipioPrestacao        |        setMunicipioPrestacao()       |    string    |                              |
+|         ValortotalRecebido        |        setValortotalRecebido()       |     float    |                              |
+|        NumeroEncapsulamento       |       setNumeroEncapsulamento()      |      int     |                              |

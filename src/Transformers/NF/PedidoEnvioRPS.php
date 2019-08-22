@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\RpsData;
 use NotaFiscalSP\Helpers\Certificate;
@@ -16,7 +16,7 @@ class PedidoEnvioRPS extends NfAbstract
     public  function makeXmlRequest(BaseInformation $information, $rps){
         $documents = RpsValidator::validateRps($information, $rps);
         $header = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true
+            HeaderEnum::CPFCNPJ_SENDER => true
         ]);
         $allRps = $this->makeRPS($information,$documents);
 

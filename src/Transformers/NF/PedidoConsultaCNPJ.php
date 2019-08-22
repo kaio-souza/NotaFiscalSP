@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Transformers\NfAbstract;
@@ -12,7 +12,7 @@ class  PedidoConsultaCNPJ extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params = null){
 
        $header = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true
+            HeaderEnum::CPFCNPJ_SENDER => true
        ]);
        $taxPayer = $this->makeTaxPayerInformation($information->getCnpj());
        $request = array_merge($header,$taxPayer);

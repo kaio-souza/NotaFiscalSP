@@ -1,8 +1,8 @@
 <?php
 namespace NotaFiscalSP\Transformers\NF;
 
-use NotaFiscalSP\Constants\Requests\DetailConstants;
-use NotaFiscalSP\Constants\Requests\HeaderConstants;
+use NotaFiscalSP\Constants\Requests\DetailEnum;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Transformers\NfAbstract;
@@ -16,12 +16,12 @@ class PedidoCancelamentoNFe extends NfAbstract
     {
         $documents = DetailValidator::queryDetail($information, $documents);
         $header = $this->makeHeader($information, [
-            HeaderConstants::CPFCNPJ_SENDER => true,
-            HeaderConstants::TRANSACTION => 'false'
+            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::TRANSACTION => 'false'
         ]);
 
         foreach ($documents as $key => $document) {
-            $documents[$key][DetailConstants::CANCELLATION_SIGN] = Certificate::cancelSignatureString($document);
+            $documents[$key][DetailEnum::CANCELLATION_SIGN] = Certificate::cancelSignatureString($document);
         }
         $detail = $this->makeDetail($information,$documents);
 

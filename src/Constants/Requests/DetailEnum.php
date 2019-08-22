@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP\Constants\Requests;
 
-class  DetailConstants
+class  DetailEnum
 {
     const DETAIL = 'Detalhe';
     const CANCELLATION_SIGN = 'AssinaturaCancelamento';
@@ -11,8 +11,8 @@ class  DetailConstants
     public static function signedTypes()
     {
         return [
-            DetailConstants::SIGN,
-            DetailConstants::CANCELLATION_SIGN
+            DetailEnum::SIGN,
+            DetailEnum::CANCELLATION_SIGN
         ];
     }
 }

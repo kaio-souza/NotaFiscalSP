@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP\Constants\Requests;
 
-class SimpleFieldsConstants
+class SimpleFieldsEnum
 {
     const CPF = 'CPF';
     const CNPJ = 'CNPJ';
@@ -27,14 +27,14 @@ class SimpleFieldsConstants
     public static function addressFields()
     {
         return [
-            SimpleFieldsConstants::TYPE_ADDRESS,
-            SimpleFieldsConstants::ADDRESS,
-            SimpleFieldsConstants::ADDRESS_NUMBER,
-            SimpleFieldsConstants::ADDRESS_COMPLEMENT,
-            SimpleFieldsConstants::NEIGHBORHOOD,
-            SimpleFieldsConstants::CITY,
-            SimpleFieldsConstants::STATE,
-            SimpleFieldsConstants::ZIP_CODE,
+            SimpleFieldsEnum::TYPE_ADDRESS,
+            SimpleFieldsEnum::ADDRESS,
+            SimpleFieldsEnum::ADDRESS_NUMBER,
+            SimpleFieldsEnum::ADDRESS_COMPLEMENT,
+            SimpleFieldsEnum::NEIGHBORHOOD,
+            SimpleFieldsEnum::CITY,
+            SimpleFieldsEnum::STATE,
+            SimpleFieldsEnum::ZIP_CODE,
         ];
     }
 }
