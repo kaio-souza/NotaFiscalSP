@@ -4,15 +4,21 @@ namespace NotaFiscalSP\Services;
 
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
+use NotaFiscalSP\Constants\Methods\NfAsyncMethods;
 use NotaFiscalSP\Constants\Methods\NfMethods;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\Requests\UserRequest;
-use NotaFiscalSP\Entities\WsdlBase;
 use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
 use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
+use NotaFiscalSP\Factories\WsdlFactory;
 use NotaFiscalSP\Helpers\General;
+use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaGuia;
+use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaSituacaoGuia;
+use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaSituacaoLote;
+use NotaFiscalSP\Transformers\AsyncNF\PedidoEmissaoGuiaAsync;
 use NotaFiscalSP\Transformers\NF\PedidoCancelamentoNFe;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
 use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
@@ -25,41 +31,25 @@ use NotaFiscalSP\Transformers\NF\PedidoInformacoesLote;
 class NfService
 {
     public $response;
+    private $nfEndPoint;
+    private $nfAsyncEndPoint;
 
     public function __construct()
     {
+        $this->nfEndPoint = WsdlFactory::make(Endpoints::NF);
+        $this->nfAsyncEndPoint = WsdlFactory::make(Endpoints::NF_ASYNC);
         $this->response = new BasicTransformerResponse();
     }
 
+    /*
+     *  NF METHODS
+     */
     public function checkCNPJ(BaseInformation $baseInformation)
     {
         $transformer = new PedidoConsultaCNPJ;
         $outputClass = new CnpjInformationFactory;
         return $this->processRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $transformer, $outputClass);
     }
-
-    private function processRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
-    {
-        // Check Output Type
-        $outputClass = !empty($outputClass) ? $outputClass : $this->response;
-
-       $params = General::convertUserRequest($params);
-
-        //  File Without Signature
-        $file = $transformer->makeXmlRequest($information, $params);
-
-        //Set Input file and sign
-        $information->setXml($file);
-
-        // Send to API,
-
-        $output = ApiClient::send($this->nfEndPoint(), $method, $information);
-
-        // Return Response with signed Input and Output
-        return isset($output->success) ? $output : $outputClass->make($information->getXml(), $output)  ;
-    }
-
-    // Complementar Information
 
     public function getNf(BaseInformation $baseInformation, $params)
     {
@@ -75,10 +65,10 @@ class NfService
 
     public function getLot(BaseInformation $baseInformation, $lotNumber)
     {
+        $lot = [HeaderEnum::LOT_NUMBER => $lotNumber];
         $transformer = new PedidoConsultaLote();
-        return $this->processRequest($baseInformation, $lotNumber, NfMethods::CONSULTA_LOTE, $transformer);
+        return $this->processRequest($baseInformation, $lot, NfMethods::CONSULTA_LOTE, $transformer);
     }
-
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
@@ -86,16 +76,22 @@ class NfService
         return $this->processRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
     }
 
-    public function emmit(BaseInformation $baseInformation, $params)
+    public function sendNf(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoEnvioRPS();
         return $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $transformer);
     }
 
-    public function emmitLot(BaseInformation $baseInformation, $params)
+    public function sendLot(BaseInformation $baseInformation, $params)
     {
         $transformer = new PedidoEnvioLoteRPS();
         return $this->processRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $transformer);
+    }
+
+    public function testSendLot(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoEnvioLoteRPS();
+        return $this->processRequest($baseInformation, $params, NfMethods::TESTE_ENVIO_LOTE, $transformer);
     }
 
     public function getIssued(BaseInformation $baseInformation, $params)
@@ -110,17 +106,83 @@ class NfService
         return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $transformer);
     }
 
-    public function nfEndPoint()
+    //  NF ASYNC METHODS
+
+    public function testSendAsyncLot(BaseInformation $baseInformation, $params)
     {
-        $baseInformation = new WsdlBase();
-        $baseInformation->setEndPoint(Endpoints::NF);
-        return $baseInformation;
+        $transformer = new PedidoEnvioLoteRPS();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::TESTE_ENVIO_LOTE, $transformer);
     }
 
-    public function nfAsyncEndPoint()
+    public function sendAsyncLot(BaseInformation $baseInformation, $params)
     {
-        $baseInformation = new WsdlBase();
-        $baseInformation->setEndPoint(Endpoints::NF_ASYNC);
-        return $baseInformation;
+        $transformer = new PedidoEnvioLoteRPS();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::ENVIO_LOTE, $transformer);
     }
+
+    public function checkAsyncLot(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaSituacaoLote();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_LOTE, $transformer);
+    }
+
+    public function checkReceipt(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaGuia();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_GUIA, $transformer);
+    }
+
+    public function checkReceiptSituation(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoConsultaSituacaoGuia();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_GUIA, $transformer);
+    }
+
+    public function makeReceiptAsync(BaseInformation $baseInformation, $params)
+    {
+        $transformer = new PedidoEmissaoGuiaAsync();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::EMISSAO_GUIA_ASYNC, $transformer);
+    }
+
+    // Process Requests
+
+    private function processRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
+    {
+        // Check Output Type
+        $outputClass = !empty($outputClass) ? $outputClass : $this->response;
+
+        $params = General::convertUserRequest($params);
+
+        //  File Without Signature
+        $file = $transformer->makeXmlRequest($information, $params);
+
+        //Set Input file and sign
+        $information->setXml($file);
+
+        // Send to API,
+
+        $output = ApiClient::send($this->nfEndPoint, $method, $information);
+
+        // Return Response with signed Input and Output
+        return isset($output->success) ? $output : $outputClass->make($information->getXml(), $output);
+    }
+
+    private function processAsyncRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
+    {
+        // Check Output Type
+        $outputClass = !empty($outputClass) ? $outputClass : $this->response;
+        $params = General::convertUserRequest($params);
+
+        //  File Without Signature
+        $file = $transformer->makeXmlRequest($information, $params);
+        //Set Input file and sign
+        $information->setXml($file);
+
+        // Send to API,
+        $output = ApiClient::send($this->nfAsyncEndPoint, $method, $information);
+
+        // Return Response with signed Input and Output
+        return isset($output->success) ? $output : $outputClass->make($information->getXml(), $output);
+    }
+
 }

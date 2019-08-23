@@ -1,82 +1,39 @@
 <?php
+
 namespace NotaFiscalSP\Transformers\NF;
 
+use NotaFiscalSP\Constants\Methods\NfMethods;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\RpsData;
-use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Entities\Requests\Lot;
+use NotaFiscalSP\Helpers\General;
+use NotaFiscalSP\Helpers\Xml;
 use NotaFiscalSP\Transformers\NfAbstract;
-use Spatie\ArrayToXml\ArrayToXml;
+use NotaFiscalSP\Validators\RpsValidator;
 
 class PedidoEnvioLoteRPS extends NfAbstract
 {
 
-    public function makeXmlRequest(BaseInformation $information,  $rpsList)
+    public function makeXmlRequest(BaseInformation $information, $lot)
     {
+        if ($lot instanceof Lot)
+            $lot = $lot->toArray();
 
-        $array = [
-            'Cabecalho' => [
-                '_attributes' => [
-                    'Versao' => 1
-                ],
-                'CPFCNPJRemetente' => [
-                    'CNPJ' => $information->getCnpj()
-                ],
-            ],
-            'RPS' => []
-        ];
+        $documents = RpsValidator::validateRps($information, General::getKey($lot, RpsEnum::RPS));
+        $header = $this->makeHeader($information, [
+            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::TRANSACTION => General::getKey($lot, HeaderEnum::TRANSACTION),
+            HeaderEnum::START_DATE => General::getKey($lot, HeaderEnum::START_DATE),
+            HeaderEnum::END_DATE => General::getKey($lot, HeaderEnum::END_DATE),
+            HeaderEnum::RPS_COUNT => General::getKey($lot, HeaderEnum::RPS_COUNT),
+            HeaderEnum::SERVICES_TOTAL => General::getKey($lot, HeaderEnum::SERVICES_TOTAL),
+            HeaderEnum::DEDUCTION_TOTAL => General::getKey($lot, HeaderEnum::DEDUCTION_TOTAL),
+        ]);
+        $allRps = $this->makeRPS($information, $documents);
 
-        foreach ($rpsList as $rps){
-            $typeDocument = $rps->getCpfTomador() ? 'CPF' : 'CNPJ';
-            $array['RPS'][] = [
-                'Assinatura' => Certificate::signatureRpsItem($information, $rps),
+        $request = array_merge($header, $allRps);
 
-                 'ChaveRPS' => [
-                    'InscricaoPrestador' => $information->getIm(),
-                    'SerieRPS' => $rps->getSerieRPS(),
-                    'NumeroRPS' => $rps->getNumeroRPS(),
-                 ],
-                 'TipoRPS' => $rps->getTipoRPS(),
-                 'DataEmissao' => $rps->getDataEmissao(),
-                 'StatusRPS' => $rps->getStatusRPS(),
-                 'TributacaoRPS' => $rps->getTributacaoRPS(),
-                 'ValorServicos' => $rps->getValorServicos(),
-                 'ValorDeducoes' => $rps->getValorDeducoes(),
-                 'ValorPIS' => $rps->getValorPIS(),
-                 'ValorCOFINS' => $rps->getValorCOFINS(),
-                 'ValorINSS' => $rps->getValorINSS(),
-                 'ValorIR' => $rps->getValorIR(),
-                 'ValorCSLL' => $rps->getValorCSLL(),
-                 'CodigoServico' => $rps->getCodigoServico(),
-                 'AliquotaServicos' => $rps->getAliquotaServicos(),
-                 'ISSRetido' => $rps->getIssRetido(),
-                 'CPFCNPJTomador' => [
-                    $typeDocument => $rps->getCpfCnpjTomador(),
-                 ],
-                 'RazaoSocialTomador' => $rps->getRazaoSocialTomador(),
-                 'EnderecoTomador' => [
-                    'TipoLogradouro' => $rps->getTipoLogradouro(),
-                    'Logradouro' => $rps->getLogradouro(),
-                    'NumeroEndereco' => $rps->getNumeroEndereco(),
-                    'ComplementoEndereco' => $rps->getComplementoEndereco(),
-                    'Bairro' => $rps->getBairro(),
-                    'Cidade' => $rps->getCidade(),
-                    'UF' => $rps->getUf(),
-                    'CEP' => $rps->getCep(),
-                 ],
-                 'EmailTomador' => $rps->getEmailTomador(),
-                 'Discriminacao' => $rps->getDiscriminacao(),
-            ];
-        }
-
-        return ArrayToXml::convert($array, [
-            'rootElementName' => 'PedidoEnvioRPS',
-            '_attributes' => [
-                'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfe',
-                'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema',
-            ],
-        ], true, 'UTF-8');
+        return Xml::makeRequestXML(NfMethods::ENVIO_LOTE, $request);
     }
-
-
 }

@@ -46,21 +46,19 @@ class HeaderEnum
      */
     const DEDUCTION_TOTAL = 'ValorTotalDeducoes';
 
-
-
     public static function simpleTypes()
     {
         return [
             HeaderEnum::IM,
             SimpleFieldsEnum::IM_PROVIDER,
-            HeaderEnum::DEDUCTION_TOTAL,
-            HeaderEnum::SERVICES_TOTAL,
+            HeaderEnum::TRANSACTION,
+            HeaderEnum::LOT_NUMBER,
             HeaderEnum::START_DATE,
             HeaderEnum::END_DATE,
-            HeaderEnum::LOT_NUMBER,
-            HeaderEnum::TRANSACTION,
             HeaderEnum::PAGE_NUMBER,
             HeaderEnum::RPS_COUNT,
+            HeaderEnum::SERVICES_TOTAL,
+            HeaderEnum::DEDUCTION_TOTAL,
         ];
     }
 }

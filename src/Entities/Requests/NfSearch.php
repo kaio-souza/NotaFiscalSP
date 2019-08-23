@@ -6,10 +6,10 @@ use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
 
 /**
- * Class Nf
+ * Class NfSearch
  * @package NotaFiscalSP\Entities\Requests
  */
-class Nf implements UserRequest
+class NfSearch implements UserRequest
 {
     /**
      * @var
@@ -115,11 +115,11 @@ class Nf implements UserRequest
     public function toArray()
     {
         return [
-             SimpleFieldsEnum::IM_PROVIDER => $this->inscricaoPrestador,
-             SimpleFieldsEnum::NFE_NUMBER => $this->numeroNfe,
-             SimpleFieldsEnum::VERIFICATION_CODE => $this->codigoVerificacao,
-             SimpleFieldsEnum::RPS_NUMBER => $this->numeroRPS,
-             SimpleFieldsEnum::RPS_SERIES => $this->serieRPS,
+            SimpleFieldsEnum::IM_PROVIDER => $this->inscricaoPrestador,
+            SimpleFieldsEnum::NFE_NUMBER => $this->numeroNfe,
+            SimpleFieldsEnum::VERIFICATION_CODE => $this->codigoVerificacao,
+            SimpleFieldsEnum::RPS_NUMBER => $this->numeroRPS,
+            SimpleFieldsEnum::RPS_SERIES => $this->serieRPS,
         ];
     }
 

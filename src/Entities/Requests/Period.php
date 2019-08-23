@@ -144,7 +144,7 @@ class Period implements UserRequest
 
     public function toArray()
     {
-       return [
+        return [
             SimpleFieldsEnum::CPF => $this->cpf,
             SimpleFieldsEnum::CNPJ => $this->cnpj,
             HeaderEnum::IM => $this->inscricaoMunicipal,
@@ -152,6 +152,6 @@ class Period implements UserRequest
             HeaderEnum::END_DATE => $this->dtFim,
             HeaderEnum::PAGE_NUMBER => $this->pagina,
             HeaderEnum::TRANSACTION => $this->transacao,
-       ];
+        ];
     }
 }

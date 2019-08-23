@@ -40,10 +40,6 @@ abstract class NfAbstract implements InputTransformer
             $header[HeaderEnum::END_DATE] = $header[HeaderEnum::START_DATE];
         }
 
-        if (isset($header[HeaderEnum::START_DATE]) && !isset($header[HeaderEnum::PAGE_NUMBER])) {
-            $header[HeaderEnum::PAGE_NUMBER] = 1;
-        }
-
         return [
             HeaderEnum::HEADER => $header
         ];
@@ -117,35 +113,39 @@ abstract class NfAbstract implements InputTransformer
         ];
     }
 
-    public function makeRPS(BaseInformation $information, $extraInformations)
+    public function makeRPS(BaseInformation $information, $rpsList)
     {
-        $rps = [
-            DetailEnum::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
-        ];
+        $rpsItens = [];
+        foreach ($rpsList as $extraInformations){
+            $rps = [
+                DetailEnum::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
+            ];
 
-        $rps = array_merge($rps, $this->makeRpsKey($extraInformations));
+            $rps = array_merge($rps, $this->makeRpsKey($extraInformations));
 
-        foreach (RpsEnum::simpleTypes() as $field) {
-            if (isset($extraInformations[$field]))
-                $rps[$field] = $extraInformations[$field];
+            foreach (RpsEnum::simpleTypes() as $field) {
+                if (isset($extraInformations[$field]))
+                    $rps[$field] = $extraInformations[$field];
+            }
+            // Taker
+            $rps[RpsEnum::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
+
+            foreach (RpsEnum::takerInformations() as $field) {
+                if (isset($extraInformations[$field]))
+                    $rps[$field] = $extraInformations[$field];
+            }
+            $rps[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
+
+            if (isset($extraInformations[RpsEnum::EMAIL_TAKER]))
+                $rps[RpsEnum::EMAIL_TAKER] = $extraInformations[RpsEnum::EMAIL_TAKER];
+
+            if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
+                $rps[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
+
+            $rpsItens[] = $rps;
         }
-        // Taker
-        $rps[RpsEnum::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
-
-        foreach (RpsEnum::takerInformations() as $field) {
-            if (isset($extraInformations[$field]))
-                $rps[$field] = $extraInformations[$field];
-        }
-        $rps[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
-
-        if (isset($extraInformations[RpsEnum::EMAIL_TAKER]))
-            $rps[RpsEnum::EMAIL_TAKER] = $extraInformations[RpsEnum::EMAIL_TAKER];
-
-        if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
-            $rps[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
-
         return [
-            RpsEnum::RPS => $rps,
+            RpsEnum::RPS => $rpsItens,
         ];
     }
 
