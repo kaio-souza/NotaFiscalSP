@@ -18,9 +18,10 @@ class DetailValidator
         foreach ($params as $key => $document) {
             if (
                 !General::getKey($document, SimpleFieldsEnum::NFE_NUMBER) &&
-                !General::getKey($document, SimpleFieldsEnum::RPS_NUMBER)
+                !General::getKey($document, SimpleFieldsEnum::RPS_NUMBER) &&
+                !General::getKey($document, SimpleFieldsEnum::NFTS_NUMBER)
             ) {
-                throw new RequiredDataMissing(SimpleFieldsEnum::NFE_NUMBER . ' or ' . SimpleFieldsEnum::RPS_NUMBER);
+                throw new RequiredDataMissing('Document Identification');
             }
 
             if (!General::getKey($document, SimpleFieldsEnum::IM_PROVIDER)) {

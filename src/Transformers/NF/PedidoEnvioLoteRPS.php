@@ -6,7 +6,7 @@ use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\Requests\Lot;
+use NotaFiscalSP\Entities\Requests\NF\Lot;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
 use NotaFiscalSP\Transformers\NfAbstract;

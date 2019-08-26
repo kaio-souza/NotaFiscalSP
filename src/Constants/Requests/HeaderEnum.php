@@ -7,6 +7,8 @@ class HeaderEnum
     const HEADER = 'Cabecalho';
     const VERSION = 'Versao';
     const CPFCNPJ_SENDER = 'CPFCNPJRemetente';
+    const CPFCNPJ_PROVIDER= 'CPFCNPJPrestador';
+    const SENDER = 'Remetente';
     const CPFCNPJ = 'CPFCNPJ';
     /**
      * @int
@@ -36,6 +38,7 @@ class HeaderEnum
      * @int
      */
     const RPS_COUNT = 'QtdRPS';
+    const NFTS_COUNT = 'QtdNFTS';
 
     /**
      * @money 00.00
@@ -57,6 +60,7 @@ class HeaderEnum
             HeaderEnum::END_DATE,
             HeaderEnum::PAGE_NUMBER,
             HeaderEnum::RPS_COUNT,
+            HeaderEnum::NFTS_COUNT,
             HeaderEnum::SERVICES_TOTAL,
             HeaderEnum::DEDUCTION_TOTAL,
         ];

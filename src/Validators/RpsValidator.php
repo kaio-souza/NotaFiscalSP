@@ -7,7 +7,7 @@ use NotaFiscalSP\Constants\Requests\DetailEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\Requests\Rps;
+use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\Helpers\Certificate;
 
 class RpsValidator

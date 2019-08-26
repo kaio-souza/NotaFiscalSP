@@ -1,9 +1,9 @@
 <?php
 
-namespace NotaFiscalSP\Entities\Requests;
+namespace NotaFiscalSP\Entities\Requests\NF;
 
-use NotaFiscalSP\Constants\FieldData\RPSStatus;
-use NotaFiscalSP\Constants\FieldData\RPSTaxType;
+use NotaFiscalSP\Constants\FieldData\Status;
+use NotaFiscalSP\Constants\FieldData\TaxType;
 use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
@@ -61,9 +61,9 @@ class Rps implements UserRequest
     public function __construct()
     {
         $this->setTipoRps(RPSType::RECIBO_PROVISORIO);
-        $this->setStatusRps(RPSStatus::NORMAL);
+        $this->setStatusRps(Status::NORMAL);
         $this->setDataEmissao(date('Y-m-d'));
-        $this->setTributacaoRps(RPSTaxType::IN_SP);
+        $this->setTributacaoRps(TaxType::IN_SP);
         $this->setValorDeducoes(0);
         $this->setValorServicos(0);
         $this->setIssRetido(false);

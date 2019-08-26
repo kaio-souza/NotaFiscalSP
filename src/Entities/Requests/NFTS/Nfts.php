@@ -1,10 +1,16 @@
 <?php
 
-namespace NotaFiscalSP\Entities\Requests;
+namespace NotaFiscalSP\Entities\Requests\NFTS;
 
+use NotaFiscalSP\Constants\FieldData\DocumentType;
+use NotaFiscalSP\Constants\FieldData\NFTSType;
+use NotaFiscalSP\Constants\FieldData\RegimeTributation;
+use NotaFiscalSP\Constants\FieldData\Status;
+use NotaFiscalSP\Constants\FieldData\TaxType;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
+use NotaFiscalSP\Helpers\General;
 
 class Nfts implements UserRequest
 {
@@ -13,6 +19,8 @@ class Nfts implements UserRequest
     private $statusNFTS;
     private $tributacaoNFTS;
     private $valorServicos;
+    private $serieNFTS;
+    private $numeroDocumento;
     private $valorDeducoes;
     private $codigoServico;
     private $codigoSubItem;
@@ -33,6 +41,52 @@ class Nfts implements UserRequest
     private $razaoSocialTomador;
     private $codigoCEI;
     private $matriculaObra;
+
+    public function __construct()
+    {
+        $this->setTipoNFTS(NFTSType::TAKER);
+        $this->setTributacaoNFTS(TaxType::IN_SP);
+        $this->setValorDeducoes(0);
+        $this->setValorServicos(0);
+        $this->setAliquotaServicos(0);
+        $this->setDataPrestacao(date('Y-m-d'));
+        $this->setTipoDocumento(DocumentType::WITHOUT_REQUIRED_EMISSION_FISCAL_DOCUMENT);
+        $this->setStatusNFTS(Status::NORMAL);
+        $this->setIssRetidoTomador(false);
+        $this->setRegimeTributacao(RegimeTributation::NORMAL);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSerieNFTS()
+    {
+        return $this->serieNFTS;
+    }
+
+    /**
+     * @param mixed $serieNFTS
+     */
+    public function setSerieNFTS($serieNFTS)
+    {
+        $this->serieNFTS = $serieNFTS;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroDocumento()
+    {
+        return $this->numeroDocumento;
+    }
+
+    /**
+     * @param mixed $numeroDocumento
+     */
+    public function setNumeroDocumento($numeroDocumento)
+    {
+        $this->numeroDocumento = $numeroDocumento;
+    }
 
     /**
      * @return mixed
@@ -63,7 +117,7 @@ class Nfts implements UserRequest
      */
     public function setDataPrestacao($dataPrestacao)
     {
-        $this->dataPrestacao = $dataPrestacao;
+        $this->dataPrestacao = General::filterDate($dataPrestacao);
     }
 
     /**
@@ -319,7 +373,7 @@ class Nfts implements UserRequest
      */
     public function setDataPagamento($dataPagamento)
     {
-        $this->dataPagamento = $dataPagamento;
+        $this->dataPagamento = General::filterDate($dataPagamento);
     }
 
     /**
@@ -440,6 +494,8 @@ class Nfts implements UserRequest
             NftsEnum::DOCUMENT_TYPE => $this->tipoDocumento,
             NftsEnum::DELIVERY_DATE => $this->dataPrestacao,
             NftsEnum::STATUS => $this->statusNFTS,
+            NftsEnum::NFTS_SERIES => $this->serieNFTS,
+            NftsEnum::DOCUMENT_NUMBER => $this->numeroDocumento,
             NftsEnum::NFTS_TAX => $this->tributacaoNFTS,
             NftsEnum::SERVICE_VALUE => $this->valorServicos,
             NftsEnum::DEDUCTIONS_VALUE => $this->valorDeducoes,

@@ -1,21 +1,23 @@
 <?php
 
-namespace NotaFiscalSP\Entities\Requests;
+namespace NotaFiscalSP\Entities\Requests\NFTS;
 
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
+use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\Helpers\General;
 
-class Lot implements UserRequest
+class NftsLot implements UserRequest
 {
     private $transacao;
     private $dtInicio;
     private $dtFim;
-    private $qtdRPS;
+    private $qtdNFTS;
     private $valorTotalServicos;
     private $valorTotalDeducoes;
-    private $rpsList;
+    private $nftsList;
 
     public function __construct()
     {
@@ -91,17 +93,17 @@ class Lot implements UserRequest
     /**
      * @return mixed
      */
-    public function getQtdRPS()
+    public function getQtdNFTS()
     {
-        return $this->qtdRPS;
+        return $this->qtdNFTS;
     }
 
     /**
-     * @param mixed $qtdRPS
+     * @param mixed $qtdNFTS
      */
-    public function setQtdRPS($qtdRPS)
+    public function setQtdNFTS($qtdNFTS)
     {
-        $this->qtdRPS = $qtdRPS;
+        $this->qtdNFTS = $qtdNFTS;
     }
 
     /**
@@ -123,31 +125,31 @@ class Lot implements UserRequest
     /**
      * @return mixed
      */
-    public function getRpsList()
+    public function getNftsList()
     {
-        return $this->rpsList;
+        return $this->nftsList;
     }
 
     /**
-     * @param mixed $rpsList
+     * @param mixed $nftsList
      */
-    public function setRpsList(array $rpsList)
+    public function setNftsList(array $nftsList)
     {
         $valorTotalServicos = 0;
         $valorTotalDeducoes = 0;
 
-        foreach ($rpsList as $rps) {
-            if ($rps instanceof Rps) {
-                $valorTotalServicos = $valorTotalServicos + $rps->getValorServicos();
-                $valorTotalDeducoes = $valorTotalDeducoes + $rps->getValorDeducoes();
+        foreach ($nftsList as $nfts) {
+            if ($nfts instanceof Nfts) {
+                $valorTotalServicos = $valorTotalServicos + $nfts->getValorServicos();
+                $valorTotalDeducoes = $valorTotalDeducoes + $nfts->getValorDeducoes();
             }
         }
 
-        $this->qtdRPS = count($rpsList);
+        $this->qtdNFTS = count($nftsList);
         $this->setValorTotalServicos($valorTotalServicos);
         $this->setValorTotalDeducoes($valorTotalDeducoes);
 
-        $this->rpsList = $rpsList;
+        $this->nftsList = $nftsList;
     }
 
     public function toArray()
@@ -156,10 +158,10 @@ class Lot implements UserRequest
             HeaderEnum::TRANSACTION => $this->transacao,
             HeaderEnum::START_DATE => $this->dtInicio,
             HeaderEnum::END_DATE => $this->dtFim,
-            HeaderEnum::RPS_COUNT => $this->qtdRPS,
+            HeaderEnum::RPS_COUNT => $this->qtdNFTS,
             HeaderEnum::SERVICES_TOTAL => $this->valorTotalServicos,
             HeaderEnum::DEDUCTION_TOTAL => $this->valorTotalDeducoes,
-            RpsEnum::RPS => $this->rpsList,
+            NftsEnum::NFTS => $this->nftsList,
         ];
     }
 }

@@ -25,4 +25,16 @@ class Xml
         ], true, 'UTF-8');
     }
 
+    public static function makeNFTSRequestXML($endPoint, $request)
+    {
+        return ArrayToXml::convert($request, [
+            'rootElementName' => 'p1:Pedido' . $endPoint,
+            '_attributes' => [
+                'xmlns:p1' => 'http://www.prefeitura.sp.gov.br/nfts',
+                'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+                'xmlns:xsd' => 'http://www.w3.org/2001/XMLSchema',
+            ],
+        ], true, 'UTF-8');
+    }
+
 }

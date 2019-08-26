@@ -1,6 +1,6 @@
 <?php
 
-namespace NotaFiscalSP\Entities\Requests;
+namespace NotaFiscalSP\Entities\Requests\NF;
 
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;

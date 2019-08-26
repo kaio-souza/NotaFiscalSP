@@ -124,8 +124,26 @@ class NotaFiscal
      */
     public function checkNfts($params)
     {
-        return $this->nftsService->checkAsyncLot($this->baseInformation, $params);
+        return $this->nftsService->getNfts($this->baseInformation, $params);
     }
 
+    public function nftsLotInformation($params = [])
+    {
+        return $this->nftsService->lotInformation($this->baseInformation, $params);
+    }
+
+    public function checkNftsLot($lotNumber)
+    {
+        return $this->nftsService->getLot($this->baseInformation, $lotNumber);
+    }
+
+    public function checkEmission($params = null)
+    {
+        return $this->nftsService->checkEmission($this->baseInformation, $params);
+    }
+    public function testLotNFTS($params = null)
+    {
+        return $this->nftsService->testLotNFTS($this->baseInformation, $params);
+    }
 
 }

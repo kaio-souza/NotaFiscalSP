@@ -14,18 +14,18 @@ use NotaFiscalSP\Validators\DetailValidator;
 class PedidoCancelamentoNFe extends NfAbstract
 {
 
-    public function makeXmlRequest(BaseInformation $information, $documents)
+    public function makeXmlRequest(BaseInformation $information, $params)
     {
-        $documents = DetailValidator::queryDetail($information, $documents);
+        $params = DetailValidator::queryDetail($information, $params);
         $header = $this->makeHeader($information, [
             HeaderEnum::CPFCNPJ_SENDER => true,
             HeaderEnum::TRANSACTION => 'false'
         ]);
 
-        foreach ($documents as $key => $document) {
-            $documents[$key][DetailEnum::CANCELLATION_SIGN] = Certificate::cancelSignatureString($document);
+        foreach ($params as $key => $document) {
+            $params[$key][DetailEnum::CANCELLATION_SIGN] = Certificate::cancelSignatureString($document);
         }
-        $detail = $this->makeDetail($information, $documents);
+        $detail = $this->makeDetail($information, $params);
 
         $request = array_merge($header, $detail);
 

@@ -4,10 +4,12 @@ namespace NotaFiscalSP\Constants\Requests;
 
 class NftsEnum
 {
+    const NFTS = 'NFTS';
     const DOCUMENT_TYPE = 'TipoDocumento';
     const DOCUMENT_KEY = 'ChaveDocumento';
     const IM = 'InscricaoMunicipal';
     const DELIVERY_DATE = 'DataPrestacao';
+    const DOCUMENT_NUMBER = 'NumeroDocumento';
     const STATUS = 'StatusNFTS';
     const NFTS_TAX = 'TributacaoNFTS';
     const SERVICE_VALUE = 'ValorServicos';
@@ -15,6 +17,7 @@ class NftsEnum
     const SERVICE_CODE = 'CodigoServico';
     const SUB_ITEM_CODE = 'CodigoSubItem';
     const SERVICE_TAX = 'AliquotaServicos';
+    const NFTS_SERIES = 'SerieNFTS';
     const ISS_TAKER = 'ISSRetidoTomador';
     const ISS_INTERMEDIARY = 'ISSRetidoIntermediario';
     const IGNORES_LAW_1572016 = 'DescumpreLeiComplementar1572016';

@@ -138,7 +138,7 @@ Verifica o sucesso da operação realizada
   $response->getSuccess();
 ```
 
-## Classe Nf (NotaFiscalSP\Entities\Requests\Nf)
+## Classe NfSearch (NotaFiscalSP\Entities\Requests\NF\NfSearch)
 É a classe utilizada para referenciar uma Nota Fiscal já Existente, não é necessário preencher todas propriedades, apenas o NumeroNfe é o suficiente.
    
 |          **Propriedade**           |          **Método**         |   **Tipo**   |
@@ -150,7 +150,7 @@ Verifica o sucesso da operação realizada
 |              SerieRPS              |        setSerieRPS()        |    string    |
 
 
-## Classe Period (NotaFiscalSP\Entities\Requests\Period)
+## Classe Period (NotaFiscalSP\Entities\Requests\NF\Period)
 Utilizada na realização de consultas por periodo nas notas Emitidas e Recebidas, caso não altere nenhuma das propriedades retorna uma busca com os valores Padrões para data Atual
 
 |         **Propriedade**           |          **Método**           |   **Tipo**   |    ** Observações**    |
@@ -163,7 +163,7 @@ Utilizada na realização de consultas por periodo nas notas Emitidas e Recebida
 |               Pagina              |          setPagina()          |      int     |                        |
 |             Transacao             |         setTransacao()        |    boolean   |                        |
 
-## Classe Rps (NotaFiscalSP\Entities\Requests\Rps)
+## Classe Rps (NotaFiscalSP\Entities\Requests\NF\Rps)
 Objeto utilizado para emissão de novas notas
 
 |         **Propriedade**           |              **Método**              |   **Tipo**   |       ** Observações**       |

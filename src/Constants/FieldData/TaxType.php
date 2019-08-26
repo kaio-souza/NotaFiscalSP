@@ -1,7 +1,7 @@
 <?php
 namespace NotaFiscalSP\Constants\FieldData;
 
-class RPSTaxType{
+class TaxType{
     // Tributação no municipio de São Paulo;
     const IN_SP = 'T';
 

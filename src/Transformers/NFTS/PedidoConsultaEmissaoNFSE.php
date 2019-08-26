@@ -11,18 +11,20 @@ use NotaFiscalSP\Transformers\NfAbstract;
 use NotaFiscalSP\Transformers\NftsAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
 
-class  PedidoConsultaNFTS extends NftsAbstract
+class  PedidoConsultaEmissaoNFSE extends NftsAbstract
 {
     public function makeXmlRequest(BaseInformation $information, $params)
     {
-        $params = DetailValidator::queryDetail($information, $params);
+
         $header = $this->makeHeader($information, [
             HeaderEnum::SENDER => true,
         ]);
 
-        $detail = $this->makeDetail($information, $params);
+        $detail = $this->makeDetailEmission($information, $params);
+
         $request = array_merge($header, $detail);
-        return Xml::makeNFTSRequestXML(NftsMethods::CONSULTA, $request);
+
+        return Xml::makeNFTSRequestXML('ConsultaEmissaoNFSE', $request);
     }
 
 }

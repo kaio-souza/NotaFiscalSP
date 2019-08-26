@@ -30,6 +30,7 @@ class SimpleFieldsEnum
     const PROTOCOL_NUMBER = 'NumeroProtocolo';
     const EMISSION_TYPE = 'TipoEmissaoGuia';
     const PAYMENT_DATE = 'DataPagamento';
+    const LOT_NUMBER = 'NumeroLote';
 
     public static function addressFields()
     {
