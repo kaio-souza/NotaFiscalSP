@@ -29,4 +29,32 @@ class NftsEnum
     const TAKER = 'Tomador';
     const CEI_CODE = 'CodigoCEI';
     const WORK_REGISTRATION = 'MatriculaObra';
+
+    public static function simpleTypes(){
+        return [
+            NftsEnum::DELIVERY_DATE,
+            NftsEnum::STATUS,
+            NftsEnum::NFTS_TAX,
+            NftsEnum::SERVICE_VALUE,
+            NftsEnum::DEDUCTIONS_VALUE,
+            NftsEnum::SERVICE_CODE,
+            NftsEnum::SUB_ITEM_CODE,
+            NftsEnum::SERVICE_TAX,
+            NftsEnum::ISS_TAKER,
+            NftsEnum::ISS_INTERMEDIARY,
+            NftsEnum::IGNORES_LAW_1572016,
+
+        ];
+    }
+    public static function otherSimpleTypes(){
+            return [
+                NftsEnum::TAXATION_REGIME,
+                NftsEnum::PAYMENT_DATE,
+                NftsEnum::DISCRIMINATION,
+                NftsEnum::TYPE,
+                NftsEnum::TAKER,
+                NftsEnum::CEI_CODE,
+                NftsEnum::WORK_REGISTRATION,
+            ];
+    }
 }

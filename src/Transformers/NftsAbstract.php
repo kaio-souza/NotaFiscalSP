@@ -5,6 +5,7 @@ namespace NotaFiscalSP\Transformers;
 use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
 use NotaFiscalSP\Constants\Requests\DetailEnum;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
@@ -119,17 +120,22 @@ abstract class NftsAbstract implements InputTransformer
         $nftsItens = [];
         foreach ($nftsList as $extraInformations){
             $nfts = [
-                DetailEnum::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
+                NftsEnum::DOCUMENT_TYPE => General::getKey($extraInformations,NftsEnum::DOCUMENT_TYPE)
             ];
 
-            $nfts = array_merge($nfts, $this->makeRpsKey($extraInformations));
+            $nfts[NftsEnum::DOCUMENT_KEY] = $this->makeDocumentKeyParams($extraInformations);
 
-            foreach (RpsEnum::simpleTypes() as $field) {
+            foreach (NftsEnum::simpleTypes() as $field) {
                 if (isset($extraInformations[$field]))
                     $nfts[$field] = $extraInformations[$field];
             }
             // Taker
-            $nfts[RpsEnum::CPFCNPJ_TAKER] = $this->makeCPFCNPJTaker($extraInformations);
+            $nfts[NftsEnum::PROVIDER] = $this->makeProvider($extraInformations);
+
+            foreach (NftsEnum::otherSimpleTypes() as $field) {
+                if (isset($extraInformations[$field]))
+                    $nfts[$field] = $extraInformations[$field];
+            }
 
             foreach (RpsEnum::takerInformations() as $field) {
                 if (isset($extraInformations[$field]))
@@ -143,15 +149,31 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $nfts[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
+            $nfts[DetailEnum::SIGN] = Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
+
             $nftsItens[] = $nfts;
         }
         return [
-            RpsEnum::RPS => $nftsItens,
+            NftsEnum::NFTS => $nftsItens,
         ];
     }
 
-    public function makeDocumentKey($extraInformation){
+    public function makeDocumentKeyParams($extraInformation){
+        $params = [];
 
+        if(General::getKey($extraInformation, DetailEnum::IM))
+            $params[DetailEnum::IM] = General::getKey($extraInformation, DetailEnum::IM);
+
+        if(General::getKey($extraInformation, NftsEnum::NFTS_SERIES))
+            $params[NftsEnum::NFTS_SERIES] = General::getKey($extraInformation, NftsEnum::NFTS_SERIES);
+
+        if(General::getKey($extraInformation, NftsEnum::DOCUMENT_NUMBER))
+            $params[NftsEnum::DOCUMENT_NUMBER] = General::getKey($extraInformation, NftsEnum::DOCUMENT_NUMBER);
+
+        return $params;
     }
 
+    public function makeProvider($extraInformations){
+        return [];
+    }
 }
