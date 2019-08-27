@@ -24,23 +24,20 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
 Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
 
 ```php
-$response = $nf->cnpjInfo();
+$response = $nfSP->cnpjInfo();
 ```
 ## Obtendo Informações Basicas do Lote
 Retorna apeas informações básicas como horário de envio do lote
 
 ```php
-$response = $nf->informacaoLote();
+$response = $nfSP->informacaoLote();
 ```
 
 ## Consultando Nota Fiscal
 Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$nf = new Nf();
-$nf->setNumeroNfe(255);
-
-$response = $nf->consultarNota($nf);
+$response = $nfSP->consultarNota('00056');
 ```
 
 ## Consultando Notas Fiscais Recebidas por Periodo
@@ -52,7 +49,7 @@ $period->setDtInicio('2019-08-05');
 $period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
-$response = $nf->notasRecebidas($period);
+$response = $nfSP->notasRecebidas($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -67,7 +64,7 @@ $period->setDtInicio('2019-08-05');
 $period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
-$response = $nf->notasEmitidas($period);
+$response = $nfSP->notasEmitidas($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -77,17 +74,14 @@ $response = $nf->notasEmitidas($period);
 Retorna Informações detalhadas de um lote especifico
 
 ```php
-$response = $nf->consultarLote(356);
+$response = $nfSP->consultarLote(356);
 ```
 
 ## Cancelando Nota Fiscal
 Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
-$nf = new Nf();
-$nf->setNumeroNfe(255);
-
-$response = $nf->cancelarNota($nf);
+$response = $nfSP->cancelarNota('00568');
 ```
 
 ## emmitNf 
@@ -110,7 +104,7 @@ $rps->setCep('00000000');
 $rps->setEmailTomador('teste@teste.com.br');
 $rps->setDiscriminacao('Teste Emissão de Notas pela API');
 
-$response =  $nf->enviarNota($rps);
+$response =  $nfSP->enviarNota($rps);
 ```
 
 # Métodos Básicos do Response

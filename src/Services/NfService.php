@@ -7,9 +7,11 @@ use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\Methods\NfAsyncMethods;
 use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\Requests\NF\NfSearch;
 use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
 use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
 use NotaFiscalSP\Factories\WsdlFactory;
@@ -71,6 +73,9 @@ class NfService
 
     public function getNf(BaseInformation $baseInformation, $params)
     {
+        if(!is_array($params) && !$params instanceof NfSearch)
+            $params = [SimpleFieldsEnum::NFE_NUMBER => $params];
+
         $builder = new PedidoConsultaNFe();
         return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA, $builder);
     }
@@ -90,6 +95,9 @@ class NfService
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
+        if(!is_array($params) && !$params instanceof NfSearch)
+            $params = [SimpleFieldsEnum::NFE_NUMBER => $params];
+
         $builder = new PedidoCancelamentoNFe();
         return $this->processRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $builder);
     }
