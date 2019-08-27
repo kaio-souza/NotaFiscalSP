@@ -54,7 +54,6 @@ class NfService
     {
         // Check Output Type
         $outputClass = !empty($outputClass) ? $outputClass : $this->response;
-
         $params = General::convertUserRequest($params);
 
         //  File Without Signature

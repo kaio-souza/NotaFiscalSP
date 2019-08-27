@@ -28,59 +28,59 @@ class NotaFiscal
 
         // Case 'IM' not Defined, get from API
         if (!$this->baseInformation->getIm())
-            $this->baseInformation->setIm($this->cnpjInformation());
+            $this->baseInformation->setIm($this->cnpjInfo());
     }
 
     /**
      *  NF METHODS
      */
 
-    public function cnpjInformation()
+    public function cnpjInfo()
     {
         return $this->nfService->checkCNPJ($this->baseInformation);
     }
 
-    public function checkNf($params)
+    public function consultarNf($params)
     {
         return $this->nfService->getNf($this->baseInformation, $params);
     }
 
-    public function lotInformation($params = [])
+    public function informacaoLote($params = [])
     {
         return $this->nfService->lotInformation($this->baseInformation, $params);
     }
 
-    public function checkLot($lotNumber)
+    public function consultarLote($lotNumber)
     {
         return $this->nfService->getLot($this->baseInformation, $lotNumber);
     }
 
-    public function nfIssued($params)
+    public function notasEmitidas($params)
     {
         return $this->nfService->getIssued($this->baseInformation, $params);
     }
 
-    public function nfReceived($params)
+    public function notasRecebidas($params)
     {
         return $this->nfService->getReceived($this->baseInformation, $params);
     }
 
-    public function cancelNf($params)
+    public function cancelarNota($params)
     {
         return $this->nfService->cancelNf($this->baseInformation, $params);
     }
 
-    public function sendNf($params)
+    public function enviarNota($params)
     {
         return $this->nfService->sendNf($this->baseInformation, $params);
     }
 
-    public function sendLot($params)
+    public function enviarLote($params)
     {
         return $this->nfService->sendLot($this->baseInformation, $params);
     }
 
-    public function testSendLot($params)
+    public function testeEnviarLote($params)
     {
         return $this->nfService->testSendLot($this->baseInformation, $params);
     }
@@ -89,32 +89,32 @@ class NotaFiscal
      *  ASYNC NF METHODS
      */
 
-    public function testSendAsyncLot($params)
+    public function testeEnviarLoteAsync($params)
     {
         return $this->nfService->testSendAsyncLot($this->baseInformation, $params);
     }
 
-    public function sendAsyncLot($params)
+    public function enviarLoteAsync($params)
     {
         return $this->nfService->sendAsyncLot($this->baseInformation, $params);
     }
 
-    public function makeReceiptAsync($params)
+    public function emitirGuiaAsync($params)
     {
         return $this->nfService->makeReceiptAsync($this->baseInformation, $params);
     }
 
-    public function checkReceiptSituation($params)
+    public function consultarSituacaoGuia($params)
     {
         return $this->nfService->checkReceiptSituation($this->baseInformation, $params);
     }
 
-    public function checkReceipt($params)
+    public function consultarGuia($params)
     {
         return $this->nfService->checkReceipt($this->baseInformation, $params);
     }
 
-    public function checkAsyncLot($params)
+    public function consultarLoteAsync($params)
     {
         return $this->nfService->checkAsyncLot($this->baseInformation, $params);
     }
@@ -122,26 +122,26 @@ class NotaFiscal
     /**
      *  NFTS
      */
-    public function checkNfts($params)
+    public function consultarNfts($params)
     {
         return $this->nftsService->getNfts($this->baseInformation, $params);
     }
 
-    public function nftsLotInformation($params = [])
+    public function informacaLoteNfts($params = [])
     {
         return $this->nftsService->lotInformation($this->baseInformation, $params);
     }
 
-    public function checkNftsLot($lotNumber)
+    public function consultarLoteNfts($lotNumber)
     {
         return $this->nftsService->getLot($this->baseInformation, $lotNumber);
     }
 
-    public function checkEmission($params = null)
+    public function consultarAutorizacaoEmissao($params = null)
     {
         return $this->nftsService->checkEmission($this->baseInformation, $params);
     }
-    public function testLotNFTS($params = null)
+    public function testeLoteNfts($params = null)
     {
         return $this->nftsService->testLotNFTS($this->baseInformation, $params);
     }

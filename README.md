@@ -24,13 +24,13 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
 Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
 
 ```php
-$response = $nf->cnpjInformation();
+$response = $nf->cnpjInfo();
 ```
 ## Obtendo Informações Basicas do Lote
 Retorna apeas informações básicas como horário de envio do lote
 
 ```php
-$response = $nf->lotInformation();
+$response = $nf->informacaoLote();
 ```
 
 ## Consultando Nota Fiscal
@@ -40,7 +40,7 @@ Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requ
 $nf = new Nf();
 $nf->setNumeroNfe(255);
 
-$response = $nf->getNf($nf);
+$response = $nf->consultarNota($nf);
 ```
 
 ## Consultando Notas Fiscais Recebidas por Periodo
@@ -52,7 +52,7 @@ $period->setDtInicio('2019-08-05');
 $period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
-$response = $nf->nfReceived($period);
+$response = $nf->notasRecebidas($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -67,7 +67,7 @@ $period->setDtInicio('2019-08-05');
 $period->setDtFim('2019-08-10');
 $period->setPagina(2);
 
-$response = $nf->nfReceived($period);
+$response = $nf->notasEmitidas($period);
 ```
 ***- Caso não insira a data Final, serão retornados somente registros da data inicial***
 
@@ -77,7 +77,7 @@ $response = $nf->nfReceived($period);
 Retorna Informações detalhadas de um lote especifico
 
 ```php
-$response = $nf->getLot(356);
+$response = $nf->consultarLote(356);
 ```
 
 ## Cancelando Nota Fiscal
@@ -87,7 +87,7 @@ Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 $nf = new Nf();
 $nf->setNumeroNfe(255);
 
-$response = $nf->cancelNf($nf);
+$response = $nf->cancelarNota($nf);
 ```
 
 ## emmitNf 
@@ -110,7 +110,7 @@ $rps->setCep('00000000');
 $rps->setEmailTomador('teste@teste.com.br');
 $rps->setDiscriminacao('Teste Emissão de Notas pela API');
 
-$response =  $nf->emmitNf($rps);
+$response =  $nf->enviarNota($rps);
 ```
 
 # Métodos Básicos do Response

@@ -4,7 +4,7 @@ namespace NotaFiscalSP\Responses;
 
 class CnpjInformationResponse extends BaseResponse
 {
-    // Status CNPJ (Enabled to sendNf NFe?)
+    // Status CNPJ (Enabled to enviarNota NFe?)
     public $status;
     // Inscrição Municipal
     public $im;
