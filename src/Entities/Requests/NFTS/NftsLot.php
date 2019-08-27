@@ -2,6 +2,7 @@
 
 namespace NotaFiscalSP\Entities\Requests\NFTS;
 
+use NotaFiscalSP\Constants\FieldData\BooleanFields;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
@@ -21,7 +22,7 @@ class NftsLot implements UserRequest
 
     public function __construct()
     {
-        $this->setTransacao(true);
+        $this->setTransacao('true');
         $this->setDtInicio(date('Y-m-d'));
         $this->setDtFim(date('Y-m-d'));
     }
@@ -55,7 +56,7 @@ class NftsLot implements UserRequest
      */
     public function setTransacao($transacao)
     {
-        $this->transacao = $transacao;
+        $this->transacao = $transacao ? 'true' : 'false';
     }
 
     /**
@@ -158,7 +159,7 @@ class NftsLot implements UserRequest
             HeaderEnum::TRANSACTION => $this->transacao,
             HeaderEnum::START_DATE => $this->dtInicio,
             HeaderEnum::END_DATE => $this->dtFim,
-            HeaderEnum::RPS_COUNT => $this->qtdNFTS,
+            HeaderEnum::NFTS_COUNT => $this->qtdNFTS,
             HeaderEnum::SERVICES_TOTAL => $this->valorTotalServicos,
             HeaderEnum::DEDUCTION_TOTAL => $this->valorTotalDeducoes,
             NftsEnum::NFTS => $this->nftsList,

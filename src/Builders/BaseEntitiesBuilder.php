@@ -1,12 +1,12 @@
 <?php
 
-namespace NotaFiscalSP\Factories;
+namespace NotaFiscalSP\Builders;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
 
-class BaseEntitiesFactory
+class BaseEntitiesBuilder
 {
     public static function makeBaseInformation($params)
     {

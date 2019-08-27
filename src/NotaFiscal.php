@@ -2,7 +2,7 @@
 
 namespace NotaFiscalSP;
 
-use NotaFiscalSP\Factories\BaseEntitiesFactory;
+use NotaFiscalSP\Builders\BaseEntitiesBuilder;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -21,7 +21,7 @@ class NotaFiscal
     {
         // Validate Params
         BaseInformationValidator::basic($options);
-        $this->baseInformation = BaseEntitiesFactory::makeBaseInformation($options);
+        $this->baseInformation = BaseEntitiesBuilder::makeBaseInformation($options);
 
         $this->nfService = new NfService;
         $this->nftsService = new NftsService;

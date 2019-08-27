@@ -1,10 +1,10 @@
 <?php
 
-namespace NotaFiscalSP\Factories;
+namespace NotaFiscalSP\Builders;
 
 use NotaFiscalSP\Entities\WsdlBase;
 
-class WsdlFactory
+class WsdlBuilder
 {
     public static function make($endpoint)
     {

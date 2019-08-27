@@ -22,6 +22,8 @@ class NftsEnum
     const ISS_INTERMEDIARY = 'ISSRetidoIntermediario';
     const IGNORES_LAW_1572016 = 'DescumpreLeiComplementar1572016';
     const PROVIDER = 'Prestador';
+    const CPF_PROVIDER = 'CPF';
+    const CNPJ_PROVIDER = 'CNPJ';
     const TAXATION_REGIME = 'RegimeTributacao';
     const DISCRIMINATION = 'Discriminacao';
     const TYPE = 'TipoNFTS';

@@ -12,6 +12,7 @@ class SimpleFieldsEnum
     const CPF_INTERMEDIARY = 'CPFIntermediario';
     const CNPJ_INTERMEDIARY = 'CNPJIntermediario';
     const IM_PROVIDER = 'InscricaoPrestador';
+    const CORPORATE_NAME_PROVIDER = 'RazaoSocialPrestador';
     const RPS_SERIES = 'SerieRPS';
     const RPS_NUMBER = 'NumeroRPS';
     const NFE_NUMBER = 'NumeroNFe';
@@ -24,6 +25,7 @@ class SimpleFieldsEnum
     const NEIGHBORHOOD = 'Bairro';
     const CITY = 'Cidade';
     const STATE = 'UF';
+    const EMAIL = 'Email';
     const ZIP_CODE = 'CEP';
     const INCIDENCE = 'Incidencia';
     const SITUATION = 'Situacao';

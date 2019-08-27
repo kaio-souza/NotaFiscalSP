@@ -1,6 +1,6 @@
 <?php
 
-namespace NotaFiscalSP\Builders\NF;
+namespace NotaFiscalSP\Builders\NFTS;
 
 use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Constants\Methods\NftsMethods;
@@ -20,9 +20,6 @@ class PedidoEnvioLoteNFTS extends NftsAbstract
 
     public function makeXmlRequest(BaseInformation $information, $lot)
     {
-        if ($lot instanceof Lot)
-            $lot = $lot->toArray();
-
         $documents = NftsValidator::validateRequest($information, General::getKey($lot, NftsEnum::NFTS));
         $header = $this->makeHeader($information, [
             HeaderEnum::SENDER => true,

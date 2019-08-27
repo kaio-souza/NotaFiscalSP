@@ -12,9 +12,9 @@ use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\Requests\NF\NfSearch;
-use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
-use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
-use NotaFiscalSP\Factories\WsdlFactory;
+use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
+use NotaFiscalSP\Builders\Responses\CnpjInformationFactory;
+use NotaFiscalSP\Builders\WsdlBuilder;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaGuia;
 use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaSituacaoGuia;
@@ -37,8 +37,8 @@ class NfService
 
     public function __construct()
     {
-        $this->nfEndPoint = WsdlFactory::make(Endpoints::NF);
-        $this->nfAsyncEndPoint = WsdlFactory::make(Endpoints::NF_ASYNC);
+        $this->nfEndPoint = WsdlBuilder::make(Endpoints::NF);
+        $this->nfAsyncEndPoint = WsdlBuilder::make(Endpoints::NF_ASYNC);
         $this->response = new BasicTransformerResponse();
     }
 

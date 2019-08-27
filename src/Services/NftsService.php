@@ -2,6 +2,7 @@
 
 namespace NotaFiscalSP\Services;
 
+use NotaFiscalSP\Builders\NFTS\PedidoEnvioLoteNFTS;
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\Methods\NftsMethods;
@@ -10,8 +11,8 @@ use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Contracts\UserRequest;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
-use NotaFiscalSP\Factories\WsdlFactory;
+use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
+use NotaFiscalSP\Builders\WsdlBuilder;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Builders\NFTS\PedidoConsultaEmissaoNFSE;
 use NotaFiscalSP\Builders\NFTS\PedidoConsultaInformacoesLoteNFTS;
@@ -25,7 +26,7 @@ class NftsService
 
     public function __construct()
     {
-        $this->endPoint = WsdlFactory::make(Endpoints::NFTS);;
+        $this->endPoint = WsdlBuilder::make(Endpoints::NFTS);;
         $this->response = new BasicTransformerResponse();
     }
 
@@ -80,10 +81,7 @@ class NftsService
 
     public function testLotNfts(BaseInformation $baseInformation, $params)
     {
-        if ($params instanceof UserRequest)
-            $params = $params->toArray();
-
-        $builder = new PedidoConsultaEmissaoNFSE();
+        $builder = new PedidoEnvioLoteNFTS();
         return $this->processRequest($baseInformation, $params, NftsMethods::TESTE_ENVIO_LOTE, $builder);
     }
 }

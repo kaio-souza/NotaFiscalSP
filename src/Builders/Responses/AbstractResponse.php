@@ -1,6 +1,6 @@
 <?php
 
-namespace NotaFiscalSP\Factories\Responses;
+namespace NotaFiscalSP\Builders\Responses;
 
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Helpers\General;

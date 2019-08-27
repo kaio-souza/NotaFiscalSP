@@ -33,7 +33,7 @@ class NftsValidator
                 $item[NftsEnum::ISS_INTERMEDIARY] = $item[NftsEnum::ISS_INTERMEDIARY] ? 'true' : 'false';
 
             $item[NftsEnum::DOCUMENT_KEY] = true;
-            $item[DetailEnum::SIGN] = Certificate::rpsSignatureString($item);
+            $item[DetailEnum::SIGN] = Certificate::makeNftsSignature($item);
             $nftsOk[] = $item;
         }
         return $nftsOk;

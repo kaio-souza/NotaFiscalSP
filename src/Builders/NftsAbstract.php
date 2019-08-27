@@ -17,6 +17,7 @@ abstract class NftsAbstract implements InputTransformer
 {
     public function makeHeader(BaseInformation $information, $extraInformations)
     {
+
         $header = [
             '_attributes' => [
                 HeaderEnum::VERSION => 1
@@ -141,7 +142,7 @@ abstract class NftsAbstract implements InputTransformer
                 if (isset($extraInformations[$field]))
                     $nfts[$field] = $extraInformations[$field];
             }
-            $nfts[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
+//            $nfts[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
 
             if (isset($extraInformations[RpsEnum::EMAIL_TAKER]))
                 $nfts[RpsEnum::EMAIL_TAKER] = $extraInformations[RpsEnum::EMAIL_TAKER];
@@ -149,7 +150,8 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $nfts[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
-            $nfts[DetailEnum::SIGN] = Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
+           //$nfts[DetailEnum::SIGN] = Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
+           $nfts[DetailEnum::SIGN] = General::getPath($extraInformations, DetailEnum::SIGN);
 
             $nftsItens[] = $nfts;
         }
