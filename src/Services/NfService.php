@@ -14,18 +14,18 @@ use NotaFiscalSP\Factories\Responses\BasicTransformerResponse;
 use NotaFiscalSP\Factories\Responses\CnpjInformationFactory;
 use NotaFiscalSP\Factories\WsdlFactory;
 use NotaFiscalSP\Helpers\General;
-use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaGuia;
-use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaSituacaoGuia;
-use NotaFiscalSP\Transformers\AsyncNF\PedidoConsultaSituacaoLote;
-use NotaFiscalSP\Transformers\AsyncNF\PedidoEmissaoGuiaAsync;
-use NotaFiscalSP\Transformers\NF\PedidoCancelamentoNFe;
-use NotaFiscalSP\Transformers\NF\PedidoConsultaCNPJ;
-use NotaFiscalSP\Transformers\NF\PedidoConsultaLote;
-use NotaFiscalSP\Transformers\NF\PedidoConsultaNFe;
-use NotaFiscalSP\Transformers\NF\PedidoConsultaNFePeriodo;
-use NotaFiscalSP\Transformers\NF\PedidoEnvioLoteRPS;
-use NotaFiscalSP\Transformers\NF\PedidoEnvioRPS;
-use NotaFiscalSP\Transformers\NF\PedidoInformacoesLote;
+use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaGuia;
+use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaSituacaoGuia;
+use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaSituacaoLote;
+use NotaFiscalSP\Builders\AsyncNF\PedidoEmissaoGuiaAsync;
+use NotaFiscalSP\Builders\NF\PedidoCancelamentoNFe;
+use NotaFiscalSP\Builders\NF\PedidoConsultaCNPJ;
+use NotaFiscalSP\Builders\NF\PedidoConsultaLote;
+use NotaFiscalSP\Builders\NF\PedidoConsultaNFe;
+use NotaFiscalSP\Builders\NF\PedidoConsultaNFePeriodo;
+use NotaFiscalSP\Builders\NF\PedidoEnvioLoteRPS;
+use NotaFiscalSP\Builders\NF\PedidoEnvioRPS;
+use NotaFiscalSP\Builders\NF\PedidoInformacoesLote;
 
 class NfService
 {
@@ -45,12 +45,12 @@ class NfService
      */
     public function checkCNPJ(BaseInformation $baseInformation)
     {
-        $transformer = new PedidoConsultaCNPJ;
+        $builder = new PedidoConsultaCNPJ;
         $outputClass = new CnpjInformationFactory;
-        return $this->processRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $transformer, $outputClass);
+        return $this->processRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $builder, $outputClass);
     }
 
-    private function processRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
+    private function processRequest(BaseInformation $information, $params, $method, InputTransformer $builder, OutputClass $outputClass = null)
     {
         // Check Output Type
         $outputClass = !empty($outputClass) ? $outputClass : $this->response;
@@ -58,7 +58,7 @@ class NfService
         $params = General::convertUserRequest($params);
 
         //  File Without Signature
-        $file = $transformer->makeXmlRequest($information, $params);
+        $file = $builder->makeXmlRequest($information, $params);
 
         //Set Input file and sign
         $information->setXml($file);
@@ -72,75 +72,75 @@ class NfService
 
     public function getNf(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaNFe();
-        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA, $transformer);
+        $builder = new PedidoConsultaNFe();
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA, $builder);
     }
 
     public function lotInformation(BaseInformation $baseInformation, $params = [])
     {
-        $transformer = new PedidoInformacoesLote();
-        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $transformer);
+        $builder = new PedidoInformacoesLote();
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_INFORMACOES_LOTE, $builder);
     }
 
     public function getLot(BaseInformation $baseInformation, $lotNumber)
     {
         $lot = [HeaderEnum::LOT_NUMBER => $lotNumber];
-        $transformer = new PedidoConsultaLote();
-        return $this->processRequest($baseInformation, $lot, NfMethods::CONSULTA_LOTE, $transformer);
+        $builder = new PedidoConsultaLote();
+        return $this->processRequest($baseInformation, $lot, NfMethods::CONSULTA_LOTE, $builder);
     }
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoCancelamentoNFe();
-        return $this->processRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $transformer);
+        $builder = new PedidoCancelamentoNFe();
+        return $this->processRequest($baseInformation, $params, NfMethods::CANCELAMENTO, $builder);
     }
 
     public function sendNf(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEnvioRPS();
-        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $transformer);
+        $builder = new PedidoEnvioRPS();
+        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $builder);
     }
 
     public function sendLot(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEnvioLoteRPS();
-        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $transformer);
+        $builder = new PedidoEnvioLoteRPS();
+        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO_LOTE, $builder);
     }
 
     public function testSendLot(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEnvioLoteRPS();
-        return $this->processRequest($baseInformation, $params, NfMethods::TESTE_ENVIO_LOTE, $transformer);
+        $builder = new PedidoEnvioLoteRPS();
+        return $this->processRequest($baseInformation, $params, NfMethods::TESTE_ENVIO_LOTE, $builder);
     }
 
     public function getIssued(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaNFePeriodo();
-        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_EMITIDAS, $transformer);
+        $builder = new PedidoConsultaNFePeriodo();
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_EMITIDAS, $builder);
     }
 
     //  NF ASYNC METHODS
 
     public function getReceived(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaNFePeriodo();
-        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $transformer);
+        $builder = new PedidoConsultaNFePeriodo();
+        return $this->processRequest($baseInformation, $params, NfMethods::CONSULTA_NFE_RECEBIDAS, $builder);
     }
 
     public function testSendAsyncLot(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEnvioLoteRPS();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::TESTE_ENVIO_LOTE, $transformer);
+        $builder = new PedidoEnvioLoteRPS();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::TESTE_ENVIO_LOTE, $builder);
     }
 
-    private function processAsyncRequest(BaseInformation $information, $params, $method, InputTransformer $transformer, OutputClass $outputClass = null)
+    private function processAsyncRequest(BaseInformation $information, $params, $method, InputTransformer $builder, OutputClass $outputClass = null)
     {
         // Check Output Type
         $outputClass = !empty($outputClass) ? $outputClass : $this->response;
         $params = General::convertUserRequest($params);
 
         //  File Without Signature
-        $file = $transformer->makeXmlRequest($information, $params);
+        $file = $builder->makeXmlRequest($information, $params);
         //Set Input file and sign
         $information->setXml($file);
 
@@ -153,34 +153,34 @@ class NfService
 
     public function sendAsyncLot(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEnvioLoteRPS();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::ENVIO_LOTE, $transformer);
+        $builder = new PedidoEnvioLoteRPS();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::ENVIO_LOTE, $builder);
     }
 
     public function checkAsyncLot(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaSituacaoLote();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_LOTE, $transformer);
+        $builder = new PedidoConsultaSituacaoLote();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_LOTE, $builder);
     }
 
     public function checkReceipt(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaGuia();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_GUIA, $transformer);
+        $builder = new PedidoConsultaGuia();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_GUIA, $builder);
     }
 
     // Process Requests
 
     public function checkReceiptSituation(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoConsultaSituacaoGuia();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_GUIA, $transformer);
+        $builder = new PedidoConsultaSituacaoGuia();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::CONSULTA_SITUACAO_GUIA, $builder);
     }
 
     public function makeReceiptAsync(BaseInformation $baseInformation, $params)
     {
-        $transformer = new PedidoEmissaoGuiaAsync();
-        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::EMISSAO_GUIA_ASYNC, $transformer);
+        $builder = new PedidoEmissaoGuiaAsync();
+        return $this->processAsyncRequest($baseInformation, $params, NfAsyncMethods::EMISSAO_GUIA_ASYNC, $builder);
     }
 
 }

@@ -1,28 +1,34 @@
 <?php
 
-namespace NotaFiscalSP\Transformers\NFTS;
+namespace NotaFiscalSP\Builders\NF;
 
 use NotaFiscalSP\Constants\Methods\NfMethods;
-use NotaFiscalSP\Constants\Methods\NftsMethods;
+use NotaFiscalSP\Constants\Requests\DetailEnum;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Transformers\NfAbstract;
-use NotaFiscalSP\Transformers\NftsAbstract;
+use NotaFiscalSP\Builders\NfAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
 
-class  PedidoConsultaNFTS extends NftsAbstract
+class PedidoCancelamentoNFe extends NfAbstract
 {
+
     public function makeXmlRequest(BaseInformation $information, $params)
     {
         $params = DetailValidator::queryDetail($information, $params);
         $header = $this->makeHeader($information, [
-            HeaderEnum::SENDER => true,
+            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::TRANSACTION => 'false'
         ]);
 
+        foreach ($params as $key => $document) {
+            $params[$key][DetailEnum::CANCELLATION_SIGN] = Certificate::cancelSignatureString($document);
+        }
         $detail = $this->makeDetail($information, $params);
-        $request = array_merge($header, $detail);
-        return Xml::makeNFTSRequestXML(NftsMethods::CONSULTA, $request);
-    }
 
+        $request = array_merge($header, $detail);
+
+        return Xml::makeRequestXML(NfMethods::CANCELAMENTO, $request);
+    }
 }

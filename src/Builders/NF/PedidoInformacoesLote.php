@@ -1,12 +1,12 @@
 <?php
 
-namespace NotaFiscalSP\Transformers\NF;
+namespace NotaFiscalSP\Builders\NF;
 
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Builders\NfAbstract;
 
 class  PedidoInformacoesLote extends NfAbstract
 {

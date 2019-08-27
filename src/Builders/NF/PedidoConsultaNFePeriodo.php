@@ -1,6 +1,6 @@
 <?php
 
-namespace NotaFiscalSP\Transformers\NF;
+namespace NotaFiscalSP\Builders\NF;
 
 use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
@@ -8,7 +8,7 @@ use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Builders\NfAbstract;
 
 class  PedidoConsultaNFePeriodo extends NfAbstract
 {

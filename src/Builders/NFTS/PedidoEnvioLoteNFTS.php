@@ -1,18 +1,21 @@
 <?php
 
-namespace NotaFiscalSP\Transformers\NF;
+namespace NotaFiscalSP\Builders\NF;
 
 use NotaFiscalSP\Constants\Methods\NfMethods;
+use NotaFiscalSP\Constants\Methods\NftsMethods;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Entities\Requests\NF\Lot;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Transformers\NfAbstract;
+use NotaFiscalSP\Builders\NftsAbstract;
+use NotaFiscalSP\Validators\NftsValidator;
 use NotaFiscalSP\Validators\RpsValidator;
 
-class PedidoEnvioLoteRPS extends NfAbstract
+class PedidoEnvioLoteNFTS extends NftsAbstract
 {
 
     public function makeXmlRequest(BaseInformation $information, $lot)
@@ -20,20 +23,20 @@ class PedidoEnvioLoteRPS extends NfAbstract
         if ($lot instanceof Lot)
             $lot = $lot->toArray();
 
-        $documents = RpsValidator::validateRps($information, General::getKey($lot, RpsEnum::RPS));
+        $documents = NftsValidator::validateRequest($information, General::getKey($lot, NftsEnum::NFTS));
         $header = $this->makeHeader($information, [
-            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::SENDER => true,
             HeaderEnum::TRANSACTION => General::getKey($lot, HeaderEnum::TRANSACTION),
             HeaderEnum::START_DATE => General::getKey($lot, HeaderEnum::START_DATE),
             HeaderEnum::END_DATE => General::getKey($lot, HeaderEnum::END_DATE),
-            HeaderEnum::RPS_COUNT => General::getKey($lot, HeaderEnum::RPS_COUNT),
+            HeaderEnum::NFTS_COUNT => General::getKey($lot, HeaderEnum::NFTS_COUNT),
             HeaderEnum::SERVICES_TOTAL => General::getKey($lot, HeaderEnum::SERVICES_TOTAL),
             HeaderEnum::DEDUCTION_TOTAL => General::getKey($lot, HeaderEnum::DEDUCTION_TOTAL),
         ]);
-        $allRps = $this->makeRPS($information, $documents);
+        $allNfts = $this->makeNFTS($information, $documents);
 
-        $request = array_merge($header, $allRps);
+        $request = array_merge($header, $allNfts);
 
-        return Xml::makeRequestXML(NfMethods::ENVIO_LOTE, $request);
+        return Xml::makeNFTSRequestXML(NftsMethods::ENVIO_LOTE, $request);
     }
 }

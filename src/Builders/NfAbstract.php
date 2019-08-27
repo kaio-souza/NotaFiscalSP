@@ -1,6 +1,6 @@
 <?php
 
-namespace NotaFiscalSP\Transformers;
+namespace NotaFiscalSP\Builders;
 
 use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
 use NotaFiscalSP\Constants\Requests\DetailEnum;
