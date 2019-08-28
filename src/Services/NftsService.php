@@ -2,7 +2,9 @@
 
 namespace NotaFiscalSP\Services;
 
+use NotaFiscalSP\Builders\NFTS\PedidoCancelamentoNFTS;
 use NotaFiscalSP\Builders\NFTS\PedidoEnvioLoteNFTS;
+use NotaFiscalSP\Builders\NFTS\PedidoEnvioNFTS;
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\Methods\NftsMethods;
@@ -83,5 +85,22 @@ class NftsService
     {
         $builder = new PedidoEnvioLoteNFTS();
         return $this->processRequest($baseInformation, $params, NftsMethods::TESTE_ENVIO_LOTE, $builder);
+    }
+
+    public function lotNfts(BaseInformation $baseInformation, $params)
+    {
+        $builder = new PedidoEnvioLoteNFTS();
+        return $this->processRequest($baseInformation, $params, NftsMethods::ENVIO_LOTE, $builder);
+    }
+    public function sendNfts(BaseInformation $baseInformation, $params)
+    {
+        $builder = new PedidoEnvioNFTS();
+        return $this->processRequest($baseInformation, $params, NftsMethods::ENVIO, $builder);
+    }
+
+    public function cancelNfts(BaseInformation $baseInformation, $params)
+    {
+        $builder = new PedidoCancelamentoNFTS();
+        return $this->processRequest($baseInformation, $params, NftsMethods::ENVIO, $builder);
     }
 }
