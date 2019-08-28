@@ -71,7 +71,7 @@ abstract class NfAbstract implements InputTransformer
 
             foreach (DetailEnum::signedTypes() as $field) {
                 if (isset($document[$field]))
-                    $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
+                    $detail[$field] = Certificate::signItem($information, $document[$field]);
             }
 
             $details[] = $detail;
@@ -118,7 +118,7 @@ abstract class NfAbstract implements InputTransformer
         $rpsItens = [];
         foreach ($rpsList as $extraInformations){
             $rps = [
-                DetailEnum::SIGN => Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
+                DetailEnum::SIGN => Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
             ];
 
             $rps = array_merge($rps, $this->makeRpsKey($extraInformations));

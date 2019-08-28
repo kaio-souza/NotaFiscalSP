@@ -2,7 +2,9 @@
 
 namespace NotaFiscalSP\Entities\Requests\NFTS;
 
+use NotaFiscalSP\Constants\FieldData\BooleanFields;
 use NotaFiscalSP\Constants\FieldData\DocumentType;
+use NotaFiscalSP\Constants\FieldData\NFTSTaxType;
 use NotaFiscalSP\Constants\FieldData\NFTSType;
 use NotaFiscalSP\Constants\FieldData\RegimeTributation;
 use NotaFiscalSP\Constants\FieldData\Status;
@@ -44,13 +46,13 @@ class Nfts implements UserRequest
 
     public function __construct()
     {
-        $this->setTipoNFTS(NFTSType::TAKER);
-        $this->setTributacaoNFTS(TaxType::IN_SP);
+        $this->setTipoNFTS(NFTSType::INTERMEDIARY);
+        $this->setTributacaoNFTS(NFTSTaxType::NORMAL);
         $this->setValorDeducoes(0);
         $this->setValorServicos(0);
-        $this->setAliquotaServicos(0);
+        $this->setAliquotaServicos(0.5);
         $this->setDataPrestacao(date('Y-m-d'));
-        $this->setTipoDocumento(DocumentType::WITHOUT_REQUIRED_EMISSION_FISCAL_DOCUMENT);
+        $this->setTipoDocumento(DocumentType::REQUIRED_EMISSION_FISCAL_DOCUMENT);
         $this->setStatusNFTS(Status::NORMAL);
         $this->setIssRetidoTomador(false);
         $this->setRegimeTributacao(RegimeTributation::NORMAL);
@@ -245,7 +247,8 @@ class Nfts implements UserRequest
      */
     public function setIssRetidoTomador($issRetidoTomador)
     {
-        $this->issRetidoTomador = $issRetidoTomador;
+        $value = $issRetidoTomador ? BooleanFields::LOWER_TRUE : BooleanFields::LOWER_FALSE;
+        $this->issRetidoTomador = $value;
     }
 
     /**
@@ -261,7 +264,8 @@ class Nfts implements UserRequest
      */
     public function setIssRetidoIntermediario($issRetidoIntermediario)
     {
-        $this->issRetidoIntermediario = $issRetidoIntermediario;
+        $value = $issRetidoIntermediario ? BooleanFields::CAP_TRUE : BooleanFields::CAP_FALSE;
+        $this->issRetidoIntermediario = $value;
     }
 
     /**

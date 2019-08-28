@@ -91,7 +91,7 @@ abstract class NftsAbstract implements InputTransformer
         ];
     }
 
-    public function makeDetail(BaseInformation $information, $documents)
+    public function makeDetail(BaseInformation $information, $documents, $sign = false)
     {
         $detais = [];
 
@@ -103,10 +103,12 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($document[SimpleFieldsEnum::NFTS_NUMBER]))
                 $detail = array_merge($detail, $this->makeNftsKey($document));
 
-            foreach (DetailEnum::signedTypes() as $field) {
-                if (isset($document[$field]))
-                    $detail[$field] = Certificate::signatureRpsItem($information, $document[$field]);
-            }
+
+            if ($sign)
+                $detail[DetailEnum::CANCELLATION_SIGN] = Certificate::signItem($information,
+                    Certificate::nftsCancellationSignatureString($detail)
+                );
+
 
             $details[] = $detail;
         }
@@ -150,8 +152,8 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $nfts[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
-           //$nfts[DetailEnum::SIGN] = Certificate::signatureRpsItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
-           $nfts[DetailEnum::SIGN] = General::getPath($extraInformations, DetailEnum::SIGN);
+           //$nfts[DetailEnum::SIGN] = Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
+           $nfts[DetailEnum::SIGN] = Certificate::signItem($information,Certificate::nftsSignatureString($nfts));
 
             $nftsItens[] = $nfts;
         }
@@ -159,6 +161,7 @@ abstract class NftsAbstract implements InputTransformer
             NftsEnum::NFTS => $nftsItens,
         ];
     }
+
 
     public function makeDocumentKeyParams($extraInformation){
         $params = [];
@@ -176,6 +179,11 @@ abstract class NftsAbstract implements InputTransformer
     }
 
     public function makeProvider($extraInformations){
-        return [];
+        $document = General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)
+            ? [NftsEnum::CNPJ_PROVIDER => General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)]
+            : [NftsEnum::CPF_PROVIDER => General::getKey($extraInformations, NftsEnum::CPF_PROVIDER)];
+        return [
+            HeaderEnum::CPFCNPJ => $document,
+        ];
     }
 }

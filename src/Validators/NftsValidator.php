@@ -27,13 +27,7 @@ class NftsValidator
             if (empty($item[NftsEnum::IM]))
                 $item[NftsEnum::IM] = $baseInformation->getIm();
 
-            $item[NftsEnum::ISS_TAKER] = $item[NftsEnum::ISS_TAKER] ? 'true' : 'false';
-
-            if (isset($item[NftsEnum::ISS_INTERMEDIARY]))
-                $item[NftsEnum::ISS_INTERMEDIARY] = $item[NftsEnum::ISS_INTERMEDIARY] ? 'true' : 'false';
-
             $item[NftsEnum::DOCUMENT_KEY] = true;
-            $item[DetailEnum::SIGN] = Certificate::makeNftsSignature($item);
             $nftsOk[] = $item;
         }
         return $nftsOk;
