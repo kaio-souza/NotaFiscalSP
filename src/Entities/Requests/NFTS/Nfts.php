@@ -46,7 +46,7 @@ class Nfts implements UserRequest
 
     public function __construct()
     {
-        $this->setTipoNFTS(NFTSType::INTERMEDIARY);
+        $this->setTipoNFTS(NFTSType::TAKER);
         $this->setTributacaoNFTS(NFTSTaxType::NORMAL);
         $this->setValorDeducoes(0);
         $this->setValorServicos(0);

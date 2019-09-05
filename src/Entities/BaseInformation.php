@@ -4,6 +4,7 @@ namespace NotaFiscalSP\Entities;
 
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Responses\CnpjInformationResponse;
 
 /**
@@ -68,7 +69,6 @@ class BaseInformation
         fwrite($fp, $signed);
 
         $this->setXmlPath($filename);
-
         $this->xml = $signed;
     }
 
@@ -115,7 +115,7 @@ class BaseInformation
      */
     public function setXmlPath($xmlPath)
     {
-        $this->xmlPath = $xmlPath;
+        $this->xmlPath = trim($xmlPath);
     }
 
     /**
@@ -131,7 +131,7 @@ class BaseInformation
      */
     public function setCertificatePath($certificatePath)
     {
-        $this->certificatePath = $certificatePath;
+        $this->certificatePath = trim($certificatePath);
     }
 
     /**
@@ -147,7 +147,7 @@ class BaseInformation
      */
     public function setCertificatePass($certificatePass)
     {
-        $this->certificatePass = $certificatePass;
+        $this->certificatePass = trim($certificatePass);
     }
 
     /**
@@ -163,7 +163,7 @@ class BaseInformation
      */
     public function setCnpj($cnpj)
     {
-        $this->cnpj = $cnpj;
+        $this->cnpj = General::onlyNumbers($cnpj);
     }
 
     /**
@@ -182,7 +182,7 @@ class BaseInformation
         if ($im instanceof CnpjInformationResponse) {
             $this->im = $im->getIm();
         } else {
-            $this->im = $im;
+            $this->im = General::onlyNumbers($im);
         }
     }
 }

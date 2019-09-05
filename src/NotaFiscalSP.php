@@ -8,10 +8,10 @@ use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
 
 /**
- * Class NotaFiscal
+ * Class NotaFiscalSP
  * @package NotaFiscalSP
  */
-class NotaFiscal
+class NotaFiscalSP
 {
     private $baseInformation;
     private $nfService;

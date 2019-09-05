@@ -16,10 +16,11 @@ class BasicTransformerResponse extends AbstractResponse
 
     public function make($input, $output)
     {
+        $this->arrayResponse = Xml::toArray($output);
+
         $this->response->setXmlInput($input);
         $this->response->setXmlOutput($output);
-        $arrayResponse = Xml::toArray($output);
-        $this->response->setResponse($arrayResponse);
+        $this->response->setResponse($this->arrayResponse);
         $this->response->setSuccess($this->checkSuccess());
         return ($this->response);
     }

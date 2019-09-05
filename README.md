@@ -20,6 +20,7 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
   ]);
 ```
 
+# Nota Fiscal (NFs NFe)
 ## Obtendo Informações Base do CNPJ
 Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
 
@@ -84,7 +85,7 @@ Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 $response = $nfSP->cancelarNota('00568');
 ```
 
-## emmitNf 
+## Emitindo uma Nota
 ```php
 $rps = new Rps();
 $rps->setNumeroRps('00000000');
@@ -107,12 +108,52 @@ $rps->setDiscriminacao('Teste Emissão de Notas pela API');
 $response =  $nfSP->enviarNota($rps);
 ```
 
+## Enviando um Lote
+
+```php
+$rps1 = new Rps();
+...
+$rps2 = new Rps();
+...
+$lot = new Lot();
+
+$lot->setRpsList([
+    $rps, $rps2
+]);
+
+$response =  $nfSP->enviarLote($lot);
+/* Caso Queira Fazer apenas um teste, pode utilizar o metodo **testeEnviarLote** */
+```
+
+## Enviando um Lote Async
+O Lote ASYNC utiliza um outro Endpoint e pode ser útil caso o sistema de Notas esteja com alguma instabilidade ou em manutenção, é utilizada a mesma request porém é retornado um número de protocolo que pode ser consultado posteriormente
+```php
+// Enviar Lote Async
+$makeProtocol = $nfSP->enviarLoteAsync($lot);
+
+// Consultar se o lote foi emitido
+$lotResult = $nfSP->consultarLoteAsync('1223589');
+```
+
+#NFTS
+```php
+    $nfSP->consultarNfts('454565')
+```
+$nfSP->informacaLoteNfts('454565')
+$nfSP->consultarLoteNfts('454565')
+$nfSP->consultarAutorizacaoEmissao('00030000000090')
+$nfSP->testeLoteNfts($nftsLot)
+$nfSP->enviarLoteNfts($nftsLot)
+$nfSP->enviarNfts($nfts)
+$nfSP->cancelarNfts('44566')
+
 # Métodos Básicos do Response
 ## getResponse
 Retorna uma array com as informaçes da resposta da API
 ```php
   $response->getResponse();
 ```
+
 
 ## getXmlInput
 Retorna o XML enviado para API (REQUEST)
