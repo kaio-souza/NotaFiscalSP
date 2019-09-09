@@ -40,7 +40,6 @@ class ApiClient
             $response->setXmlInput($baseInformation->getXml());
             $response->setMessage($e);
             return $response;
-            exit;
         }
     }
 }

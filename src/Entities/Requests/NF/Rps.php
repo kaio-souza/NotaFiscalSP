@@ -8,6 +8,7 @@ use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
+use NotaFiscalSP\Helpers\General;
 
 class Rps implements UserRequest
 {
@@ -841,6 +842,6 @@ class Rps implements UserRequest
      */
     public function setCep($cep)
     {
-        $this->cep = $cep;
+        $this->cep = General::onlyNumbers($cep);
     }
 }
