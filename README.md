@@ -40,8 +40,10 @@ $response = $nfSP->informacaoLote();
 Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
+// Utilize o numero da nota
 $response = $nfSP->consultarNota('00056');
 ```
+*Para maiores detalhes sobre a consulta de várias notas simultaneamente veja o Wiki
 
 ## Consultando Notas Fiscais Recebidas por Periodo
 Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***
@@ -77,8 +79,10 @@ $response = $nfSP->notasEmitidas($period);
 Retorna Informações detalhadas de um lote especifico
 
 ```php
+// Utilize o numero do Lote
 $response = $nfSP->consultarLote(356);
 ```
+*Para mais detalhes da utilizaço acesse o Wiki 
 
 ## Cancelando Nota Fiscal
 Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
@@ -87,7 +91,8 @@ Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 $response = $nfSP->cancelarNota('00568');
 ```
 
-## emmitNf 
+## Enviando Nota 
+
 ```php
 $rps = new Rps();
 $rps->setNumeroRps('00000000');
@@ -108,6 +113,15 @@ $rps->setEmailTomador('teste@teste.com.br');
 $rps->setDiscriminacao('Teste Emissão de Notas pela API');
 
 $response =  $nfSP->enviarNota($rps);
+```
+
+## Enviando Lote
+O Lote envia diversos objetos do tipo RPS em uma unica requisição
+
+```php
+$lote = new Lot();
+$lote->setRpsList([$rps1, $rps2, $rps3]);
+$response =  $nfSP->enviarLote($lote);
 ```
 
 # Métodos Básicos do Response
