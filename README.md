@@ -16,7 +16,7 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
 
 ```php
   // Instanciando a Classe
-  $nfSP = new NotaFiscal([
+  $nfSP = new NotaFiscalSP([
       'cnpj' => '00000000000000',
       'certificate' => 'path/to/certificate.pfx',
       'certificatePass' => '000000'
@@ -41,8 +41,10 @@ $response = $nfSP->informacaoLote();
 Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requisição)***
 
 ```php
+// Utilize o numero da nota
 $response = $nfSP->consultarNota('00056');
 ```
+*Para maiores detalhes sobre a consulta de várias notas simultaneamente veja o Wiki
 
 ## Consultando Notas Fiscais Recebidas por Periodo
 Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***
@@ -78,8 +80,10 @@ $response = $nfSP->notasEmitidas($period);
 Retorna Informações detalhadas de um lote especifico
 
 ```php
+// Utilize o numero do Lote
 $response = $nfSP->consultarLote(356);
 ```
+*Para mais detalhes da utilizaço acesse o Wiki 
 
 ## Cancelando Nota Fiscal
 Cancela uma ou mais Notas ***(Limite 50 Notas por Requisição)***
@@ -111,21 +115,13 @@ $rps->setDiscriminacao('Teste Emissão de Notas pela API');
 $response =  $nfSP->enviarNota($rps);
 ```
 
-## Enviando um Lote
+## Enviando Lote
+O Lote envia diversos objetos do tipo RPS em uma unica requisição
 
 ```php
-$rps1 = new Rps();
-...
-$rps2 = new Rps();
-...
-$lot = new Lot();
-
-$lot->setRpsList([
-    $rps, $rps2
-]);
-
-$response =  $nfSP->enviarLote($lot);
-/* Caso Queira Fazer apenas um teste, pode utilizar o metodo **testeEnviarLote** */
+$lote = new Lot();
+$lote->setRpsList([$rps1, $rps2, $rps3]);
+$response =  $nfSP->enviarLote($lote);
 ```
 
 ## Enviando um Lote Async
@@ -142,14 +138,6 @@ $lotResult = $nfSP->consultarLoteAsync('1223589');
 ```php
     $nfSP->consultarNfts('454565')
 ```
-$nfSP->informacaLoteNfts('454565')
-$nfSP->consultarLoteNfts('454565')
-$nfSP->consultarAutorizacaoEmissao('00030000000090')
-$nfSP->testeLoteNfts($nftsLot)
-$nfSP->enviarLoteNfts($nftsLot)
-$nfSP->enviarNfts($nfts)
-$nfSP->cancelarNfts('44566')
-
 # Métodos Básicos do Response
 ## getResponse
 Retorna uma array com as informaçes da resposta da API
