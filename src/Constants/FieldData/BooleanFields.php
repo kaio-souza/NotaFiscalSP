@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Constants\FieldData;
 
-class BooleanFields{
+class BooleanFields
+{
     const TRUE = 'S';
     const FALSE = 'N';
     const CAP_TRUE = 'True';

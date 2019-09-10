@@ -9,5 +9,5 @@ class ComplexFieldsEnum
     const NFTS_KEY = 'ChaveNFTS';
     const CNPJ_TAX_PAYER = 'CNPJContribuinte';
 
-    const ADDRESS =  'EnderecoTomador';
+    const ADDRESS = 'EnderecoTomador';
 }

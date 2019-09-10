@@ -2,12 +2,9 @@
 
 namespace NotaFiscalSP\Entities\Requests\NFTS;
 
-use NotaFiscalSP\Constants\FieldData\BooleanFields;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
-use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
-use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\Helpers\General;
 
 class NftsLot implements UserRequest

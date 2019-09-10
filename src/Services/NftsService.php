@@ -3,8 +3,14 @@
 namespace NotaFiscalSP\Services;
 
 use NotaFiscalSP\Builders\NFTS\PedidoCancelamentoNFTS;
+use NotaFiscalSP\Builders\NFTS\PedidoConsultaEmissaoNFSE;
+use NotaFiscalSP\Builders\NFTS\PedidoConsultaInformacoesLoteNFTS;
+use NotaFiscalSP\Builders\NFTS\PedidoConsultaLoteNFTS;
+use NotaFiscalSP\Builders\NFTS\PedidoConsultaNFTS;
 use NotaFiscalSP\Builders\NFTS\PedidoEnvioLoteNFTS;
 use NotaFiscalSP\Builders\NFTS\PedidoEnvioNFTS;
+use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
+use NotaFiscalSP\Builders\WsdlBuilder;
 use NotaFiscalSP\Client\ApiClient;
 use NotaFiscalSP\Constants\Endpoints;
 use NotaFiscalSP\Constants\Methods\NftsMethods;
@@ -13,13 +19,7 @@ use NotaFiscalSP\Contracts\InputTransformer;
 use NotaFiscalSP\Contracts\OutputClass;
 use NotaFiscalSP\Contracts\UserRequest;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
-use NotaFiscalSP\Builders\WsdlBuilder;
 use NotaFiscalSP\Helpers\General;
-use NotaFiscalSP\Builders\NFTS\PedidoConsultaEmissaoNFSE;
-use NotaFiscalSP\Builders\NFTS\PedidoConsultaInformacoesLoteNFTS;
-use NotaFiscalSP\Builders\NFTS\PedidoConsultaLoteNFTS;
-use NotaFiscalSP\Builders\NFTS\PedidoConsultaNFTS;
 
 class NftsService
 {
@@ -92,6 +92,7 @@ class NftsService
         $builder = new PedidoEnvioLoteNFTS();
         return $this->processRequest($baseInformation, $params, NftsMethods::ENVIO_LOTE, $builder);
     }
+
     public function sendNfts(BaseInformation $baseInformation, $params)
     {
         $builder = new PedidoEnvioNFTS();

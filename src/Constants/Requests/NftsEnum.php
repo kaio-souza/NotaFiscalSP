@@ -32,7 +32,8 @@ class NftsEnum
     const CEI_CODE = 'CodigoCEI';
     const WORK_REGISTRATION = 'MatriculaObra';
 
-    public static function simpleTypes(){
+    public static function simpleTypes()
+    {
         return [
             NftsEnum::DELIVERY_DATE,
             NftsEnum::STATUS,
@@ -48,15 +49,17 @@ class NftsEnum
 
         ];
     }
-    public static function otherSimpleTypes(){
-            return [
-                NftsEnum::TAXATION_REGIME,
-                NftsEnum::PAYMENT_DATE,
-                NftsEnum::DISCRIMINATION,
-                NftsEnum::TYPE,
-                NftsEnum::TAKER,
-                NftsEnum::CEI_CODE,
-                NftsEnum::WORK_REGISTRATION,
-            ];
+
+    public static function otherSimpleTypes()
+    {
+        return [
+            NftsEnum::TAXATION_REGIME,
+            NftsEnum::PAYMENT_DATE,
+            NftsEnum::DISCRIMINATION,
+            NftsEnum::TYPE,
+            NftsEnum::TAKER,
+            NftsEnum::CEI_CODE,
+            NftsEnum::WORK_REGISTRATION,
+        ];
     }
 }

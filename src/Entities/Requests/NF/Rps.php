@@ -2,9 +2,9 @@
 
 namespace NotaFiscalSP\Entities\Requests\NF;
 
+use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\FieldData\Status;
 use NotaFiscalSP\Constants\FieldData\TaxType;
-use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
@@ -70,7 +70,7 @@ class Rps implements UserRequest
         $this->setIssRetido(false);
         $this->setSerieRps('A');
         $this->setAliquotaServicos('0');
-        $this->setCidade(3550308);
+//        $this->setCidade(3550308);
     }
 
     /**
@@ -86,7 +86,7 @@ class Rps implements UserRequest
      */
     public function setCpf($cpf)
     {
-        $this->cpf = $cpf;
+        $this->cpf = sprintf('%011s', General::onlyNumbers($cpf));
     }
 
     /**
@@ -102,7 +102,7 @@ class Rps implements UserRequest
      */
     public function setCnpj($cnpj)
     {
-        $this->cnpj = $cnpj;
+        $this->cnpj = sprintf('%014s', General::onlyNumbers($cnpj));
     }
 
     public function toArray()
@@ -170,7 +170,7 @@ class Rps implements UserRequest
      */
     public function setInscricaoPrestador($inscricaoPrestador)
     {
-        $this->inscricaoPrestador = $inscricaoPrestador;
+        $this->inscricaoPrestador = sprintf('%08s', $inscricaoPrestador);
     }
 
     /**
@@ -538,7 +538,7 @@ class Rps implements UserRequest
      */
     public function setCpfIntermediario($cpfIntermediario)
     {
-        $this->cpfIntermediario = $cpfIntermediario;
+        $this->cpfIntermediario = sprintf('%011s', General::onlyNumbers($cpfIntermediario));
     }
 
     /**
@@ -842,6 +842,6 @@ class Rps implements UserRequest
      */
     public function setCep($cep)
     {
-        $this->cep = General::onlyNumbers($cep);
+        $this->cep = sprintf('%08s', General::onlyNumbers($cep));
     }
 }

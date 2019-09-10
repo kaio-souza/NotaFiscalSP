@@ -2,11 +2,6 @@
 
 namespace NotaFiscalSP\Helpers;
 
-
-use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
-use NotaFiscalSP\Constants\Requests\NftsEnum;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
-use NotaFiscalSP\Entities\Requests\NFTS\NftsSearch;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class Xml

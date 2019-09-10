@@ -73,6 +73,30 @@ abstract class NftsAbstract implements InputTransformer
         return null;
     }
 
+    public function makeDetail(BaseInformation $information, $documents, $sign = false)
+    {
+        $detais = [];
+
+        foreach ($documents as $document) {
+            $detail = [];
+            // Assinatura usada em detalhes de cancelamento
+
+            if (isset($document[SimpleFieldsEnum::NFTS_NUMBER]))
+                $detail = array_merge($detail, $this->makeNftsKey($document));
+
+            if ($sign)
+                $detail[DetailEnum::CANCELLATION_SIGN] = Certificate::signItem($information,
+                    Certificate::nftsCancellationSignatureString($detail)
+                );
+
+            $details[] = $detail;
+        }
+
+        return [
+            DetailEnum::DETAIL_NFTS => $details,
+        ];
+    }
+
     private function makeNftsKey($extraInformations)
     {
         $params = [
@@ -91,39 +115,12 @@ abstract class NftsAbstract implements InputTransformer
         ];
     }
 
-    public function makeDetail(BaseInformation $information, $documents, $sign = false)
-    {
-        $detais = [];
-
-        foreach ($documents as $document) {
-            $detail = [];
-            // Assinatura usada em detalhes de cancelamento
-
-
-            if (isset($document[SimpleFieldsEnum::NFTS_NUMBER]))
-                $detail = array_merge($detail, $this->makeNftsKey($document));
-
-
-            if ($sign)
-                $detail[DetailEnum::CANCELLATION_SIGN] = Certificate::signItem($information,
-                    Certificate::nftsCancellationSignatureString($detail)
-                );
-
-
-            $details[] = $detail;
-        }
-
-        return [
-            DetailEnum::DETAIL_NFTS => $details,
-        ];
-    }
-
     public function makeNFTS(BaseInformation $information, $nftsList)
     {
         $nftsItens = [];
-        foreach ($nftsList as $extraInformations){
+        foreach ($nftsList as $extraInformations) {
             $nfts = [
-                NftsEnum::DOCUMENT_TYPE => General::getKey($extraInformations,NftsEnum::DOCUMENT_TYPE)
+                NftsEnum::DOCUMENT_TYPE => General::getKey($extraInformations, NftsEnum::DOCUMENT_TYPE)
             ];
 
             $nfts[NftsEnum::DOCUMENT_KEY] = $this->makeDocumentKeyParams($extraInformations);
@@ -152,8 +149,8 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $nfts[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
-           //$nfts[DetailEnum::SIGN] = Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
-           $nfts[DetailEnum::SIGN] = Certificate::signItem($information,Certificate::nftsSignatureString($nfts));
+            //$nfts[DetailEnum::SIGN] = Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
+            $nfts[DetailEnum::SIGN] = Certificate::signItem($information, Certificate::nftsSignatureString($nfts));
 
             $nftsItens[] = $nfts;
         }
@@ -163,22 +160,24 @@ abstract class NftsAbstract implements InputTransformer
     }
 
 
-    public function makeDocumentKeyParams($extraInformation){
+    public function makeDocumentKeyParams($extraInformation)
+    {
         $params = [];
 
-        if(General::getKey($extraInformation, DetailEnum::IM))
+        if (General::getKey($extraInformation, DetailEnum::IM))
             $params[DetailEnum::IM] = General::getKey($extraInformation, DetailEnum::IM);
 
-        if(General::getKey($extraInformation, NftsEnum::NFTS_SERIES))
+        if (General::getKey($extraInformation, NftsEnum::NFTS_SERIES))
             $params[NftsEnum::NFTS_SERIES] = General::getKey($extraInformation, NftsEnum::NFTS_SERIES);
 
-        if(General::getKey($extraInformation, NftsEnum::DOCUMENT_NUMBER))
+        if (General::getKey($extraInformation, NftsEnum::DOCUMENT_NUMBER))
             $params[NftsEnum::DOCUMENT_NUMBER] = General::getKey($extraInformation, NftsEnum::DOCUMENT_NUMBER);
 
         return $params;
     }
 
-    public function makeProvider($extraInformations){
+    public function makeProvider($extraInformations)
+    {
         $document = General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)
             ? [NftsEnum::CNPJ_PROVIDER => General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)]
             : [NftsEnum::CPF_PROVIDER => General::getKey($extraInformations, NftsEnum::CPF_PROVIDER)];

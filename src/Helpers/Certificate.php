@@ -99,11 +99,6 @@ class Certificate
         return '<tpNFTS>' . Certificate::makeXmlString($elements) . '</tpNFTS>';
     }
 
-    public static function nftsCancellationSignatureString($elements)
-    {
-        return '<PedidoCancelamentoNFTSDetalheNFTS>' . Certificate::makeXmlString($elements) . '</PedidoCancelamentoNFTSDetalheNFTS>';
-    }
-
     public static function makeXmlString($array)
     {
         $string = '';
@@ -113,6 +108,11 @@ class Certificate
             $string .= '<' . $key . '>' . $value . '</' . $key . '>';
         }
         return $string;
+    }
+
+    public static function nftsCancellationSignatureString($elements)
+    {
+        return '<PedidoCancelamentoNFTSDetalheNFTS>' . Certificate::makeXmlString($elements) . '</PedidoCancelamentoNFTSDetalheNFTS>';
     }
 
 }

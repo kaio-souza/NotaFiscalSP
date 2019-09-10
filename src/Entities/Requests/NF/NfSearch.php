@@ -4,6 +4,7 @@ namespace NotaFiscalSP\Entities\Requests\NF;
 
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
+use NotaFiscalSP\Helpers\General;
 
 /**
  * Class NfSearch
@@ -45,7 +46,7 @@ class NfSearch implements UserRequest
      */
     public function setInscricaoPrestador($inscricaoPrestador)
     {
-        $this->inscricaoPrestador = $inscricaoPrestador;
+        $this->inscricaoPrestador = sprintf('%08s', General::onlyNumbers($inscricaoPrestador));
     }
 
     /**

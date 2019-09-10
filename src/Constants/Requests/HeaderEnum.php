@@ -7,7 +7,7 @@ class HeaderEnum
     const HEADER = 'Cabecalho';
     const VERSION = 'Versao';
     const CPFCNPJ_SENDER = 'CPFCNPJRemetente';
-    const CPFCNPJ_PROVIDER= 'CPFCNPJPrestador';
+    const CPFCNPJ_PROVIDER = 'CPFCNPJPrestador';
     const SENDER = 'Remetente';
     const CPFCNPJ = 'CPFCNPJ';
     /**

@@ -2,12 +2,12 @@
 
 namespace NotaFiscalSP\Builders\AsyncNF;
 
+use NotaFiscalSP\Builders\NfAbstract;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Builders\NfAbstract;
 
 class  PedidoEmissaoGuiaAsync extends NfAbstract
 {

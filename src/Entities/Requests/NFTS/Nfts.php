@@ -8,7 +8,6 @@ use NotaFiscalSP\Constants\FieldData\NFTSTaxType;
 use NotaFiscalSP\Constants\FieldData\NFTSType;
 use NotaFiscalSP\Constants\FieldData\RegimeTributation;
 use NotaFiscalSP\Constants\FieldData\Status;
-use NotaFiscalSP\Constants\FieldData\TaxType;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
@@ -297,7 +296,7 @@ class Nfts implements UserRequest
      */
     public function setCpfPrestador($cpfPrestador)
     {
-        $this->cpfPrestador = $cpfPrestador;
+        $this->cpfPrestador = sprintf('%011s',General::onlyNumbers($cpfPrestador));
     }
 
     /**
@@ -313,7 +312,7 @@ class Nfts implements UserRequest
      */
     public function setCnpjPrestador($cnpjPrestador)
     {
-        $this->cnpjPrestador = $cnpjPrestador;
+        $this->cnpjPrestador = sprintf('%014s',General::onlyNumbers($cnpjPrestador));
     }
 
     /**
@@ -425,7 +424,7 @@ class Nfts implements UserRequest
      */
     public function setCpfTomador($cpfTomador)
     {
-        $this->cpfTomador = $cpfTomador;
+        $this->cpfTomador = sprintf('%011s', General::onlyNumbers($cpfTomador));
     }
 
     /**
@@ -441,7 +440,7 @@ class Nfts implements UserRequest
      */
     public function setCnpjTomador($cnpjTomador)
     {
-        $this->cnpjTomador = $cnpjTomador;
+        $this->cnpjTomador = sprintf('%011s', General::onlyNumbers($cnpjTomador));
     }
 
     /**

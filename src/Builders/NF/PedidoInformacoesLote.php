@@ -2,11 +2,11 @@
 
 namespace NotaFiscalSP\Builders\NF;
 
+use NotaFiscalSP\Builders\NfAbstract;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Builders\NfAbstract;
 
 class  PedidoInformacoesLote extends NfAbstract
 {

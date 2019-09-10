@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Constants\FieldData;
 
-class Status{
+class Status
+{
     const NORMAL = 'N';
     const CANCELLED = 'C';
 }

@@ -141,12 +141,13 @@ class NotaFiscalSP
     {
         return $this->nftsService->checkEmission($this->baseInformation, $params);
     }
+
     public function testeLoteNfts($params)
     {
         return $this->nftsService->testLotNFTS($this->baseInformation, $params);
     }
 
-    public function enviarLoteNfts($params )
+    public function enviarLoteNfts($params)
     {
         return $this->nftsService->lotNfts($this->baseInformation, $params);
     }

@@ -82,6 +82,17 @@ abstract class NfAbstract implements InputTransformer
         ];
     }
 
+    private function makeRpsKey($extraInformations)
+    {
+        return [
+            ComplexFieldsEnum::RPS_KEY => [
+                SimpleFieldsEnum::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsEnum::IM_PROVIDER),
+                SimpleFieldsEnum::RPS_SERIES => General::getPath($extraInformations, SimpleFieldsEnum::RPS_SERIES),
+                SimpleFieldsEnum::RPS_NUMBER => General::getPath($extraInformations, SimpleFieldsEnum::RPS_NUMBER),
+            ]
+        ];
+    }
+
     private function makeNfeKey($extraInformations)
     {
 
@@ -102,21 +113,10 @@ abstract class NfAbstract implements InputTransformer
         ];
     }
 
-    private function makeRpsKey($extraInformations)
-    {
-        return [
-            ComplexFieldsEnum::RPS_KEY => [
-                SimpleFieldsEnum::IM_PROVIDER => General::getPath($extraInformations, SimpleFieldsEnum::IM_PROVIDER),
-                SimpleFieldsEnum::RPS_SERIES => General::getPath($extraInformations, SimpleFieldsEnum::RPS_SERIES),
-                SimpleFieldsEnum::RPS_NUMBER => General::getPath($extraInformations, SimpleFieldsEnum::RPS_NUMBER),
-            ]
-        ];
-    }
-
     public function makeRPS(BaseInformation $information, $rpsList)
     {
         $rpsItens = [];
-        foreach ($rpsList as $extraInformations){
+        foreach ($rpsList as $extraInformations) {
             $rps = [
                 DetailEnum::SIGN => Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN))
             ];

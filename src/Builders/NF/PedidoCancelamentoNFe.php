@@ -2,13 +2,13 @@
 
 namespace NotaFiscalSP\Builders\NF;
 
+use NotaFiscalSP\Builders\NfAbstract;
 use NotaFiscalSP\Constants\Methods\NfMethods;
 use NotaFiscalSP\Constants\Requests\DetailEnum;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Builders\NfAbstract;
 use NotaFiscalSP\Validators\DetailValidator;
 
 class PedidoCancelamentoNFe extends NfAbstract

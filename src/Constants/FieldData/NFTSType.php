@@ -1,4 +1,5 @@
 <?php
+
 namespace NotaFiscalSP\Constants\FieldData;
 
 class NFTSType

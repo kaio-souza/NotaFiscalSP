@@ -16,6 +16,5 @@ class BaseEntitiesBuilder
         $baseInformation->setCertificatePass(General::getPath($params, Params::CERTIFICATE_PASS));
         $baseInformation->setIm(General::getPath($params, Params::IM));
         return $baseInformation;
-
     }
 }

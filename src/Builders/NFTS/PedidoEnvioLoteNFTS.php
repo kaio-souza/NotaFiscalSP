@@ -2,18 +2,14 @@
 
 namespace NotaFiscalSP\Builders\NFTS;
 
-use NotaFiscalSP\Constants\Methods\NfMethods;
+use NotaFiscalSP\Builders\NftsAbstract;
 use NotaFiscalSP\Constants\Methods\NftsMethods;
 use NotaFiscalSP\Constants\Requests\HeaderEnum;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
-use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\Requests\NF\Lot;
 use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Helpers\Xml;
-use NotaFiscalSP\Builders\NftsAbstract;
 use NotaFiscalSP\Validators\NftsValidator;
-use NotaFiscalSP\Validators\RpsValidator;
 
 class PedidoEnvioLoteNFTS extends NftsAbstract
 {

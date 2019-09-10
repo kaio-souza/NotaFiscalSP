@@ -2,15 +2,9 @@
 
 namespace NotaFiscalSP\Validators;
 
-use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
-use NotaFiscalSP\Constants\Requests\DetailEnum;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
-use NotaFiscalSP\Constants\Requests\RpsEnum;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\Entities\Requests\NFTS\Nfts;
-use NotaFiscalSP\Helpers\Certificate;
 
 class NftsValidator
 {

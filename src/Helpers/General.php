@@ -2,8 +2,6 @@
 
 namespace NotaFiscalSP\Helpers;
 
-
-
 use NotaFiscalSP\Contracts\UserRequest;
 
 class General
@@ -44,22 +42,22 @@ class General
         return $date;
     }
 
-    public static function convertUserRequest($request){
-
-        if($request instanceof UserRequest)
+    public static function convertUserRequest($request)
+    {
+        if ($request instanceof UserRequest)
             return $request->toArray();
 
-        if(is_array($request)){
+        if (is_array($request)) {
             $finalRequest = [];
-            foreach ($request as $item){
-                if($item instanceof UserRequest){
+            foreach ($request as $item) {
+                if ($item instanceof UserRequest) {
                     $finalRequest[] = $item->toArray();
                 } else {
-                    if(is_array($item))
+                    if (is_array($item))
                         $finalRequest[] = $item;
                 }
             }
-            return count($finalRequest) ? $finalRequest : $request ;
+            return count($finalRequest) ? $finalRequest : $request;
         }
 
         return [];

@@ -2,20 +2,6 @@
 
 namespace NotaFiscalSP\Services;
 
-use NotaFiscalSP\Client\ApiClient;
-use NotaFiscalSP\Constants\Endpoints;
-use NotaFiscalSP\Constants\Methods\NfAsyncMethods;
-use NotaFiscalSP\Constants\Methods\NfMethods;
-use NotaFiscalSP\Constants\Requests\HeaderEnum;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
-use NotaFiscalSP\Contracts\InputTransformer;
-use NotaFiscalSP\Contracts\OutputClass;
-use NotaFiscalSP\Entities\BaseInformation;
-use NotaFiscalSP\Entities\Requests\NF\NfSearch;
-use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
-use NotaFiscalSP\Builders\Responses\CnpjInformationFactory;
-use NotaFiscalSP\Builders\WsdlBuilder;
-use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaGuia;
 use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaSituacaoGuia;
 use NotaFiscalSP\Builders\AsyncNF\PedidoConsultaSituacaoLote;
@@ -28,6 +14,20 @@ use NotaFiscalSP\Builders\NF\PedidoConsultaNFePeriodo;
 use NotaFiscalSP\Builders\NF\PedidoEnvioLoteRPS;
 use NotaFiscalSP\Builders\NF\PedidoEnvioRPS;
 use NotaFiscalSP\Builders\NF\PedidoInformacoesLote;
+use NotaFiscalSP\Builders\Responses\BasicTransformerResponse;
+use NotaFiscalSP\Builders\Responses\CnpjInformationFactory;
+use NotaFiscalSP\Builders\WsdlBuilder;
+use NotaFiscalSP\Client\ApiClient;
+use NotaFiscalSP\Constants\Endpoints;
+use NotaFiscalSP\Constants\Methods\NfAsyncMethods;
+use NotaFiscalSP\Constants\Methods\NfMethods;
+use NotaFiscalSP\Constants\Requests\HeaderEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
+use NotaFiscalSP\Contracts\InputTransformer;
+use NotaFiscalSP\Contracts\OutputClass;
+use NotaFiscalSP\Entities\BaseInformation;
+use NotaFiscalSP\Entities\Requests\NF\NfSearch;
+use NotaFiscalSP\Helpers\General;
 
 class NfService
 {
@@ -73,7 +73,7 @@ class NfService
 
     public function getNf(BaseInformation $baseInformation, $params)
     {
-        if(!is_array($params) && !$params instanceof NfSearch)
+        if (!is_array($params) && !$params instanceof NfSearch)
             $params = [SimpleFieldsEnum::NFE_NUMBER => $params];
 
         $builder = new PedidoConsultaNFe();
@@ -95,7 +95,7 @@ class NfService
 
     public function cancelNf(BaseInformation $baseInformation, $params)
     {
-        if(!is_array($params) && !$params instanceof NfSearch)
+        if (!is_array($params) && !$params instanceof NfSearch)
             $params = [SimpleFieldsEnum::NFE_NUMBER => $params];
 
         $builder = new PedidoCancelamentoNFe();

@@ -32,7 +32,7 @@ class Document implements UserRequest
      */
     public function setCpf($cpf)
     {
-        $this->cpf = General::onlyNumbers($cpf);
+        $this->cpf = sprintf('%011s',General::onlyNumbers($cpf));
     }
 
     /**
@@ -48,6 +48,6 @@ class Document implements UserRequest
      */
     public function setCnpj($cnpj)
     {
-        $this->cnpj = General::onlyNumbers(cnpj);
+        $this->cnpj = sprintf('%014s',General::onlyNumbers($cnpj));
     }
 }

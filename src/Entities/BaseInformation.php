@@ -2,6 +2,7 @@
 
 namespace NotaFiscalSP\Entities;
 
+use Exception;
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
 use NotaFiscalSP\Helpers\General;
@@ -83,7 +84,7 @@ class BaseInformation
     /**
      * @param $options
      * @return false|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCertificate($options)
     {

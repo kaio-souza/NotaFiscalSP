@@ -1,7 +1,9 @@
 <?php
+
 namespace NotaFiscalSP\Constants\FieldData;
 
-class TaxType{
+class TaxType
+{
     // Tributação no municipio de São Paulo;
     const IN_SP = 'T';
 
@@ -43,7 +45,6 @@ class TaxType{
 
     // Exportação de Serviços
     const SERVICE_EXPORTATION = 'P';
-
 
 
 }
