@@ -12,16 +12,17 @@ use NotaFiscalSP\Helpers\Certificate;
 
 class RpsValidator
 {
-    public static function validateRps(BaseInformation $baseInformation, $rps)
+    public static function validateRps(BaseInformation $baseInformation, $rps2)
     {
         $rpsOK = [];
 
-        if ($rps instanceof Rps)
-            $rps = [$rps];
+        if (!array_key_exists(0, $rps2))
+            $rps[] = $rps2;
 
         foreach ($rps as $item) {
-            $item = $item->toArray();
-
+            if ($item instanceof Rps) {
+                $item = $item->toArray();
+            }
             if (empty($item[SimpleFieldsEnum::IM_PROVIDER]))
                 $item[SimpleFieldsEnum::IM_PROVIDER] = $baseInformation->getIm();
 
