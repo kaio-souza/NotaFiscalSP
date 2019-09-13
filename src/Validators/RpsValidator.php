@@ -16,8 +16,7 @@ class RpsValidator
     {
         $rpsOK = [];
 
-        if (!array_key_exists(0, $rps2))
-            $rps[] = $rps2;
+        $rps = !array_key_exists(0, $rps2) ? [$rps2] : $rps2 ;
 
         foreach ($rps as $item) {
             if ($item instanceof Rps) {
