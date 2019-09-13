@@ -17,7 +17,7 @@ class PedidoCancelamentoNFTS extends NftsAbstract
     {
         $params = DetailValidator::queryDetail($information, $params);
         $header = $this->makeHeader($information, [
-            HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::SENDER => true,
             HeaderEnum::TRANSACTION => 'false'
         ]);
 
@@ -29,6 +29,6 @@ class PedidoCancelamentoNFTS extends NftsAbstract
 
         $request = array_merge($header, $detail);
 
-        return Xml::makeRequestXML(NfMethods::CANCELAMENTO, $request);
+        return Xml::makeNFTSRequestXML(NfMethods::CANCELAMENTO, $request);
     }
 }

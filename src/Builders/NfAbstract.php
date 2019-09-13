@@ -134,7 +134,7 @@ abstract class NfAbstract implements InputTransformer
                 if (isset($extraInformations[$field]))
                     $rps[$field] = $extraInformations[$field];
             }
-            $rps[ComplexFieldsEnum::ADDRESS] = $this->makeAddress($extraInformations);
+            $rps[ComplexFieldsEnum::ADDRESS_TAKER] = $this->makeAddress($extraInformations);
 
             if (isset($extraInformations[RpsEnum::EMAIL_TAKER]))
                 $rps[RpsEnum::EMAIL_TAKER] = $extraInformations[RpsEnum::EMAIL_TAKER];

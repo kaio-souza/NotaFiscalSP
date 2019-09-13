@@ -181,8 +181,20 @@ abstract class NftsAbstract implements InputTransformer
         $document = General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)
             ? [NftsEnum::CNPJ_PROVIDER => General::getKey($extraInformations, NftsEnum::CNPJ_PROVIDER)]
             : [NftsEnum::CPF_PROVIDER => General::getKey($extraInformations, NftsEnum::CPF_PROVIDER)];
+
         return [
             HeaderEnum::CPFCNPJ => $document,
+            ComplexFieldsEnum::ADDRESS => $this->makeAddress($extraInformations)
         ];
+    }
+
+    private function makeAddress($extraInformations)
+    {
+        $address = [];
+        foreach (SimpleFieldsEnum::addressFields() as $field) {
+            if (isset($extraInformations[$field]))
+                $address[$field] = $extraInformations[$field];
+        }
+        return $address;
     }
 }

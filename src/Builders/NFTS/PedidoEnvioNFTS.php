@@ -15,12 +15,12 @@ class PedidoEnvioNFTS extends NftsAbstract
     {
         $documents = NftsValidator::validateRequest($information, $rps);
         $header = $this->makeHeader($information, [
-            HeaderEnum::CPFCNPJ_SENDER => true
+            HeaderEnum::SENDER => true
         ]);
         $allNfts = $this->makeNFTS($information, $documents);
 
         $request = array_merge($header, $allNfts);
 
-        return Xml::makeRequestXML(NftsMethods::ENVIO, $request);
+        return Xml::makeNFTSRequestXML(NftsMethods::ENVIO, $request);
     }
 }

@@ -9,6 +9,7 @@ use NotaFiscalSP\Constants\FieldData\NFTSType;
 use NotaFiscalSP\Constants\FieldData\RegimeTributation;
 use NotaFiscalSP\Constants\FieldData\Status;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
+use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
 use NotaFiscalSP\Helpers\General;
@@ -42,6 +43,31 @@ class Nfts implements UserRequest
     private $razaoSocialTomador;
     private $codigoCEI;
     private $matriculaObra;
+    private $razaoSocialPrestador;
+    private $tipoLogradouroPrestador;
+    private $logradouroPrestador;
+    private $cidadePrestador;
+    private $numeroEnderecoPrestador;
+    private $bairroPrestador;
+    private $ufPrestador;
+    private $cepPrestador;
+
+    /**
+     * @return mixed
+     */
+    public function getCepPrestador()
+    {
+        return $this->cepPrestador;
+    }
+
+    /**
+     * @param mixed $cepPrestador
+     */
+    public function setCepPrestador($cepPrestador)
+    {
+        $this->cepPrestador = General::onlyNumbers($cepPrestador);
+    }
+
 
     public function __construct()
     {
@@ -56,6 +82,119 @@ class Nfts implements UserRequest
         $this->setIssRetidoTomador(false);
         $this->setRegimeTributacao(RegimeTributation::NORMAL);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRazaoSocialPrestador()
+    {
+        return $this->razaoSocialPrestador;
+    }
+
+    /**
+     * @param mixed $razaoSocialPrestador
+     */
+    public function setRazaoSocialPrestador($razaoSocialPrestador)
+    {
+        $this->razaoSocialPrestador = $razaoSocialPrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTipoLogradouroPrestador()
+    {
+        return $this->tipoLogradouroPrestador;
+    }
+
+    /**
+     * @param mixed $tipoLogradouroPrestador
+     */
+    public function setTipoLogradouroPrestador($tipoLogradouroPrestador)
+    {
+        $this->tipoLogradouroPrestador = $tipoLogradouroPrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogradouroPrestador()
+    {
+        return $this->logradouroPrestador;
+    }
+
+    /**
+     * @param mixed $logradouroPrestador
+     */
+    public function setLogradouroPrestador($logradouroPrestador)
+    {
+        $this->logradouroPrestador = $logradouroPrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCidadePrestador()
+    {
+        return $this->cidadePrestador;
+    }
+
+    /**
+     * @param mixed $cidadePrestador
+     */
+    public function setCidadePrestador($cidadePrestador)
+    {
+        $this->cidadePrestador = $cidadePrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroEnderecoPrestador()
+    {
+        return $this->numeroEnderecoPrestador;
+    }
+
+    /**
+     * @param mixed $numeroEnderecoPrestador
+     */
+    public function setNumeroEnderecoPrestador($numeroEnderecoPrestador)
+    {
+        $this->numeroEnderecoPrestador = $numeroEnderecoPrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBairroPrestador()
+    {
+        return $this->bairroPrestador;
+    }
+
+    /**
+     * @param mixed $bairroPrestador
+     */
+    public function setBairroPrestador($bairroPrestador)
+    {
+        $this->bairroPrestador = $bairroPrestador;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUfPrestador()
+    {
+        return $this->ufPrestador;
+    }
+
+    /**
+     * @param mixed $ufPrestador
+     */
+    public function setUfPrestador($ufPrestador)
+    {
+        $this->ufPrestador = $ufPrestador;
+    }
+
 
     /**
      * @return mixed
@@ -520,6 +659,20 @@ class Nfts implements UserRequest
             SimpleFieldsEnum::CORPORATE_NAME_TAKER => $this->razaoSocialTomador,
             NftsEnum::CEI_CODE => $this->codigoCEI,
             NftsEnum::WORK_REGISTRATION => $this->matriculaObra,
+
+
+            NftsEnum::CORPORATE_NAME_PROVIDER => $this->razaoSocialPrestador,
+            NftsEnum::EMAIL_PROVIDER => $this->emailPrestador,
+            SimpleFieldsEnum::TYPE_ADDRESS => $this->tipoLogradouroPrestador,
+            SimpleFieldsEnum::ADDRESS => $this->logradouroPrestador,
+            SimpleFieldsEnum::ADDRESS_NUMBER => $this->numeroEnderecoPrestador,
+            SimpleFieldsEnum::ADDRESS_COMPLEMENT => $this->cidadePrestador,
+            SimpleFieldsEnum::NEIGHBORHOOD => $this->bairroPrestador,
+            SimpleFieldsEnum::CITY => $this->cidadePrestador,
+            SimpleFieldsEnum::STATE => $this->ufPrestador,
+            SimpleFieldsEnum::ZIP_CODE => $this->cepPrestador,
+
+
         ];
     }
 }
