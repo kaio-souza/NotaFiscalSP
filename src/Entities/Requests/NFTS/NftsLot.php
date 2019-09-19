@@ -135,15 +135,19 @@ class NftsLot implements UserRequest
     {
         $valorTotalServicos = 0;
         $valorTotalDeducoes = 0;
+        $startDate = $this->getDtInicio();
 
         foreach ($nftsList as $nfts) {
             if ($nfts instanceof Nfts) {
+                $emission = $nfts->getDataEmissao() ;
+                $startDate = strtotime($emission) < strtotime($startDate)? $emission : $startDate;
                 $valorTotalServicos = $valorTotalServicos + $nfts->getValorServicos();
                 $valorTotalDeducoes = $valorTotalDeducoes + $nfts->getValorDeducoes();
             }
         }
 
         $this->qtdNFTS = count($nftsList);
+        $this->setDtInicio($startDate);
         $this->setValorTotalServicos($valorTotalServicos);
         $this->setValorTotalDeducoes($valorTotalDeducoes);
 

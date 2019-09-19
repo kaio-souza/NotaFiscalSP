@@ -9,7 +9,6 @@ use NotaFiscalSP\Constants\FieldData\NFTSType;
 use NotaFiscalSP\Constants\FieldData\RegimeTributation;
 use NotaFiscalSP\Constants\FieldData\Status;
 use NotaFiscalSP\Constants\Requests\NftsEnum;
-use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
 use NotaFiscalSP\Helpers\General;
@@ -52,23 +51,6 @@ class Nfts implements UserRequest
     private $ufPrestador;
     private $cepPrestador;
 
-    /**
-     * @return mixed
-     */
-    public function getCepPrestador()
-    {
-        return $this->cepPrestador;
-    }
-
-    /**
-     * @param mixed $cepPrestador
-     */
-    public function setCepPrestador($cepPrestador)
-    {
-        $this->cepPrestador = General::onlyNumbers($cepPrestador);
-    }
-
-
     public function __construct()
     {
         $this->setTipoNFTS(NFTSType::TAKER);
@@ -86,6 +68,23 @@ class Nfts implements UserRequest
     /**
      * @return mixed
      */
+    public function getCepPrestador()
+    {
+        return $this->cepPrestador;
+    }
+
+    /**
+     * @param mixed $cepPrestador
+     */
+    public function setCepPrestador($cepPrestador)
+    {
+
+        $this->cepPrestador = sprintf('%08s', General::onlyNumbers($cepPrestador));
+    }
+
+    /**
+     * @return mixed
+     */
     public function getRazaoSocialPrestador()
     {
         return $this->razaoSocialPrestador;
@@ -96,7 +95,7 @@ class Nfts implements UserRequest
      */
     public function setRazaoSocialPrestador($razaoSocialPrestador)
     {
-        $this->razaoSocialPrestador = $razaoSocialPrestador;
+        $this->razaoSocialPrestador = substr($razaoSocialPrestador,0,75);
     }
 
     /**
@@ -112,7 +111,7 @@ class Nfts implements UserRequest
      */
     public function setTipoLogradouroPrestador($tipoLogradouroPrestador)
     {
-        $this->tipoLogradouroPrestador = $tipoLogradouroPrestador;
+        $this->tipoLogradouroPrestador = substr($tipoLogradouroPrestador,0,3);
     }
 
     /**
@@ -128,7 +127,7 @@ class Nfts implements UserRequest
      */
     public function setLogradouroPrestador($logradouroPrestador)
     {
-        $this->logradouroPrestador = $logradouroPrestador;
+        $this->logradouroPrestador = substr($logradouroPrestador,0,50);
     }
 
     /**
@@ -160,7 +159,7 @@ class Nfts implements UserRequest
      */
     public function setNumeroEnderecoPrestador($numeroEnderecoPrestador)
     {
-        $this->numeroEnderecoPrestador = $numeroEnderecoPrestador;
+        $this->numeroEnderecoPrestador = General::onlyNumbers($numeroEnderecoPrestador);
     }
 
     /**
@@ -176,7 +175,7 @@ class Nfts implements UserRequest
      */
     public function setBairroPrestador($bairroPrestador)
     {
-        $this->bairroPrestador = $bairroPrestador;
+        $this->bairroPrestador = substr($bairroPrestador,0,30);
     }
 
     /**
@@ -192,7 +191,7 @@ class Nfts implements UserRequest
      */
     public function setUfPrestador($ufPrestador)
     {
-        $this->ufPrestador = $ufPrestador;
+        $this->ufPrestador = substr($ufPrestador,0,2);
     }
 
 
@@ -209,7 +208,7 @@ class Nfts implements UserRequest
      */
     public function setSerieNFTS($serieNFTS)
     {
-        $this->serieNFTS = $serieNFTS;
+        $this->serieNFTS = substr($serieNFTS,0,5);
     }
 
     /**
@@ -225,7 +224,7 @@ class Nfts implements UserRequest
      */
     public function setNumeroDocumento($numeroDocumento)
     {
-        $this->numeroDocumento = $numeroDocumento;
+        $this->numeroDocumento = sprintf('%012s', General::onlyNumbers($numeroDocumento));
     }
 
     /**
@@ -435,7 +434,7 @@ class Nfts implements UserRequest
      */
     public function setCpfPrestador($cpfPrestador)
     {
-        $this->cpfPrestador = sprintf('%011s',General::onlyNumbers($cpfPrestador));
+        $this->cpfPrestador = sprintf('%011s', General::onlyNumbers($cpfPrestador));
     }
 
     /**
@@ -451,7 +450,7 @@ class Nfts implements UserRequest
      */
     public function setCnpjPrestador($cnpjPrestador)
     {
-        $this->cnpjPrestador = sprintf('%014s',General::onlyNumbers($cnpjPrestador));
+        $this->cnpjPrestador = sprintf('%014s', General::onlyNumbers($cnpjPrestador));
     }
 
     /**

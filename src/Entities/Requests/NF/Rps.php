@@ -8,7 +8,9 @@ use NotaFiscalSP\Constants\FieldData\TaxType;
 use NotaFiscalSP\Constants\Requests\RpsEnum;
 use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Contracts\UserRequest;
+use NotaFiscalSP\Exceptions\InvalidParam;
 use NotaFiscalSP\Helpers\General;
+use NotaFiscalSP\Validators\RpsValidator;
 
 class Rps implements UserRequest
 {
@@ -70,39 +72,7 @@ class Rps implements UserRequest
         $this->setIssRetido(false);
         $this->setSerieRps('A');
         $this->setAliquotaServicos('0');
-//        $this->setCidade(3550308);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCpf()
-    {
-        return $this->cpf;
-    }
-
-    /**
-     * @param mixed $cpf
-     */
-    public function setCpf($cpf)
-    {
-        $this->cpf = sprintf('%011s', General::onlyNumbers($cpf));
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCnpj()
-    {
-        return $this->cnpj;
-    }
-
-    /**
-     * @param mixed $cnpj
-     */
-    public function setCnpj($cnpj)
-    {
-        $this->cnpj = sprintf('%014s', General::onlyNumbers($cnpj));
+//        $this->setCidade(3550308); // SP CODE
     }
 
     public function toArray()
@@ -160,6 +130,39 @@ class Rps implements UserRequest
     /**
      * @return mixed
      */
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
+
+    /**
+     * @param mixed $cpf
+     */
+    public function setCpf($cpf)
+    {
+        $this->cpf = sprintf('%011s', General::onlyNumbers($cpf));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCnpj()
+    {
+        return $this->cnpj;
+    }
+
+    /**
+     * @param mixed $cnpj
+     */
+    public function setCnpj($cnpj)
+    {
+        $this->cnpj = sprintf('%014s', General::onlyNumbers($cnpj));
+    }
+
+
+    /**
+     * @return mixed
+     */
     public function getInscricaoPrestador()
     {
         return $this->inscricaoPrestador;
@@ -186,7 +189,7 @@ class Rps implements UserRequest
      */
     public function setSerieRps($serieRps)
     {
-        $this->serieRps = $serieRps;
+        $this->serieRps = substr($serieRps, 0, 5);
     }
 
     /**
@@ -202,7 +205,7 @@ class Rps implements UserRequest
      */
     public function setNumeroRps($numeroRps)
     {
-        $this->numeroRps = $numeroRps;
+        $this->numeroRps = General::onlyNumbers($numeroRps);
     }
 
     /**
@@ -214,10 +217,12 @@ class Rps implements UserRequest
     }
 
     /**
-     * @param mixed $tipoRps
+     * @param $tipoRps
+     * @throws InvalidParam
      */
     public function setTipoRps($tipoRps)
     {
+        RpsValidator::validateRpsType($tipoRps);
         $this->tipoRps = $tipoRps;
     }
 
@@ -234,7 +239,7 @@ class Rps implements UserRequest
      */
     public function setDataEmissao($dataEmissao)
     {
-        $this->dataEmissao = $dataEmissao;
+        $this->dataEmissao = General::filterDate($dataEmissao);
     }
 
     /**
@@ -246,10 +251,12 @@ class Rps implements UserRequest
     }
 
     /**
-     * @param mixed $statusRps
+     * @param $statusRps
+     * @throws InvalidParam
      */
     public function setStatusRps($statusRps)
     {
+        RpsValidator::validateRpsStatus($statusRps);
         $this->statusRps = $statusRps;
     }
 
@@ -266,7 +273,7 @@ class Rps implements UserRequest
      */
     public function setTributacaoRps($tributacaoRps)
     {
-        $this->tributacaoRps = $tributacaoRps;
+        $this->tributacaoRps = substr($tributacaoRps, 0, 1);
     }
 
     /**
@@ -442,7 +449,7 @@ class Rps implements UserRequest
      */
     public function setInscricaoMunicipalTomador($inscricaoMunicipalTomador)
     {
-        $this->inscricaoMunicipalTomador = $inscricaoMunicipalTomador;
+        $this->inscricaoMunicipalTomador = sprintf('%08s', $inscricaoMunicipalTomador);
     }
 
     /**
@@ -458,7 +465,8 @@ class Rps implements UserRequest
      */
     public function setInscricaoEstadualTomador($inscricaoEstadualTomador)
     {
-        $this->inscricaoEstadualTomador = $inscricaoEstadualTomador;
+
+        $this->inscricaoEstadualTomador = substr(General::onlyNumbers($inscricaoEstadualTomador), 0, 19);
     }
 
     /**
@@ -474,7 +482,7 @@ class Rps implements UserRequest
      */
     public function setRazaoSocialTomador($razaoSocialTomador)
     {
-        $this->razaoSocialTomador = $razaoSocialTomador;
+        $this->razaoSocialTomador = substr($razaoSocialTomador, 0, 75);
     }
 
     /**
@@ -490,7 +498,7 @@ class Rps implements UserRequest
      */
     public function setEmailTomador($emailTomador)
     {
-        $this->emailTomador = $emailTomador;
+        $this->emailTomador = substr($emailTomador, 0, 30);
     }
 
     /**
@@ -506,7 +514,7 @@ class Rps implements UserRequest
      */
     public function setDiscriminacao($discriminacao)
     {
-        $this->discriminacao = $discriminacao;
+        $this->discriminacao = substr($discriminacao, 0, 2000);
     }
 
     /**
@@ -554,7 +562,7 @@ class Rps implements UserRequest
      */
     public function setInscricaoMunicipalIntermediario($inscricaoMunicipalIntermediario)
     {
-        $this->inscricaoMunicipalIntermediario = $inscricaoMunicipalIntermediario;
+        $this->inscricaoMunicipalIntermediario = sprintf('%08s',$inscricaoMunicipalIntermediario);
     }
 
     /**
@@ -586,7 +594,7 @@ class Rps implements UserRequest
      */
     public function setEmailIntermediario($emailIntermediario)
     {
-        $this->emailIntermediario = $emailIntermediario;
+        $this->emailIntermediario = substr($emailIntermediario, 0, 75);
     }
 
     /**
@@ -634,7 +642,7 @@ class Rps implements UserRequest
      */
     public function setFonteCargaTributaria($fonteCargaTributaria)
     {
-        $this->fonteCargaTributaria = $fonteCargaTributaria;
+        $this->fonteCargaTributaria = substr($fonteCargaTributaria,0,10);
     }
 
     /**
@@ -650,7 +658,7 @@ class Rps implements UserRequest
      */
     public function setCodigoCEI($codigoCEI)
     {
-        $this->codigoCEI = $codigoCEI;
+        $this->codigoCEI = General::onlyNumbers($codigoCEI);
     }
 
     /**
@@ -666,7 +674,7 @@ class Rps implements UserRequest
      */
     public function setMatriculaObra($matriculaObra)
     {
-        $this->matriculaObra = $matriculaObra;
+        $this->matriculaObra = General::onlyNumbers($matriculaObra);
     }
 
     /**
@@ -682,7 +690,7 @@ class Rps implements UserRequest
      */
     public function setMunicipioPrestacao($municipioPrestacao)
     {
-        $this->municipioPrestacao = $municipioPrestacao;
+        $this->municipioPrestacao = sprintf('%07s', General::onlyNumbers($municipioPrestacao));
     }
 
     /**
@@ -714,7 +722,7 @@ class Rps implements UserRequest
      */
     public function setNumeroEncapsulamento($numeroEncapsulamento)
     {
-        $this->numeroEncapsulamento = $numeroEncapsulamento;
+        $this->numeroEncapsulamento = General::onlyNumbers($numeroEncapsulamento);
     }
 
     /**
@@ -730,7 +738,7 @@ class Rps implements UserRequest
      */
     public function setTipoLogradouro($tipoLogradouro)
     {
-        $this->tipoLogradouro = $tipoLogradouro;
+        $this->tipoLogradouro = substr($tipoLogradouro,0,3);
     }
 
     /**
@@ -746,7 +754,7 @@ class Rps implements UserRequest
      */
     public function setLogradouro($logradouro)
     {
-        $this->logradouro = $logradouro;
+        $this->logradouro = substr($logradouro, 0,50);
     }
 
     /**
@@ -762,7 +770,7 @@ class Rps implements UserRequest
      */
     public function setNumeroEndereco($numeroEndereco)
     {
-        $this->numeroEndereco = $numeroEndereco;
+        $this->numeroEndereco = General::onlyNumbers($numeroEndereco);
     }
 
     /**
@@ -778,7 +786,7 @@ class Rps implements UserRequest
      */
     public function setComplementoEndereco($complementoEndereco)
     {
-        $this->complementoEndereco = $complementoEndereco;
+        $this->complementoEndereco = substr($complementoEndereco, 0, 30);
     }
 
     /**
@@ -794,7 +802,7 @@ class Rps implements UserRequest
      */
     public function setBairro($bairro)
     {
-        $this->bairro = $bairro;
+        $this->bairro = substr($bairro, 0, 30);
     }
 
     /**
@@ -810,7 +818,8 @@ class Rps implements UserRequest
      */
     public function setCidade($cidade)
     {
-        $this->cidade = $cidade;
+
+        $this->cidade = sprintf('%07s', General::onlyNumbers($cidade));
     }
 
     /**
@@ -826,7 +835,7 @@ class Rps implements UserRequest
      */
     public function setUf($uf)
     {
-        $this->uf = $uf;
+        $this->uf = substr($uf,0,2);
     }
 
     /**
