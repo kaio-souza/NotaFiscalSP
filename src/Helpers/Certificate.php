@@ -103,8 +103,9 @@ class Certificate
     {
         $string = '';
         foreach ($array as $key => $value) {
-            if (is_array($value))
+            if (is_array($value)){
                 $value = Certificate::makeXmlString($value);
+            }
             $string .= '<' . $key . '>' . $value . '</' . $key . '>';
         }
         return $string;

@@ -42,6 +42,7 @@ class Nfts implements UserRequest
     private $razaoSocialTomador;
     private $codigoCEI;
     private $matriculaObra;
+    private $complement;
     private $razaoSocialPrestador;
     private $tipoLogradouroPrestador;
     private $logradouroPrestador;
@@ -68,6 +69,24 @@ class Nfts implements UserRequest
     /**
      * @return mixed
      */
+    public function getComplement()
+    {
+        return $this->complement;
+    }
+
+    /**
+     * @param mixed $complement
+     */
+    public function setComplement($complement)
+    {
+        if(!empty($complement)){
+            $this->complement = $complement;
+        }
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCepPrestador()
     {
         return $this->cepPrestador;
@@ -78,7 +97,6 @@ class Nfts implements UserRequest
      */
     public function setCepPrestador($cepPrestador)
     {
-
         $this->cepPrestador = sprintf('%08s', General::onlyNumbers($cepPrestador));
     }
 
@@ -95,7 +113,7 @@ class Nfts implements UserRequest
      */
     public function setRazaoSocialPrestador($razaoSocialPrestador)
     {
-        $this->razaoSocialPrestador = substr($razaoSocialPrestador,0,75);
+        $this->razaoSocialPrestador = substr($razaoSocialPrestador, 0, 75);
     }
 
     /**
@@ -111,7 +129,7 @@ class Nfts implements UserRequest
      */
     public function setTipoLogradouroPrestador($tipoLogradouroPrestador)
     {
-        $this->tipoLogradouroPrestador = substr($tipoLogradouroPrestador,0,3);
+        $this->tipoLogradouroPrestador = substr($tipoLogradouroPrestador, 0, 3);
     }
 
     /**
@@ -127,7 +145,7 @@ class Nfts implements UserRequest
      */
     public function setLogradouroPrestador($logradouroPrestador)
     {
-        $this->logradouroPrestador = substr($logradouroPrestador,0,50);
+        $this->logradouroPrestador = substr($logradouroPrestador, 0, 50);
     }
 
     /**
@@ -175,7 +193,7 @@ class Nfts implements UserRequest
      */
     public function setBairroPrestador($bairroPrestador)
     {
-        $this->bairroPrestador = substr($bairroPrestador,0,30);
+        $this->bairroPrestador = substr($bairroPrestador, 0, 30);
     }
 
     /**
@@ -191,7 +209,7 @@ class Nfts implements UserRequest
      */
     public function setUfPrestador($ufPrestador)
     {
-        $this->ufPrestador = substr($ufPrestador,0,2);
+        $this->ufPrestador = substr($ufPrestador, 0, 2);
     }
 
 
@@ -208,7 +226,7 @@ class Nfts implements UserRequest
      */
     public function setSerieNFTS($serieNFTS)
     {
-        $this->serieNFTS = substr($serieNFTS,0,5);
+        $this->serieNFTS = substr($serieNFTS, 0, 5);
     }
 
     /**
@@ -418,7 +436,8 @@ class Nfts implements UserRequest
      */
     public function setDescumpreLeiComplementar1572016($descumpreLeiComplementar1572016)
     {
-        $this->descumpreLeiComplementar1572016 = $descumpreLeiComplementar1572016;
+        $value = $descumpreLeiComplementar1572016 ? BooleanFields::LOWER_TRUE : BooleanFields::LOWER_FALSE;
+        $this->descumpreLeiComplementar1572016 = $value;
     }
 
     /**
@@ -466,7 +485,7 @@ class Nfts implements UserRequest
      */
     public function setInscricaoMunicipalPrestador($inscricaoMunicipalPrestador)
     {
-        $this->inscricaoMunicipalPrestador = $inscricaoMunicipalPrestador;
+        $this->inscricaoMunicipalPrestador = sprintf('%08s', $inscricaoMunicipalPrestador);
     }
 
     /**
@@ -482,7 +501,9 @@ class Nfts implements UserRequest
      */
     public function setEmailPrestador($emailPrestador)
     {
-        $this->emailPrestador = $emailPrestador;
+        if(!empty($emailPrestador)){
+            $this->emailPrestador = $emailPrestador;
+        }
     }
 
     /**
@@ -530,7 +551,9 @@ class Nfts implements UserRequest
      */
     public function setDiscriminacao($discriminacao)
     {
-        $this->discriminacao = $discriminacao;
+        if(!empty($discriminacao)){
+            $this->discriminacao = $discriminacao;
+        }
     }
 
     /**
@@ -546,7 +569,9 @@ class Nfts implements UserRequest
      */
     public function setTipoNFTS($tipoNFTS)
     {
-        $this->tipoNFTS = $tipoNFTS;
+        if(!empty($tipoNFTS)){
+            $this->tipoNFTS = $tipoNFTS;
+        }
     }
 
     /**
@@ -610,7 +635,9 @@ class Nfts implements UserRequest
      */
     public function setCodigoCEI($codigoCEI)
     {
-        $this->codigoCEI = $codigoCEI;
+        if(!empty($codigoCEI)){
+            $this->codigoCEI = $codigoCEI;
+        }
     }
 
     /**
@@ -626,7 +653,9 @@ class Nfts implements UserRequest
      */
     public function setMatriculaObra($matriculaObra)
     {
-        $this->matriculaObra = $matriculaObra;
+        if(!empty($matriculaObra)){
+            $this->matriculaObra = $matriculaObra;
+        }
     }
 
     public function toArray()
@@ -665,7 +694,7 @@ class Nfts implements UserRequest
             SimpleFieldsEnum::TYPE_ADDRESS => $this->tipoLogradouroPrestador,
             SimpleFieldsEnum::ADDRESS => $this->logradouroPrestador,
             SimpleFieldsEnum::ADDRESS_NUMBER => $this->numeroEnderecoPrestador,
-            SimpleFieldsEnum::ADDRESS_COMPLEMENT => $this->cidadePrestador,
+            SimpleFieldsEnum::ADDRESS_COMPLEMENT => $this->complement,
             SimpleFieldsEnum::NEIGHBORHOOD => $this->bairroPrestador,
             SimpleFieldsEnum::CITY => $this->cidadePrestador,
             SimpleFieldsEnum::STATE => $this->ufPrestador,

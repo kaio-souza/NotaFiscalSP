@@ -15,8 +15,9 @@ class NftsValidator
         $nfts = !array_key_exists(0, $nfts2) ? [$nfts2] : $nfts2 ;
 
         foreach ($nfts as $item) {
-            if($item instanceof Nfts)
-            $item = $item->toArray();
+            if($item instanceof Nfts){
+              $item = $item->toArray();
+            }
 
             if (empty($item[NftsEnum::IM]))
                 $item[NftsEnum::IM] = $baseInformation->getIm();
