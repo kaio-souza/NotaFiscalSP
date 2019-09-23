@@ -52,7 +52,7 @@ class General
     }
 
     public static function filterMonetaryValue($value){
-        return number_format((float)$value, 2);
+        return number_format((float)$value, 2, '.','');
     }
 
     public static function convertUserRequest($request)
