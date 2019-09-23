@@ -134,10 +134,41 @@ $makeProtocol = $nfSP->enviarLoteAsync($lot);
 $lotResult = $nfSP->consultarLoteAsync('1223589');
 ```
 
-#NFTS
+# NFTS
+## Consultando uma NFTS
 ```php
     $nfSP->consultarNfts('454565')
 ```
+## Emitindo uma NFTS
+```php
+// Montando o objeto da NFTS
+$nfts = new Nfts();
+$nfts->setNumeroDocumento('000000000000');
+$nfts->setSerieNFTS('A');
+$nfts->setCodigoServico('7099');
+$nfts->setValorServicos('150.30');
+$nfts->setCnpjPrestador('00000000000100');
+$nfts->setDiscriminacao('xxx');
+$nfts->setDataPrestacao('2019-09-10');
+$nfts->setTipoDocumento('01');
+$nfts->setRazaoSocialPrestador('XXXX');
+$nfts->setLogradouroPrestador('Avenida x x x');
+$nfts->setCidadePrestador('x');
+$nfts->setNumeroEnderecoPrestador('250');
+$nfts->setBairroPrestador('Vila x');
+$nfts->setUfPrestador('SP');
+$nfts->setCepPrestador('06000000');
+
+// Emitindo a NFTS
+$nfSP->enviarNfts($nfts);
+```
+
+## Cancelando uma NFTS
+```php
+$response = $nfSP->cancelarNfts('00568');
+```
+
+
 # Métodos Básicos do Response
 ## getResponse
 Retorna uma array com as informaçes da resposta da API
