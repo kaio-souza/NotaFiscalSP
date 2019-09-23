@@ -80,7 +80,7 @@ class Nfts implements UserRequest
     public function setComplement($complement)
     {
         if(!empty($complement)){
-            $this->complement = $complement;
+            $this->complement = General::filterString($complement);
         }
     }
 
@@ -113,7 +113,7 @@ class Nfts implements UserRequest
      */
     public function setRazaoSocialPrestador($razaoSocialPrestador)
     {
-        $this->razaoSocialPrestador = substr($razaoSocialPrestador, 0, 75);
+        $this->razaoSocialPrestador = General::filterString(substr($razaoSocialPrestador, 0, 75));
     }
 
     /**
@@ -129,7 +129,7 @@ class Nfts implements UserRequest
      */
     public function setTipoLogradouroPrestador($tipoLogradouroPrestador)
     {
-        $this->tipoLogradouroPrestador = substr($tipoLogradouroPrestador, 0, 3);
+        $this->tipoLogradouroPrestador = General::filterString(substr($tipoLogradouroPrestador, 0, 3));
     }
 
     /**
@@ -145,7 +145,7 @@ class Nfts implements UserRequest
      */
     public function setLogradouroPrestador($logradouroPrestador)
     {
-        $this->logradouroPrestador = substr($logradouroPrestador, 0, 50);
+        $this->logradouroPrestador = General::filterString(substr($logradouroPrestador, 0, 50));
     }
 
     /**
@@ -161,7 +161,7 @@ class Nfts implements UserRequest
      */
     public function setCidadePrestador($cidadePrestador)
     {
-        $this->cidadePrestador = $cidadePrestador;
+        $this->cidadePrestador = General::filterString($cidadePrestador);
     }
 
     /**
@@ -177,7 +177,10 @@ class Nfts implements UserRequest
      */
     public function setNumeroEnderecoPrestador($numeroEnderecoPrestador)
     {
-        $this->numeroEnderecoPrestador = General::onlyNumbers($numeroEnderecoPrestador);
+        $value = General::onlyNumbers($numeroEnderecoPrestador);
+        if($value > 0){
+            $this->numeroEnderecoPrestador = $value;
+        }
     }
 
     /**
@@ -193,7 +196,7 @@ class Nfts implements UserRequest
      */
     public function setBairroPrestador($bairroPrestador)
     {
-        $this->bairroPrestador = substr($bairroPrestador, 0, 30);
+        $this->bairroPrestador = General::filterString(substr($bairroPrestador, 0, 30));
     }
 
     /**
@@ -209,7 +212,7 @@ class Nfts implements UserRequest
      */
     public function setUfPrestador($ufPrestador)
     {
-        $this->ufPrestador = substr($ufPrestador, 0, 2);
+        $this->ufPrestador = strtoupper(substr($ufPrestador, 0, 2));
     }
 
 
@@ -322,7 +325,7 @@ class Nfts implements UserRequest
      */
     public function setValorServicos($valorServicos)
     {
-        $this->valorServicos = $valorServicos;
+        $this->valorServicos = General::filterMonetaryValue($valorServicos);
     }
 
     /**
@@ -338,7 +341,7 @@ class Nfts implements UserRequest
      */
     public function setValorDeducoes($valorDeducoes)
     {
-        $this->valorDeducoes = $valorDeducoes;
+        $this->valorDeducoes = General::filterMonetaryValue($valorDeducoes);
     }
 
     /**
@@ -619,7 +622,7 @@ class Nfts implements UserRequest
      */
     public function setRazaoSocialTomador($razaoSocialTomador)
     {
-        $this->razaoSocialTomador = $razaoSocialTomador;
+        $this->razaoSocialTomador = General::filterString($razaoSocialTomador);
     }
 
     /**
@@ -687,8 +690,6 @@ class Nfts implements UserRequest
             SimpleFieldsEnum::CORPORATE_NAME_TAKER => $this->razaoSocialTomador,
             NftsEnum::CEI_CODE => $this->codigoCEI,
             NftsEnum::WORK_REGISTRATION => $this->matriculaObra,
-
-
             NftsEnum::CORPORATE_NAME_PROVIDER => $this->razaoSocialPrestador,
             NftsEnum::EMAIL_PROVIDER => $this->emailPrestador,
             SimpleFieldsEnum::TYPE_ADDRESS => $this->tipoLogradouroPrestador,
@@ -699,8 +700,6 @@ class Nfts implements UserRequest
             SimpleFieldsEnum::CITY => $this->cidadePrestador,
             SimpleFieldsEnum::STATE => $this->ufPrestador,
             SimpleFieldsEnum::ZIP_CODE => $this->cepPrestador,
-
-
         ];
     }
 }

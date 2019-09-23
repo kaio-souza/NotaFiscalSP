@@ -149,7 +149,6 @@ abstract class NftsAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $nfts[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
-            //$nfts[DetailEnum::SIGN] = Certificate::signItem($information, General::getPath($extraInformations, DetailEnum::SIGN));
             $nfts[DetailEnum::SIGN] = Certificate::signItem($information, Certificate::nftsSignatureString($nfts));
 
             $nftsItens[] = $nfts;

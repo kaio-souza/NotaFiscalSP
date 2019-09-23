@@ -289,7 +289,7 @@ class Rps implements UserRequest
      */
     public function setValorServicos($valorServicos)
     {
-        $this->valorServicos = $valorServicos;
+        $this->valorServicos = General::filterMonetaryValue($valorServicos);
     }
 
     /**
@@ -305,7 +305,7 @@ class Rps implements UserRequest
      */
     public function setValorDeducoes($valorDeducoes)
     {
-        $this->valorDeducoes = $valorDeducoes;
+        $this->valorDeducoes = General::filterMonetaryValue($valorDeducoes);
     }
 
     /**
@@ -482,7 +482,7 @@ class Rps implements UserRequest
      */
     public function setRazaoSocialTomador($razaoSocialTomador)
     {
-        $this->razaoSocialTomador = substr($razaoSocialTomador, 0, 75);
+        $this->razaoSocialTomador = General::filterString(substr($razaoSocialTomador, 0, 75));
     }
 
     /**
@@ -706,7 +706,7 @@ class Rps implements UserRequest
      */
     public function setValortotalRecebido($valortotalRecebido)
     {
-        $this->valortotalRecebido = $valortotalRecebido;
+        $this->valortotalRecebido = General::filterMonetaryValue($valortotalRecebido);
     }
 
     /**
@@ -738,7 +738,7 @@ class Rps implements UserRequest
      */
     public function setTipoLogradouro($tipoLogradouro)
     {
-        $this->tipoLogradouro = substr($tipoLogradouro,0,3);
+        $this->tipoLogradouro = General::filterString(substr($tipoLogradouro,0,3));
     }
 
     /**
@@ -754,7 +754,7 @@ class Rps implements UserRequest
      */
     public function setLogradouro($logradouro)
     {
-        $this->logradouro = substr($logradouro, 0,50);
+        $this->logradouro = General::filterString(substr($logradouro, 0,50));
     }
 
     /**
@@ -786,7 +786,7 @@ class Rps implements UserRequest
      */
     public function setComplementoEndereco($complementoEndereco)
     {
-        $this->complementoEndereco = substr($complementoEndereco, 0, 30);
+        $this->complementoEndereco = General::filterString(substr($complementoEndereco, 0, 30));
     }
 
     /**
@@ -802,7 +802,7 @@ class Rps implements UserRequest
      */
     public function setBairro($bairro)
     {
-        $this->bairro = substr($bairro, 0, 30);
+        $this->bairro = General::filterString(substr($bairro, 0, 30));
     }
 
     /**
@@ -835,7 +835,7 @@ class Rps implements UserRequest
      */
     public function setUf($uf)
     {
-        $this->uf = substr($uf,0,2);
+        $this->uf = strtoupper(substr($uf,0,2));
     }
 
     /**
