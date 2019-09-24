@@ -97,7 +97,7 @@ class Nfts implements UserRequest
      */
     public function setCepPrestador($cepPrestador)
     {
-        $this->cepPrestador = sprintf('%08s', General::onlyNumbers($cepPrestador));
+        $this->cepPrestador = General::onlyNumbers($cepPrestador);
     }
 
     /**
@@ -555,7 +555,7 @@ class Nfts implements UserRequest
     public function setDiscriminacao($discriminacao)
     {
         if(!empty($discriminacao)){
-            $this->discriminacao = $discriminacao;
+            $this->discriminacao = trim($discriminacao);
         }
     }
 
