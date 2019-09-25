@@ -14,6 +14,10 @@ class  PedidoConsultaNFePeriodo extends NfAbstract
 {
     public function makeXmlRequest(BaseInformation $information, $params)
     {
+        if(isset($params[HeaderEnum::TRANSACTION])){
+            unset($params[HeaderEnum::TRANSACTION]);
+        }
+
         $extra = [
             HeaderEnum::CPFCNPJ_SENDER => true,
         ];

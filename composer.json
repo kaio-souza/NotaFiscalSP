@@ -4,7 +4,12 @@
     "require": {
         "robrichards/xmlseclibs": "^3.0",
         "greenter/xmldsig": "^5.0",
-        "spatie/array-to-xml": "^2.8"
+        "spatie/array-to-xml": "^2.8",
+        "ext-dom": "*",
+        "ext-soap": "*"
+    },
+    "suggest": {
+        "ext-mbstring": "*"
     },
     "keywords": [
         "NFS",
@@ -32,7 +37,6 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit"
-
     },
     "minimum-stability": "stable"
 }

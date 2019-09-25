@@ -27,6 +27,8 @@ class Period implements UserRequest
     {
         $this->transacao = 'false';
         $this->pagina = 1;
+        $this->dtInicio = date('Y-m-d');
+        $this->dtFim = date('Y-m-d');
     }
 
     /**

@@ -97,7 +97,7 @@ class Nfts implements UserRequest
      */
     public function setCepPrestador($cepPrestador)
     {
-        $this->cepPrestador = General::onlyNumbers($cepPrestador);
+        $this->cepPrestador = (int)General::onlyNumbers($cepPrestador);
     }
 
     /**
