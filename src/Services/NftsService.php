@@ -96,7 +96,12 @@ class NftsService
     public function sendNfts(BaseInformation $baseInformation, $params)
     {
         $builder = new PedidoEnvioNFTS();
-        return $this->processRequest($baseInformation, $params, NftsMethods::ENVIO, $builder);
+        $response = $this->processRequest($baseInformation, $params, NftsMethods::ENVIO, $builder);
+
+        if($response->getSuccess() == 'false'){
+            $response->setMessage(General::getPath($response->getResponse(),'ListaRetornoNFTS.Erro.Descricao'));
+        }
+        return $response;
     }
 
     public function cancelNfts(BaseInformation $baseInformation, $params)

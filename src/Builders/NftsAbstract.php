@@ -25,7 +25,7 @@ abstract class NftsAbstract implements InputTransformer
         ];
 
         if (isset($extraInformations[HeaderEnum::SENDER]))
-            $header[HeaderEnum::SENDER][HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+            $header[HeaderEnum::SENDER][HeaderEnum::CPFCNPJ] = $this->getDocument($information);
 
 
         foreach (HeaderEnum::simpleTypes() as $field) {
@@ -42,14 +42,22 @@ abstract class NftsAbstract implements InputTransformer
         ];
     }
 
+    public function getDocument($information)
+    {
+        if (!empty($information->getCnpj())) {
+            return [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        } else {
+            return [SimpleFieldsEnum::CPF => $information->getCpf()];
+        }
+    }
+
     public function makeDetailEmission(BaseInformation $information, $extraInformations)
     {
-
         $detail = [];
 
         $cpfCnpj = (General::getKey($extraInformations, SimpleFieldsEnum::CPF) || General::getKey($extraInformations, SimpleFieldsEnum::CNPJ))
             ? $this->makeCpfCnpj($extraInformations)
-            : [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+            : $this->getDocument($information);
 
         $detail[HeaderEnum::CPFCNPJ_PROVIDER] = $cpfCnpj;
 
@@ -57,7 +65,6 @@ abstract class NftsAbstract implements InputTransformer
             DetailEnum::DETAIL_EMISSION => $detail,
         ];
     }
-
 
     public function makeCpfCnpj($informations)
     {

@@ -16,26 +16,30 @@ class BaseInformation
 {
     /**
      * @var
-     *  Todos Processos exigem o CNPJ como uma identificação
+     *  Todos Processos exigem o CNPJ ou CPF como uma identificação
      */
     private $cnpj;
+
+    /**
+     * @var
+     *  Todos Processos exigem o CNPJ ou CPF como uma identificação
+     */
+    private $cpf;
+
     /**
      * @var
      *  Inscrição Municipal da Empresa é informada na Nota Fiscal Obrigatóriamente
      */
     private $im;
-
     /**
      * @var
      *  Para Realizar o acesso a API e Assinar é obrigatório o Certifiado digital da empresa
      */
     private $certificate;
-
     /**
      * @var
      */
     private $xmlPath;
-
     /**
      * @var
      */
@@ -48,6 +52,22 @@ class BaseInformation
      * @var
      */
     private $certificatePath;
+
+    /**
+     * @return mixed
+     */
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
+
+    /**
+     * @param mixed $cpf
+     */
+    public function setCpf($cpf)
+    {
+        $this->cpf = General::onlyNumbers($cpf);
+    }
 
     /**
      * @return mixed

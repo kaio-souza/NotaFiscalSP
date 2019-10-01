@@ -15,7 +15,7 @@ class  PedidoConsultaGuia extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params = null)
     {
         $request = [];
-        $request[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        $request[HeaderEnum::CPFCNPJ_SENDER] = $this->getDocument($information);
         $request[SimpleFieldsEnum::IM_PROVIDER] = $information->getIm();
         $request[SimpleFieldsEnum::INCIDENCE] = General::getKey($params, SimpleFieldsEnum::INCIDENCE);
         $request[SimpleFieldsEnum::SITUATION] = General::getKey($params, SimpleFieldsEnum::SITUATION);

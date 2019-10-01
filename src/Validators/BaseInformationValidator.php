@@ -18,8 +18,8 @@ class BaseInformationValidator
     public static function basic($input)
     {
         // CNPJ é uma identificação obrigatória para criar a RPS da Nota
-        if (!isset($input[Params::CNPJ]))
-            throw new RequiredDataMissing('cnpj');
+        if (!isset($input[Params::CNPJ]) && !isset($input[Params::CPF]))
+            throw new RequiredDataMissing('cpf/cnpj');
 
         // Para Realizar o acesso a API e Assinar é obrigatório o Certifiado digital da empresa (.PFX ou .PEM)
         if (!isset($input[Params::CERTIFICATE_PATH]))

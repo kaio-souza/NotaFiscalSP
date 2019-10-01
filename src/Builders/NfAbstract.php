@@ -14,6 +14,13 @@ use NotaFiscalSP\Helpers\General;
 
 abstract class NfAbstract implements InputTransformer
 {
+    public function getDocument($information){
+        if(!empty($information->getCnpj())){
+            return [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        }else{
+            return [SimpleFieldsEnum::CPF => $information->getCpf()];
+        }
+    }
     public function makeHeader(BaseInformation $information, $extraInformations)
     {
         $header = [
@@ -23,7 +30,7 @@ abstract class NfAbstract implements InputTransformer
         ];
 
         if (isset($extraInformations[HeaderEnum::CPFCNPJ_SENDER]))
-            $header[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+            $header[HeaderEnum::CPFCNPJ_SENDER] = $this->getDocument($information);
 
         if (isset($extraInformations[SimpleFieldsEnum::CPF]))
             $header[HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CPF => $extraInformations[SimpleFieldsEnum::CPF]];
@@ -45,11 +52,12 @@ abstract class NfAbstract implements InputTransformer
         ];
     }
 
-    public function makeTaxPayerInformation($cnpj)
+    public function makeTaxPayerInformation($document)
     {
+        $documentType = strlen(General::onlyNumbers($document) > 11) ? SimpleFieldsEnum::CNPJ : SimpleFieldsEnum::CPF;
         return [
             ComplexFieldsEnum::CNPJ_TAX_PAYER => [
-                SimpleFieldsEnum::CNPJ => $cnpj
+                $documentType => $document
             ]
         ];
     }

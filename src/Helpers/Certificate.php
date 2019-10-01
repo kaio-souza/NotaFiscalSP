@@ -79,7 +79,6 @@ class Certificate
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::DEDUCTION_VALUE), 2))) .
             sprintf('%05s', General::getKey($params, RpsEnum::SERVICE_CODE)) .
             ((General::getKey($params, SimpleFieldsEnum::CPF)) ? 1 : 2) .
-            General::getKey($params, SimpleFieldsEnum::CPF) .
             sprintf('%014s', $document);
 
         // AVAILABLE ON RELEASE 2

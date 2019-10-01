@@ -16,7 +16,7 @@ class  PedidoConsultaCNPJ extends NfAbstract
         $header = $this->makeHeader($information, [
             HeaderEnum::CPFCNPJ_SENDER => true
         ]);
-        $taxPayer = $this->makeTaxPayerInformation($information->getCnpj());
+        $taxPayer = $this->makeTaxPayerInformation($information->getCnpj()? $information->getCnpj() : $information->getCpf());
         $request = array_merge($header, $taxPayer);
 
         return Xml::makeRequestXML(NfMethods::CONSULTA_CNPJ, $request);

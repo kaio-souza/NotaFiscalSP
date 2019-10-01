@@ -105,7 +105,11 @@ class NfService
     public function sendNf(BaseInformation $baseInformation, $params)
     {
         $builder = new PedidoEnvioRPS();
-        return $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $builder);
+        $response = $this->processRequest($baseInformation, $params, NfMethods::ENVIO, $builder);
+        if($response->getSuccess() == 'false'){
+            $response->setMessage(General::getPath($response->getResponse(),'Erro.0.Descricao'));
+        }
+        return $response;
     }
 
     public function sendLot(BaseInformation $baseInformation, $params)

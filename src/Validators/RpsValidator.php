@@ -2,6 +2,7 @@
 
 namespace NotaFiscalSP\Validators;
 
+use NotaFiscalSP\Constants\FieldData\BooleanFields;
 use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Constants\FieldData\Status;
 use NotaFiscalSP\Constants\Requests\ComplexFieldsEnum;
@@ -42,7 +43,11 @@ class RpsValidator
             if (empty($item[SimpleFieldsEnum::IM_PROVIDER]))
                 $item[SimpleFieldsEnum::IM_PROVIDER] = $baseInformation->getIm();
 
-            $item[RpsEnum::ISS_RETENTION] = $item[RpsEnum::ISS_RETENTION] ? 'true' : 'false';
+            if(isset($item[RpsEnum::ISS_RETENTION])){
+                $item[RpsEnum::ISS_RETENTION] = $item[RpsEnum::ISS_RETENTION] ? BooleanFields::LOWER_TRUE : BooleanFields::LOWER_FALSE;
+            }else{
+                $item[RpsEnum::ISS_RETENTION] = BooleanFields::LOWER_FALSE;
+            }
 
             $item[ComplexFieldsEnum::RPS_KEY] = true;
             $item[DetailEnum::SIGN] = Certificate::rpsSignatureString($item);

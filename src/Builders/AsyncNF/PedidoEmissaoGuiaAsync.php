@@ -14,7 +14,7 @@ class  PedidoEmissaoGuiaAsync extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params = null)
     {
         $request = [];
-        $request[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        $request[HeaderEnum::CPFCNPJ_SENDER] = $this->getDocument($information);
         $request[SimpleFieldsEnum::IM_PROVIDER] = $information->getIm();
         $request[SimpleFieldsEnum::EMISSION_TYPE] = General::getKey($params, SimpleFieldsEnum::EMISSION_TYPE);
         $request[SimpleFieldsEnum::INCIDENCE] = General::getKey($params, SimpleFieldsEnum::INCIDENCE);

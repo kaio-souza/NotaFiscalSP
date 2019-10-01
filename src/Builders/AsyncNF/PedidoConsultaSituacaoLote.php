@@ -15,7 +15,7 @@ class  PedidoConsultaSituacaoLote extends NfAbstract
     public function makeXmlRequest(BaseInformation $information, $params = null)
     {
         $request = [];
-        $request[HeaderEnum::CPFCNPJ_SENDER] = [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
+        $request[HeaderEnum::CPFCNPJ_SENDER] = $this->getDocument($information);
         $request[SimpleFieldsEnum::PROTOCOL_NUMBER] = General::getKey($params, SimpleFieldsEnum::PROTOCOL_NUMBER);
 
         return Xml::makeRequestXML(NfAsyncMethods::CONSULTA_SITUACAO_LOTE, $request);
