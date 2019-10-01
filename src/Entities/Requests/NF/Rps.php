@@ -75,6 +75,22 @@ class Rps implements UserRequest
 //        $this->setCidade(3550308); // SP CODE
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCnpjIntermediario()
+    {
+        return $this->cnpjIntermediario;
+    }
+
+    /**
+     * @param mixed $cnpjIntermediario
+     */
+    public function setCnpjIntermediario($cnpjIntermediario)
+    {
+        $this->cnpjIntermediario = $cnpjIntermediario;
+    }
+
     public function toArray()
     {
 
@@ -562,7 +578,7 @@ class Rps implements UserRequest
      */
     public function setInscricaoMunicipalIntermediario($inscricaoMunicipalIntermediario)
     {
-        $this->inscricaoMunicipalIntermediario = sprintf('%08s',$inscricaoMunicipalIntermediario);
+        $this->inscricaoMunicipalIntermediario = sprintf('%08s', $inscricaoMunicipalIntermediario);
     }
 
     /**
@@ -642,7 +658,7 @@ class Rps implements UserRequest
      */
     public function setFonteCargaTributaria($fonteCargaTributaria)
     {
-        $this->fonteCargaTributaria = substr($fonteCargaTributaria,0,10);
+        $this->fonteCargaTributaria = substr($fonteCargaTributaria, 0, 10);
     }
 
     /**
@@ -738,7 +754,7 @@ class Rps implements UserRequest
      */
     public function setTipoLogradouro($tipoLogradouro)
     {
-        $this->tipoLogradouro = General::filterString(substr($tipoLogradouro,0,3));
+        $this->tipoLogradouro = General::filterString(substr($tipoLogradouro, 0, 3));
     }
 
     /**
@@ -754,7 +770,7 @@ class Rps implements UserRequest
      */
     public function setLogradouro($logradouro)
     {
-        $this->logradouro = General::filterString(substr($logradouro, 0,50));
+        $this->logradouro = General::filterString(substr($logradouro, 0, 50));
     }
 
     /**
@@ -835,7 +851,7 @@ class Rps implements UserRequest
      */
     public function setUf($uf)
     {
-        $this->uf = strtoupper(substr($uf,0,2));
+        $this->uf = strtoupper(substr($uf, 0, 2));
     }
 
     /**
