@@ -2,13 +2,14 @@
 
 use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Entities\Requests\NF\Rps;
+use NotaFiscalSP\NotaFiscalSP;
 
 /* *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
  *  Para esse Exemplo funcionar é necessário um certificado válido (*.pfx ou *.pem)                *
  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * */
 
 // Instancie a Classe
-$nf = new \NotaFiscalSP\NotaFiscalSP([
+$nf = new NotaFiscalSP([
     Params::CNPJ => '00027000000000',
     Params::IM => '00000002', // Opcional porém recomendado
     Params::CERTIFICATE_PATH => 'examples/certificate.pfx',
@@ -21,7 +22,7 @@ $rps->setNumeroRps('300000000');
 $rps->setTipoRps(RPSType::RECIBO_PROVENIENTE_DE_NOTA_CONJUGADA);
 $rps->setValorServicos(30.80);
 $rps->setCodigoServico(2881);
-$rps->setAliquotaServicos( 0.029);
+$rps->setAliquotaServicos(0.029);
 $rps->setCnpj('20000004000100');
 $rps->setRazaoSocialTomador('RAZAO SOCIAL TOMADOR LTDA');
 $rps->setTipoLogradouro('R');

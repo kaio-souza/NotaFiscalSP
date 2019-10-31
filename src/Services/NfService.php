@@ -45,11 +45,11 @@ class NfService
     /*
      *  NF METHODS
      */
-    public function checkCNPJ(BaseInformation $baseInformation)
+    public function checkCNPJ(BaseInformation $baseInformation, $document = null)
     {
         $builder = new PedidoConsultaCNPJ;
         $outputClass = new CnpjInformationFactory;
-        return $this->processRequest($baseInformation, [], NfMethods::CONSULTA_CNPJ, $builder, $outputClass);
+        return $this->processRequest($baseInformation, ['document' => $document], NfMethods::CONSULTA_CNPJ, $builder, $outputClass);
     }
 
     private function processRequest(BaseInformation $information, $params, $method, InputTransformer $builder, OutputClass $outputClass = null)

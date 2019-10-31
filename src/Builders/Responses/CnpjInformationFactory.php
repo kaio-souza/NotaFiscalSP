@@ -28,12 +28,21 @@ class CnpjInformationFactory extends AbstractResponse
 
     public function getIm()
     {
-        return General::getPath($this->arrayResponse, 'Detalhe.InscricaoMunicipal');
+        $details = $this->arrayResponse['Detalhe'];
+        if(count($details) > 2){
+            foreach ($details as $detail){
+                if(General::getPath($detail, 'EmiteNFe') == 'true'){
+                    return General::getPath($detail, 'InscricaoMunicipal');
+                }
+            }
+        }else{
+            return General::getPath($details, 'InscricaoMunicipal');
+        }
     }
 
     public function getStatus()
     {
-        return General::getPath($this->arrayResponse, 'Detalhe.EmiteNFe');
+        return General::getPath($this->arrayResponse, 'Detalhe');
     }
 
 

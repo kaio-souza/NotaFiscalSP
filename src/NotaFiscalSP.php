@@ -35,9 +35,9 @@ class NotaFiscalSP
      *  NF METHODS
      */
 
-    public function cnpjInfo()
+    public function cnpjInfo($document = null)
     {
-        return $this->nfService->checkCNPJ($this->baseInformation);
+        return $this->nfService->checkCNPJ($this->baseInformation, $document);
     }
 
     public function consultarNf($params)
