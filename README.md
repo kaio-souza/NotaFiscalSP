@@ -28,8 +28,15 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
 Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
 
 ```php
-$response = $nfSP->cnpjInfo();
+// Consulta seu próprio CNPJ para verificar a Inscrição Municipal
+$response = $nfSP->cnpjInfo(); 
 ```
+
+```php
+// Consulta um CNPJ para verificar a inscrição municipal e a situação referente a emissão
+$response = $nfSP->cnpjInfo('111.222.333-44'); 
+```
+
 ## Obtendo Informações Basicas do Lote
 Retorna apeas informações básicas como horário de envio do lote
 
