@@ -35,6 +35,9 @@ abstract class NfAbstract implements InputTransformer
         if (isset($extraInformations[SimpleFieldsEnum::CPF]))
             $header[HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CPF => $extraInformations[SimpleFieldsEnum::CPF]];
 
+        if (isset($extraInformations[HeaderEnum::CPFCNPJ]))
+            $header[HeaderEnum::CPFCNPJ] = $this->getDocument($information);
+
         if (General::getKey($extraInformations, SimpleFieldsEnum::CNPJ))
             $header[HeaderEnum::CPFCNPJ] = [SimpleFieldsEnum::CNPJ => $extraInformations[SimpleFieldsEnum::CNPJ]];
 

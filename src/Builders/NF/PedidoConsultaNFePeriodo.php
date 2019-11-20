@@ -20,6 +20,7 @@ class  PedidoConsultaNFePeriodo extends NfAbstract
 
         $extra = [
             HeaderEnum::CPFCNPJ_SENDER => true,
+            HeaderEnum::CPFCNPJ => true
         ];
         if (
             !General::getKey($params, SimpleFieldsEnum::CNPJ) &&
