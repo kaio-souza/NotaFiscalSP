@@ -1,5 +1,5 @@
 {
-    "name": "kaleu62/notafiscalsp",
+    "name": "mayloncorrea/notafiscalsp",
     "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFS e NTFS utilizando a API da nota do milhão",
     "require": {
         "robrichards/xmlseclibs": "^3.0",
