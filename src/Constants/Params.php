@@ -7,6 +7,9 @@ class Params
     // CNPJ Necessário para identificação da Empresa
     const CNPJ = 'cnpj';
 
+    // CPF - Identificação pessoa física
+    const CPF = 'cpf';
+
     // Inscrição Municipal do Prestador utilizada na RPS
     const IM = 'im';
 

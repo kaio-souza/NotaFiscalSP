@@ -12,4 +12,5 @@ class RPSType
 
     //Cupom
     const CUPOM = 'RPS-C';
+
 }

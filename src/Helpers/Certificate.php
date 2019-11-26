@@ -2,12 +2,13 @@
 
 namespace NotaFiscalSP\Helpers;
 
+use Exception;
 use Greenter\XMLSecLibs\Certificate\X509Certificate;
 use Greenter\XMLSecLibs\Certificate\X509ContentType;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 use NotaFiscalSP\Constants\FieldData\BooleanFields;
-use NotaFiscalSP\Constants\Requests\RpsConstants;
-use NotaFiscalSP\Constants\Requests\SimpleFieldsConstants;
+use NotaFiscalSP\Constants\Requests\RpsEnum;
+use NotaFiscalSP\Constants\Requests\SimpleFieldsEnum;
 use NotaFiscalSP\Entities\BaseInformation;
 
 /**
@@ -20,7 +21,7 @@ class Certificate
      * @param $path
      * @param $pass
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function pfx2pem($path, $pass)
     {
@@ -53,7 +54,7 @@ class Certificate
     }
 
 
-    public static function signatureRpsItem(BaseInformation $baseInformation, $content)
+    public static function signItem(BaseInformation $baseInformation, $content)
     {
         $signatureValue = '';
         $pkeyId = openssl_get_privatekey($baseInformation->getCertificate());
@@ -64,21 +65,20 @@ class Certificate
 
     public static function rpsSignatureString($params)
     {
-        $document = General::getKey($params, SimpleFieldsConstants::CNPJ) ? General::getKey($params, SimpleFieldsConstants::CNPJ) : General::getKey($params, SimpleFieldsConstants::CPF);
+        $document = General::getKey($params, SimpleFieldsEnum::CNPJ) ? General::getKey($params, SimpleFieldsEnum::CNPJ) : General::getKey($params, SimpleFieldsEnum::CPF);
         //Required Fields
         $string =
-            sprintf('%08s', General::getKey($params, SimpleFieldsConstants::IM_PROVIDER)) .
-            sprintf('%-5s', General::getKey($params, SimpleFieldsConstants::RPS_SERIES)) . // 5 chars
-            sprintf('%012s', General::getKey($params, SimpleFieldsConstants::RPS_NUMBER)) .
-            str_replace('-','',General::getKey($params, RpsConstants::EMISSION_DATE)) .
-            General::getKey($params, RpsConstants::RPS_TAX) .
-            General::getKey($params, RpsConstants::RPS_STATUS) .
-            ($params[RpsConstants::ISS_RETENTION] == 'false' ? BooleanFields::FALSE : BooleanFields::TRUE ).
-            sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsConstants::SERVICE_VALUE), 2))) .
-            sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsConstants::DEDUCTION_VALUE), 2))) .
-            sprintf('%05s', General::getKey($params, RpsConstants::SERVICE_CODE)) .
-            ((General::getKey($params, SimpleFieldsConstants::CPF)) ? 1 : 2) .
-            General::getKey($params, SimpleFieldsConstants::CPF) .
+            sprintf('%08s', General::getKey($params, SimpleFieldsEnum::IM_PROVIDER)) .
+            sprintf('%-5s', General::getKey($params, SimpleFieldsEnum::RPS_SERIES)) . // 5 chars
+            sprintf('%012s', General::getKey($params, SimpleFieldsEnum::RPS_NUMBER)) .
+            str_replace('-', '', General::getKey($params, RpsEnum::EMISSION_DATE)) .
+            General::getKey($params, RpsEnum::RPS_TAX) .
+            General::getKey($params, RpsEnum::RPS_STATUS) .
+            ($params[RpsEnum::ISS_RETENTION] == 'false' ? BooleanFields::FALSE : BooleanFields::TRUE) .
+            sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::SERVICE_VALUE), 2))) .
+            sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::DEDUCTION_VALUE), 2))) .
+            sprintf('%05s', General::getKey($params, RpsEnum::SERVICE_CODE)) .
+            ((General::getKey($params, SimpleFieldsEnum::CPF)) ? 1 : 2) .
             sprintf('%014s', $document);
 
         // AVAILABLE ON RELEASE 2
@@ -88,7 +88,31 @@ class Certificate
 
     public static function cancelSignatureString($params)
     {
-        return sprintf('%08s', General::getKey($params, SimpleFieldsConstants::IM_PROVIDER)) .
-            sprintf('%012s', General::getKey($params, SimpleFieldsConstants::NFE_NUMBER));
+        return sprintf('%08s', General::getKey($params, SimpleFieldsEnum::IM_PROVIDER)) .
+            sprintf('%012s', General::getKey($params, SimpleFieldsEnum::NFE_NUMBER));
     }
+
+
+    public static function nftsSignatureString($elements)
+    {
+        return '<tpNFTS>' . Certificate::makeXmlString($elements) . '</tpNFTS>';
+    }
+
+    public static function makeXmlString($array)
+    {
+        $string = '';
+        foreach ($array as $key => $value) {
+            if (is_array($value)){
+                $value = Certificate::makeXmlString($value);
+            }
+            $string .= '<' . $key . '>' . $value . '</' . $key . '>';
+        }
+        return $string;
+    }
+
+    public static function nftsCancellationSignatureString($elements)
+    {
+        return '<PedidoCancelamentoNFTSDetalheNFTS>' . Certificate::makeXmlString($elements) . '</PedidoCancelamentoNFTSDetalheNFTS>';
+    }
+
 }

@@ -2,8 +2,10 @@
 
 namespace NotaFiscalSP\Entities;
 
+use Exception;
 use NotaFiscalSP\Constants\Params;
 use NotaFiscalSP\Helpers\Certificate;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Responses\CnpjInformationResponse;
 
 /**
@@ -14,26 +16,30 @@ class BaseInformation
 {
     /**
      * @var
-     *  Todos Processos exigem o CNPJ como uma identificação
+     *  Todos Processos exigem o CNPJ ou CPF como uma identificação
      */
     private $cnpj;
+
+    /**
+     * @var
+     *  Todos Processos exigem o CNPJ ou CPF como uma identificação
+     */
+    private $cpf;
+
     /**
      * @var
      *  Inscrição Municipal da Empresa é informada na Nota Fiscal Obrigatóriamente
      */
     private $im;
-
     /**
      * @var
      *  Para Realizar o acesso a API e Assinar é obrigatório o Certifiado digital da empresa
      */
     private $certificate;
-
     /**
      * @var
      */
     private $xmlPath;
-
     /**
      * @var
      */
@@ -50,6 +56,22 @@ class BaseInformation
     /**
      * @return mixed
      */
+    public function getCpf()
+    {
+        return $this->cpf;
+    }
+
+    /**
+     * @param mixed $cpf
+     */
+    public function setCpf($cpf)
+    {
+        $this->cpf = General::onlyNumbers($cpf);
+    }
+
+    /**
+     * @return mixed
+     */
     public function getXml()
     {
         return $this->xml;
@@ -62,13 +84,12 @@ class BaseInformation
     {
         $signed = Certificate::signXmlWithCertificate($this->getCertificate(), $file);
 
-        $tempNam = tempnam('/tmp', 'xml');
+        $tempNam = @tempnam('/tmp', 'xml');
         $filename = $tempNam . '.xml';
         $fp = fopen($filename, 'w');
         fwrite($fp, $signed);
 
         $this->setXmlPath($filename);
-
         $this->xml = $signed;
     }
 
@@ -83,13 +104,13 @@ class BaseInformation
     /**
      * @param $options
      * @return false|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCertificate($options)
     {
         if (strpos($options[Params::CERTIFICATE_PATH], '.pfx')) {
             $certificate = Certificate::pfx2pem($options[Params::CERTIFICATE_PATH], $options[Params::CERTIFICATE_PASS]);
-            $tempNam = tempnam('/tmp', 'cert');
+            $tempNam = @tempnam('/tmp', 'cert');
             $filename = $tempNam . '.pem';
             $fp = fopen($filename, 'w');
             fwrite($fp, $certificate);
@@ -115,7 +136,7 @@ class BaseInformation
      */
     public function setXmlPath($xmlPath)
     {
-        $this->xmlPath = $xmlPath;
+        $this->xmlPath = trim($xmlPath);
     }
 
     /**
@@ -131,7 +152,7 @@ class BaseInformation
      */
     public function setCertificatePath($certificatePath)
     {
-        $this->certificatePath = $certificatePath;
+        $this->certificatePath = trim($certificatePath);
     }
 
     /**
@@ -147,7 +168,7 @@ class BaseInformation
      */
     public function setCertificatePass($certificatePass)
     {
-        $this->certificatePass = $certificatePass;
+        $this->certificatePass = trim($certificatePass);
     }
 
     /**
@@ -163,7 +184,7 @@ class BaseInformation
      */
     public function setCnpj($cnpj)
     {
-        $this->cnpj = $cnpj;
+        $this->cnpj = General::onlyNumbers($cnpj);
     }
 
     /**
@@ -182,7 +203,7 @@ class BaseInformation
         if ($im instanceof CnpjInformationResponse) {
             $this->im = $im->getIm();
         } else {
-            $this->im = $im;
+            $this->im = General::onlyNumbers($im);
         }
     }
 }
