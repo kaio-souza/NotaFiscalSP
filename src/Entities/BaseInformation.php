@@ -91,6 +91,8 @@ class BaseInformation
 
         $this->setXmlPath($filename);
         $this->xml = $signed;
+
+        fclose($fp);
     }
 
     /**
@@ -115,6 +117,7 @@ class BaseInformation
             $fp = fopen($filename, 'w');
             fwrite($fp, $certificate);
             $this->setCertificatePath($filename);
+            fclose($fp);
         } else {
             $this->setCertificatePath($options[Params::CERTIFICATE_PATH]);
             $certificate = file_get_contents($options[Params::CERTIFICATE_PATH]);

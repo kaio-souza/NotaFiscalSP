@@ -1,5 +1,5 @@
 {
-    "name": "mayloncorrea/notafiscalsp",
+    "name": "kaleu62/notafiscalsp",
     "description": "Integração com o WebService da Prefeitura de São Paulo para emissão de NFS e NTFS utilizando a API da nota do milhão",
     "type": "library",
     "license": "MIT",
@@ -30,11 +30,14 @@
     ],
     "autoload": {
         "psr-4": {
-            "NotaFiscalSP\\": "src"
+            "NotaFiscalSP\\": "src/"
         }
     },
     "require-dev": {
         "phpunit/phpunit": ">=7.0"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     },
     "minimum-stability": "stable"
 }
