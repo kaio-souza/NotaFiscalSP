@@ -193,7 +193,7 @@ Retorna o XML enviado para API (REQUEST)
 ## getXmlOutput
 Retorna o XML Recebido da API (RESPONSE)
 ```php
-  $response->getXmlInput();
+  $response->getXmlOutput();
 ```
 
 ## getSuccess
