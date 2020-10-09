@@ -23,6 +23,18 @@ Para instanciar a classe é necessário informar o CNPJ, o Certificado do Emisso
   ]);
 ```
 
+Ao instanciar a Lib ela faz uma requisiçao para obter a Inscrição Municipal(IM), porém a mesma pode ser passada como parametro.
+
+```php
+  // Instanciando a Classe
+  $nfSP = new NotaFiscalSP([
+      'cnpj' => '00000000000000',
+      'certificate' => 'path/to/certificate.pfx',
+      'certificatePass' => '000000',
+      'im' => '1225'
+  ]);
+```
+
 # Nota Fiscal (NFs NFe)
 ## Obtendo Informações Base do CNPJ
 Esse método retorna a Inscrição Municipal relacionada ao CNPJ e um booleano indicando se o mesmo pode emitir NFe
