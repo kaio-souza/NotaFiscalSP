@@ -61,7 +61,7 @@ Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requ
 
 ```php
 // Utilize o numero da nota
-$response = $nfSP->consultarNota('00056');
+$response = $nfSP->consultarNf('00056');
 ```
 *Para maiores detalhes sobre a consulta de várias notas simultaneamente veja o Wiki
 
