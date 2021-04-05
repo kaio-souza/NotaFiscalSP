@@ -14,13 +14,15 @@ use NotaFiscalSP\Helpers\General;
 
 abstract class NfAbstract implements InputTransformer
 {
-    public function getDocument($information){
-        if(!empty($information->getCnpj())){
+    public function getDocument($information)
+    {
+        if (!empty($information->getCnpj())) {
             return [SimpleFieldsEnum::CNPJ => $information->getCnpj()];
-        }else{
+        } else {
             return [SimpleFieldsEnum::CPF => $information->getCpf()];
         }
     }
+
     public function makeHeader(BaseInformation $information, $extraInformations)
     {
         $header = [
@@ -153,8 +155,19 @@ abstract class NfAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $rps[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
-            if (isset($extraInformations[RpsEnum::CITY_INSTALLMENT]))
+            // Optional Fields
+            if (isset($extraInformations[RpsEnum::CEI_CODE]) && !empty($extraInformations[RpsEnum::CEI_CODE]) )
+                $rps[RpsEnum::CEI_CODE] = $extraInformations[RpsEnum::CEI_CODE];
+
+            if (isset($extraInformations[RpsEnum::WORK_REGISTRATION]) && !empty($extraInformations[RpsEnum::WORK_REGISTRATION]))
+                $rps[RpsEnum::WORK_REGISTRATION] = $extraInformations[RpsEnum::WORK_REGISTRATION];
+
+            if (isset($extraInformations[RpsEnum::CITY_INSTALLMENT]) && !empty($extraInformations[RpsEnum::CITY_INSTALLMENT]))
                 $rps[RpsEnum::CITY_INSTALLMENT] = $extraInformations[RpsEnum::CITY_INSTALLMENT];
+
+            if (isset($extraInformations[RpsEnum::ENCAPSULATION_NUMBER]) && !empty($extraInformations[RpsEnum::ENCAPSULATION_NUMBER]))
+                $rps[RpsEnum::ENCAPSULATION_NUMBER] = $extraInformations[RpsEnum::ENCAPSULATION_NUMBER];
+
 
             $rpsItens[] = $rps;
         }
