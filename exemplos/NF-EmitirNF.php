@@ -1,5 +1,5 @@
 <?php
-
+require('vendor/autoload.php');
 use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\NotaFiscalSP;
@@ -19,7 +19,6 @@ $nf = new NotaFiscalSP([
 // Monte a RPS
 $rps = new Rps();
 $rps->setNumeroRps('300000000');
-$rps->setTipoRps(RPSType::RECIBO_PROVENIENTE_DE_NOTA_CONJUGADA);
 $rps->setValorServicos(30.80);
 $rps->setCodigoServico(2881);
 $rps->setAliquotaServicos(0.029);

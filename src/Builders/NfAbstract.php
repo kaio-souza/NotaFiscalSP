@@ -153,6 +153,9 @@ abstract class NfAbstract implements InputTransformer
             if (isset($extraInformations[RpsEnum::DISCRIMINATION]))
                 $rps[RpsEnum::DISCRIMINATION] = $extraInformations[RpsEnum::DISCRIMINATION];
 
+            if (isset($extraInformations[RpsEnum::CITY_INSTALLMENT]))
+                $rps[RpsEnum::CITY_INSTALLMENT] = $extraInformations[RpsEnum::CITY_INSTALLMENT];
+
             $rpsItens[] = $rps;
         }
         return [
