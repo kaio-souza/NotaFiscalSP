@@ -78,7 +78,7 @@ file_put_contents('teste.pdf', $response);
 ```php
 // Caso você já tenha as informações necessarias, ao passar mais parametros evita a request de consulta
 // SEQUENCIA DE PARAMETROS: NUMERO DA NOTA, INSCRIÇÃO DO PRESTADOR, CÓDIGO DE VERIFICAÇÃO (todos esses dados são fornecidos ao criar uma nota, ou ao consulta-la no campo *ChaveNFe*)
-$response = $nfSP->arquivoNota('00056');
+$response = $nfSP->arquivoNota('00056', '12313212', 'ASDSDSA655');
 file_put_contents('teste.pdf', $response);
 ```
 
