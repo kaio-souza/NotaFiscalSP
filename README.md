@@ -63,7 +63,25 @@ Retorna Informaçes detalhadas de uma ou mais Notas ***(Limite 50 Notas por Requ
 // Utilize o numero da nota
 $response = $nfSP->consultarNf('00056');
 ```
+
 *Para maiores detalhes sobre a consulta de várias notas simultaneamente veja o Wiki
+
+## Obtendo PDF da Nota
+Retorna o Output do PDF de uma nota
+
+```php
+// Utilize o numero da nota
+$response = $nfSP->arquivoNota('00056');
+file_put_contents('teste.pdf', $response);
+```
+
+```php
+// Caso você já tenha as informações necessarias, ao passar mais parametros evita a request de consulta
+// SEQUENCIA DE PARAMETROS: NUMERO DA NOTA, INSCRIÇÃO DO PRESTADOR, CÓDIGO DE VERIFICAÇÃO (todos esses dados são fornecidos ao criar uma nota, ou ao consulta-la no campo *ChaveNFe*)
+$response = $nfSP->arquivoNota('00056');
+file_put_contents('teste.pdf', $response);
+```
+
 
 ## Consultando Notas Fiscais Recebidas por Periodo
 Retorna Notas recebidas em um periodo especifico ***(50 Notas por Pagina)***

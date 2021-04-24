@@ -8,7 +8,8 @@
         "greenter/xmldsig": "^5.0",
         "spatie/array-to-xml": "^2.8",
         "ext-dom": "*",
-        "ext-soap": "*"
+        "ext-soap": "*",
+        "dompdf/dompdf": "^1.0"
     },
     "suggest": {
         "ext-mbstring": "*"
@@ -26,6 +27,9 @@
         {
             "name": "Kaio Valdemar",
             "email": "kaio@e-htl.com.br"
+        },
+        {
+            "name": "Marcelo Mendonça da Silva (marceloms163)",
         }
     ],
     "autoload": {

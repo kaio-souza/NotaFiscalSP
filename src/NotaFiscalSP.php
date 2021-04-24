@@ -2,7 +2,9 @@
 
 namespace NotaFiscalSP;
 
+use Dompdf\Dompdf;
 use NotaFiscalSP\Builders\BaseEntitiesBuilder;
+use NotaFiscalSP\Helpers\General;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -83,6 +85,24 @@ class NotaFiscalSP
     public function testeEnviarLote($params)
     {
         return $this->nfService->testSendLot($this->baseInformation, $params);
+    }
+
+    public function arquivoNota($nfNumber, $imProvider = null, $verificationCode = null)
+    {
+        if (!$imProvider || !$verificationCode) {
+            $nf = $this->consultarNf($nfNumber);
+            $imProvider = $nf->response['NFe']['ChaveNFe']['InscricaoPrestador'];
+            $verificationCode = $nf->response['NFe']['ChaveNFe']['CodigoVerificacao'];
+        }
+        $uri = General::getPreviewLink($imProvider, $nfNumber, $verificationCode);
+
+        $body = "<html><body><img style=\"max-width: 100%\" src=\"{$uri}\" /></body></html>";
+
+        $dompdf = new Dompdf(array('enable_remote' => true));
+        $dompdf->loadHtml($body);
+        $dompdf->setPaper('A4', "portrail");
+        $dompdf->render();
+        return $dompdf->output();
     }
 
     /**
