@@ -26,6 +26,9 @@
         {
             "name": "Kaio Valdemar",
             "email": "profkaio@outlook.com"
+        },
+        {
+            "name": "Marcelo Mendonça da Silva (marceloms163)",
         }
     ],
     "autoload": {
