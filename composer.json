@@ -25,7 +25,10 @@
     "authors": [
         {
             "name": "Kaio Valdemar",
-            "email": "kaio@e-htl.com.br"
+            "email": "profkaio@outlook.com"
+        },
+        {
+            "name": "Marcelo Mendonça da Silva (marceloms163)",
         }
     ],
     "autoload": {
