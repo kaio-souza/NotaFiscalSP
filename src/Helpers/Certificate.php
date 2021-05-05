@@ -74,7 +74,7 @@ class Certificate
             str_replace('-', '', General::getKey($params, RpsEnum::EMISSION_DATE)) .
             General::getKey($params, RpsEnum::RPS_TAX) .
             General::getKey($params, RpsEnum::RPS_STATUS) .
-            ($params[RpsEnum2::ISS_RETENTION] == 'false' ? BooleanFields::FALSE : BooleanFields::TRUE) .
+            ($params[RpsEnum::ISS_RETENTION] == 'false' ? BooleanFields::FALSE : BooleanFields::TRUE) .
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::SERVICE_VALUE), 2))) .
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::DEDUCTION_VALUE), 2))) .
             sprintf('%05s', General::getKey($params, RpsEnum::SERVICE_CODE)) .
