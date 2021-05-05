@@ -65,7 +65,7 @@ class Certificate
 
     public static function rpsSignatureString($params)
     {
-        $document = General::getKey($params, SimpleFieldsEnum::CNPJ) ? sprintf('%014s',General::getKey($params, SimpleFieldsEnum::CNPJ)) : sprintf('%011s',General::getKey($params, SimpleFieldsEnum::CPF));
+        $document = General::getKey($params, SimpleFieldsEnum::CNPJ) ? General::getKey($params, SimpleFieldsEnum::CNPJ) : General::getKey($params, SimpleFieldsEnum::CPF);
         //Required Fields
         $string =
             sprintf('%08s', General::getKey($params, SimpleFieldsEnum::IM_PROVIDER)) .
@@ -79,7 +79,8 @@ class Certificate
             sprintf('%015s', str_replace(array('.', ','), '', number_format(General::getKey($params, RpsEnum::DEDUCTION_VALUE), 2))) .
             sprintf('%05s', General::getKey($params, RpsEnum::SERVICE_CODE)) .
             ((General::getKey($params, SimpleFieldsEnum::CPF)) ? 1 : 2) .
-            $document;
+            sprintf('%014s', $document);
+
         // AVAILABLE ON RELEASE 2
 
         return $string;
