@@ -514,7 +514,7 @@ class Rps implements UserRequest
      */
     public function setEmailTomador($emailTomador)
     {
-        $this->emailTomador = substr($emailTomador, 0, 30);
+        $this->emailTomador = substr($emailTomador, 0, 74);
     }
 
     /**
