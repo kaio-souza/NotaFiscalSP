@@ -3,6 +3,7 @@ require('vendor/autoload.php');
 use NotaFiscalSP\Constants\FieldData\RPSType;
 use NotaFiscalSP\Entities\Requests\NF\Rps;
 use NotaFiscalSP\NotaFiscalSP;
+use NotaFiscalSP\Constants\Params;
 
 /* *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *
  *  Para esse Exemplo funcionar é necessário um certificado válido (*.pfx ou *.pem)                *

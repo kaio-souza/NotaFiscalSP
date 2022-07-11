@@ -39,12 +39,15 @@ class Period implements UserRequest
         return $this->cpf;
     }
 
+
     /**
-     * @param mixed $cpf
+     * @param $cpf
+     * @return $this
      */
     public function setCpf($cpf)
     {
-        $this->cpf =   sprintf('%011s',General::onlyNumbers($cpf));
+        $this->cpf = sprintf('%011s', General::onlyNumbers($cpf));
+        return $this;
     }
 
     /**
@@ -55,12 +58,15 @@ class Period implements UserRequest
         return $this->cnpj;
     }
 
+
     /**
-     * @param mixed $cnpj
+     * @param $cnpj
+     * @return $this
      */
     public function setCnpj($cnpj)
     {
         $this->cnpj = sprintf('%014s',General::onlyNumbers($cnpj));
+        return $this;
     }
 
     /**
@@ -71,12 +77,15 @@ class Period implements UserRequest
         return $this->inscricaoMunicipal;
     }
 
+
     /**
-     * @param mixed $inscricaoMunicipal
+     * @param $inscricaoMunicipal
+     * @return $this
      */
     public function setInscricaoMunicipal($inscricaoMunicipal)
     {
         $this->inscricaoMunicipal = $inscricaoMunicipal;
+        return $this;
     }
 
     /**
@@ -87,12 +96,16 @@ class Period implements UserRequest
         return $this->dtInicio;
     }
 
+
     /**
-     * @param mixed $dtInicio
+     * @param $dtInicio
+     * @return $this
      */
     public function setDtInicio($dtInicio)
     {
         $this->dtInicio = General::filterDate($dtInicio);
+        return $this;
+
     }
 
     /**
@@ -103,13 +116,17 @@ class Period implements UserRequest
         return $this->dtFim;
     }
 
+
     /**
-     * @param mixed $dtFim
+     * @param $dtFim
+     * @return $this
      */
     public function setDtFim($dtFim)
     {
 
         $this->dtFim = General::filterDate($dtFim);
+        return $this;
+
     }
 
     /**
@@ -121,11 +138,14 @@ class Period implements UserRequest
     }
 
     /**
-     * @param mixed $pagina
+     * @param $pagina
+     * @return $this
      */
     public function setPagina($pagina)
     {
         $this->pagina = $pagina;
+        return $this;
+
     }
 
     /**
@@ -136,12 +156,16 @@ class Period implements UserRequest
         return $this->transacao;
     }
 
+
     /**
-     * @param mixed $transacao
+     * @param $transacao
+     * @return $this
      */
     public function setTransacao($transacao)
     {
         $this->transacao = $transacao;
+        return $this;
+
     }
 
     public function toArray()

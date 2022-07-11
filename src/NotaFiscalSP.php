@@ -3,6 +3,7 @@
 namespace NotaFiscalSP;
 
 use NotaFiscalSP\Builders\BaseEntitiesBuilder;
+use NotaFiscalSP\Entities\Requests\NF\Period;
 use NotaFiscalSP\Services\NfService;
 use NotaFiscalSP\Services\NftsService;
 use NotaFiscalSP\Validators\BaseInformationValidator;
@@ -57,6 +58,10 @@ class NotaFiscalSP
 
     public function notasEmitidas($params)
     {
+        if ($params instanceof Period && !$params->getInscricaoMunicipal()) {
+            $params->setInscricaoMunicipal($this->baseInformation->getIm());
+        }
+
         return $this->nfService->getIssued($this->baseInformation, $params);
     }
 

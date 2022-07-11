@@ -8,6 +8,7 @@
 use NotaFiscalSP\Constants\FieldData\DocumentType;
 use NotaFiscalSP\Entities\Requests\NFTS\Nfts;
 use NotaFiscalSP\NotaFiscalSP;
+use NotaFiscalSP\Constants\Params;
 
 $nf = new NotaFiscalSP([
     Params::CNPJ => '00027000000000',
