@@ -12,13 +12,21 @@ class ApiClient
 {
     public static function send(WsdlBase $wsdlBase, $method, BaseInformation $baseInformation)
     {
+        $streamContext = stream_context_create([
+            'ssl' => [
+                'verify_peer'      => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
+
         $options = [
-            'location' => $wsdlBase->getEndPoint(),
-            'keep_alive' => true,
-            'trace' => true,
-            'local_cert' => $baseInformation->getCertificatePath(),
-            'passphrase' => $baseInformation->getCertificatePass(),
-            'cache_wsdl' => WSDL_CACHE_NONE,
+            'location'       => $wsdlBase->getEndPoint(),
+            'keep_alive'     => true,
+            'trace'          => true,
+            'local_cert'     => $baseInformation->getCertificatePath(),
+            'passphrase'     => $baseInformation->getCertificatePass(),
+            'cache_wsdl'     => WSDL_CACHE_NONE,
+            'stream_context' => $streamContext,
         ];
 
         try {
