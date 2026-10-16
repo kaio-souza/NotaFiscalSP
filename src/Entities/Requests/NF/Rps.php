@@ -786,7 +786,10 @@ class Rps implements UserRequest
      */
     public function setNumeroEndereco($numeroEndereco)
     {
-        $this->numeroEndereco = General::onlyNumbers($numeroEndereco);
+        $value = General::onlyNumbers($numeroEndereco);
+        if ($value > 0) {
+            $this->numeroEndereco = $value;
+        }
     }
 
     /**
